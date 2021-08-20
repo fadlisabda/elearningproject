@@ -28,7 +28,7 @@ if (!isset($_SESSION["login"])) {
                     <input type="file" class="form-control" id="file" name="file">
                 </div>
                 <div class="mb-3">
-                    <label for="link" class="form-label">link</label>
+                    <label for="link" class="form-label">Link</label>
                     <input type="text" class="form-control" id="link" name="link">
                 </div>
                 <button type="submit" class="btn btn-primary">Tambah</button>

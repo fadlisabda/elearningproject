@@ -48,21 +48,17 @@ if (!isset($_SESSION["login"])) {
                     <td>
                         <?php
                         $str = $dm['keterangan'];
-                        echo wordwrap($str, 125, "<br>", TRUE);
+                        echo wordwrap($str, 30, "<br>", TRUE);
                         ?>
                     </td>
                     <td>
                         <a href="<?= base_url() ?>/public/file/<?= $dm['file']; ?>" target="_blank">
-                            <button type="button" class="btn btn-primary">
-                                <?= $dm['file']; ?>
-                            </button>
+                            <?= $dm['file']; ?>
                         </a>
                     </td>
                     <td>
                         <a href="<?= $dm['link']; ?>" target="_blank">
-                            <button type="button" class="btn btn-primary">
-                                <?= $dm['link']; ?>
-                            </button>
+                            <?= $dm['link']; ?>
                         </a>
                     </td>
                     <td>

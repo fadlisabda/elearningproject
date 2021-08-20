@@ -24,7 +24,7 @@ if (!isset($_SESSION["login"])) {
                     <label for="file" class="form-label">File</label>
                     <input type="file" class="form-control" id="file" name="file">
                 </div>
-                <div class=" mb-3">
+                <div class="mb-3">
                     <label for="link" class="form-label">Link</label>
                     <input type="text" class="form-control" id="link" name="link" value="<?= $detailmapel['link']; ?>">
                 </div>
