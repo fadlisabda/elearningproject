@@ -10,7 +10,7 @@ if (!isset($_SESSION["login"])) {
     <div class="row">
         <div class="col">
             <h2>Ubah Data Detail Mapel</h2>
-            <form action="<?= base_url(); ?>/detailmapel/update/<?= $detailmapel['id_detailmapel']; ?>/<?= $_GET['idkelas']; ?>/<?= $_GET['namamapel']; ?>/<?= $_GET['namakelas']; ?>/<?= $_GET['namaguru']; ?>" method="post">
+            <form action="<?= base_url(); ?>/detailmapel/update/<?= $detailmapel['id_detailmapel']; ?>/<?= $_GET['idkelas']; ?>/<?= $_GET['namamapel']; ?>/<?= $_GET['namakelas']; ?>/<?= $_GET['namaguru']; ?>" method="post" enctype="multipart/form-data">
                 <?= csrf_field(); ?>
                 <div class="mb-3">
                     <label for="judul" class="form-label">judul</label>
@@ -21,8 +21,8 @@ if (!isset($_SESSION["login"])) {
                     <textarea class="form-control" id="keterangan" name="keterangan" rows="3"><?= $detailmapel['keterangan']; ?></textarea>
                 </div>
                 <div class="mb-3">
-                    <label for="file" class="form-label">File</label>
-                    <input type="file" class="form-control" id="file" name="file">
+                    <label for="file" class="custom-file-label">File</label>
+                    <input type="file" class="form-control" id="file" name="file" required>
                 </div>
                 <div class="mb-3">
                     <label for="link" class="form-label">Link</label>

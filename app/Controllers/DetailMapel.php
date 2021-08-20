@@ -38,13 +38,16 @@ class DetailMapel extends BaseController
 
     public function save($idkelas, $namamapel, $namakelas, $namaguru)
     {
+        $file = $this->request->getFile('file');
+        $namaFile = $file->getName();
+        $file->move('/xampp/htdocs/elearning/public/file/', $namaFile);
         $this->dataModel->save([
             'namamapel' => $this->request->getVar('namamapel'),
             'namakelas' => $this->request->getVar('namakelas'),
             'namaguru' => $this->request->getVar('namaguru'),
             'judul' => $this->request->getVar('judul'),
             'keterangan' => $this->request->getVar('keterangan'),
-            'file' => $this->request->getVar('file'),
+            'file' => $namaFile,
             'link' => $this->request->getVar('link')
         ]);
         $tambah = true;
@@ -99,6 +102,15 @@ class DetailMapel extends BaseController
         if (!isset($_SESSION["login"])) {
             header("Location: " . base_url() . "/login");
             exit;
+        }
+        $file = $this->dataModel->getData($id);
+        $mydir = '/xampp/htdocs/elearning/public/file/';
+        $myfiles = array_diff(scandir($mydir), array('.', '..'));
+        foreach ($myfiles as $mf) {
+            dd($mf);
+            if ($file['file'] === $mf) {
+                unlink('/xampp/htdocs/elearning/public/file/' . $mf);
+            }
         }
         $this->builder->delete(['id_detailmapel' => $id]);
         $delete = true;
