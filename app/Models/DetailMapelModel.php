@@ -8,7 +8,7 @@ class DetailMapelModel extends Model
 {
     protected $table = 'detail_mapel';
     protected $useTimestamps = true;
-    protected $allowedFields = ['namamapel', 'namakelas', 'namaguru', 'judul', 'keterangan', 'file'];
+    protected $allowedFields = ['namamapel', 'namakelas', 'namaguru', 'judul', 'keterangan', 'file', 'link'];
     public function getData($id = false)
     {
         if ($id == false) {

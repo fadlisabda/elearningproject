@@ -44,7 +44,8 @@ class DetailMapel extends BaseController
             'namaguru' => $this->request->getVar('namaguru'),
             'judul' => $this->request->getVar('judul'),
             'keterangan' => $this->request->getVar('keterangan'),
-            'file' => $this->request->getVar('file')
+            'file' => $this->request->getVar('file'),
+            'link' => $this->request->getVar('link')
         ]);
         $tambah = true;
         $data = [
@@ -74,7 +75,8 @@ class DetailMapel extends BaseController
         $data = [
             'judul' => $this->request->getVar('judul'),
             'keterangan' => $this->request->getVar('keterangan'),
-            'file' => $this->request->getVar('file')
+            'file' => $this->request->getVar('file'),
+            'link' => $this->request->getVar('link')
         ];
 
         $this->builder->where('id_detailmapel', $id);

@@ -34,6 +34,7 @@ if (!isset($_SESSION["login"])) {
             <th scope="col">JUDUL</th>
             <th scope="col">KETERANGAN</th>
             <th scope="col">FILE</th>
+            <th scope="col">LINK</th>
             <th scope="col">ACTIONS</th>
         </tr>
     </thead>
@@ -50,7 +51,20 @@ if (!isset($_SESSION["login"])) {
                         echo wordwrap($str, 125, "<br>", TRUE);
                         ?>
                     </td>
-                    <td><?= $dm['file']; ?></td>
+                    <td>
+                        <a href="<?= base_url() ?>/public/file/<?= $dm['file']; ?>" target="_blank">
+                            <button type="button" class="btn btn-primary">
+                                <?= $dm['file']; ?>
+                            </button>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="<?= $dm['link']; ?>" target="_blank">
+                            <button type="button" class="btn btn-primary">
+                                <?= $dm['link']; ?>
+                            </button>
+                        </a>
+                    </td>
                     <td>
                         <a href="<?= base_url(); ?>/detailmapel/edit/<?= $dm['id_detailmapel']; ?>?idkelas=<?= $idkelas ?>&namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-warning">Edit</a>
                         <a href="<?= base_url(); ?>/detailmapel/delete/<?= $dm['id_detailmapel']; ?>?idkelas=<?= $idkelas ?>&namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-danger" onclick="return confirm('apakah anda yakin?');">Delete</a>

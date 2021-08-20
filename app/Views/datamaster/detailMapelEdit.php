@@ -22,7 +22,11 @@ if (!isset($_SESSION["login"])) {
                 </div>
                 <div class="mb-3">
                     <label for="file" class="form-label">File</label>
-                    <input type="file" class="form-control" id="file" name="file" required>
+                    <input type="file" class="form-control" id="file" name="file">
+                </div>
+                <div class=" mb-3">
+                    <label for="link" class="form-label">Link</label>
+                    <input type="text" class="form-control" id="link" name="link" value="<?= $detailmapel['link']; ?>">
                 </div>
                 <button type="submit" class="btn btn-primary">Ubah</button>
                 <a href="<?= base_url(); ?>/detailmapel/index/<?= $_GET['idkelas']; ?>/<?= $_GET['namamapel']; ?>/<?= $_GET['namakelas']; ?>/<?= $_GET['namaguru']; ?>" class="btn btn-danger">Kembali</a>
