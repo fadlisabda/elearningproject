@@ -38,17 +38,19 @@ class DetailMapel extends BaseController
 
     public function save($idkelas, $namamapel, $namakelas, $namaguru)
     {
-        $file = $this->request->getFile('file');
-        $namaFile = $file->getName();
-        $file->move('/xampp/htdocs/elearning/public/file/', $namaFile);
+        if ($this->request->getFile('file')->getError() === 0) {
+            $file = $this->request->getFile('file');
+            $namaFile = $file->getName();
+            $file->move('/xampp/htdocs/elearning/public/file/', $namaFile);
+        }
         $this->dataModel->save([
             'namamapel' => $this->request->getVar('namamapel'),
             'namakelas' => $this->request->getVar('namakelas'),
             'namaguru' => $this->request->getVar('namaguru'),
             'judul' => $this->request->getVar('judul'),
             'keterangan' => $this->request->getVar('keterangan'),
-            'file' => $namaFile,
-            'link' => $this->request->getVar('link')
+            'file' => (empty($file)) ?  null : $file->getName(),
+            'link' => (empty($this->request->getVar('link'))) ?  null : $this->request->getVar('link')
         ]);
         $tambah = true;
         $data = [
@@ -75,10 +77,18 @@ class DetailMapel extends BaseController
 
     public function update($id, $idkelas, $namamapel, $namakelas, $namaguru)
     {
+        $file = $this->request->getFile('file');
+        if ($file->getError() == 4) {
+            $namaFile = $this->request->getVar('filelama');
+        } else {
+            $namaFile = $file->getName();
+            $file->move('/xampp/htdocs/elearning/public/file/', $namaFile);
+            unlink('/xampp/htdocs/elearning/public/file/' . $this->request->getVar('filelama'));
+        }
         $data = [
             'judul' => $this->request->getVar('judul'),
             'keterangan' => $this->request->getVar('keterangan'),
-            'file' => $this->request->getVar('file'),
+            'file' => ($file->getError() == 4) ? $namaFile : $file->getName(),
             'link' => $this->request->getVar('link')
         ];
 
@@ -104,13 +114,8 @@ class DetailMapel extends BaseController
             exit;
         }
         $file = $this->dataModel->getData($id);
-        $mydir = '/xampp/htdocs/elearning/public/file/';
-        $myfiles = array_diff(scandir($mydir), array('.', '..'));
-        foreach ($myfiles as $mf) {
-            dd($mf);
-            if ($file['file'] === $mf) {
-                unlink('/xampp/htdocs/elearning/public/file/' . $mf);
-            }
+        if (file_exists('/xampp/htdocs/elearning/public/file/' . $file['file']) && $file['file'] != null) {
+            unlink('/xampp/htdocs/elearning/public/file/' . $file['file']);
         }
         $this->builder->delete(['id_detailmapel' => $id]);
         $delete = true;

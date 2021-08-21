@@ -12,6 +12,7 @@ if (!isset($_SESSION["login"])) {
             <h2>Ubah Data Detail Mapel</h2>
             <form action="<?= base_url(); ?>/detailmapel/update/<?= $detailmapel['id_detailmapel']; ?>/<?= $_GET['idkelas']; ?>/<?= $_GET['namamapel']; ?>/<?= $_GET['namakelas']; ?>/<?= $_GET['namaguru']; ?>" method="post" enctype="multipart/form-data">
                 <?= csrf_field(); ?>
+                <input type="hidden" name="filelama" value="<?= $detailmapel['file']; ?>">
                 <div class="mb-3">
                     <label for="judul" class="form-label">judul</label>
                     <input type="text" class="form-control" id="judul" name="judul" value="<?= $detailmapel['judul']; ?>" required>
@@ -20,10 +21,12 @@ if (!isset($_SESSION["login"])) {
                     <label for="keterangan" class="form-label">Keterangan</label>
                     <textarea class="form-control" id="keterangan" name="keterangan" rows="3"><?= $detailmapel['keterangan']; ?></textarea>
                 </div>
-                <div class="mb-3">
-                    <label for="file" class="custom-file-label">File</label>
-                    <input type="file" class="form-control" id="file" name="file" required>
-                </div>
+                <?php if (!empty($detailmapel['file'])) : ?>
+                    <div class="mb-3">
+                        <label for="file" class="custom-file-label">File</label>
+                        <input type="file" class="form-control" id="file" name="file">
+                    </div>
+                <?php endif; ?>
                 <div class="mb-3">
                     <label for="link" class="form-label">Link</label>
                     <input type="text" class="form-control" id="link" name="link" value="<?= $detailmapel['link']; ?>">

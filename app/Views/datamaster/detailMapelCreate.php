@@ -6,6 +6,13 @@ if (!isset($_SESSION["login"])) {
     exit;
 }
 ?>
+<?php
+echo "
+    <script>
+        alert('PERINGATAN !!! Tidak Tambah File Tidak Bisa Edit File');
+    </script>
+    ";
+?>
 <div class="container mt-3 mb-4">
     <div class="row">
         <div class="col">
@@ -25,7 +32,7 @@ if (!isset($_SESSION["login"])) {
                 </div>
                 <div class="mb-3">
                     <label for="file" class="form-label">File</label>
-                    <input type="file" class="form-control" id="file" name="file" required>
+                    <input type="file" class="form-control" id="file" name="file">
                 </div>
                 <div class="mb-3">
                     <label for="link" class="form-label">Link</label>
