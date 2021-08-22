@@ -6,13 +6,6 @@ if (!isset($_SESSION["login"])) {
     exit;
 }
 ?>
-<?php
-echo "
-    <script>
-        alert('PERINGATAN !!! Tidak Tambah File Tidak Bisa Edit File');
-    </script>
-    ";
-?>
 <div class="container mt-3 mb-4">
     <div class="row">
         <div class="col">

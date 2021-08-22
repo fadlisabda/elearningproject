@@ -16,7 +16,7 @@ class siswa extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'FSELEARNING - Siswa',
+            'title' => 'ELEARNING - Siswa',
             'siswa' => $this->dataModel->getData()
         ];
         return view('datamaster/siswa', $data);
@@ -43,7 +43,7 @@ class siswa extends BaseController
         ]);
         $tambah = true;
         $data = [
-            'title' => 'FSELEARNING - Siswa',
+            'title' => 'ELEARNING - Siswa',
             'tambah' => $tambah,
             'siswa' => $this->dataModel->getData()
         ];
@@ -75,7 +75,7 @@ class siswa extends BaseController
         $this->builder->update($data);
         $edit = true;
         $data = [
-            'title' => 'FSELEARNING - Siswa',
+            'title' => 'ELEARNING - Siswa',
             'edit' => $edit,
             'siswa' => $this->dataModel->getData()
         ];
@@ -91,7 +91,7 @@ class siswa extends BaseController
         $this->builder->delete(['id_siswa' => $id]);
         $delete = true;
         $data = [
-            'title' => 'FSELEARNING - Siswa',
+            'title' => 'ELEARNING - Siswa',
             'delete' => $delete,
             'siswa' => $this->dataModel->getData()
         ];

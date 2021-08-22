@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">FSELEARNING</a>
+        <a class="navbar-brand" href="#">ELEARNING</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -10,7 +10,16 @@
                     <a class="nav-link active" aria-current="page" href="<?= base_url(); ?>/home">Home</a>
                 </li>
                 <?php if ($_SESSION["status"] === "guru") : ?>
-                    <a class="nav-link active" aria-current="page" href="<?= base_url(); ?>/kelas">Kelas</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Data Master
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="<?= base_url(); ?>/guru">Guru</a></li>
+                            <li><a class="dropdown-item" href="<?= base_url(); ?>/mapel">Mapel</a></li>
+                            <li><a class="dropdown-item" href="<?= base_url(); ?>/kelas">Kelas</a></li>
+                        </ul>
+                    </li>
                 <?php endif; ?>
                 <?php if ($_SESSION["status"] === "admin") : ?>
                     <li class="nav-item dropdown">

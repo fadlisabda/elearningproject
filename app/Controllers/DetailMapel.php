@@ -17,7 +17,7 @@ class DetailMapel extends BaseController
     public function index($idkelas, $namamapel, $namakelas, $namaguru)
     {
         $data = [
-            'title' => 'FSELEARNING - Detail Mapel',
+            'title' => 'ELEARNING - Detail Mapel',
             'detailmapel' => $this->dataModel->getData(),
             'idkelas' => $idkelas,
             'namamapel' => $namamapel,
@@ -54,7 +54,7 @@ class DetailMapel extends BaseController
         ]);
         $tambah = true;
         $data = [
-            'title' => 'FSELEARNING - Detail Mapel',
+            'title' => 'ELEARNING - Detail Mapel',
             'tambah' => $tambah,
             'detailmapel' => $this->dataModel->getData(),
             'idkelas' => $idkelas,
@@ -80,7 +80,10 @@ class DetailMapel extends BaseController
         $file = $this->request->getFile('file');
         if ($file->getError() == 4) {
             $namaFile = $this->request->getVar('filelama');
-        } else {
+        } else if ($this->request->getVar('filelama') == null) {
+            $namaFile = $file->getName();
+            $file->move('/xampp/htdocs/elearning/public/file/', $namaFile);
+        } else if ($this->request->getVar('filelama') != null) {
             $namaFile = $file->getName();
             $file->move('/xampp/htdocs/elearning/public/file/', $namaFile);
             unlink('/xampp/htdocs/elearning/public/file/' . $this->request->getVar('filelama'));
@@ -88,7 +91,7 @@ class DetailMapel extends BaseController
         $data = [
             'judul' => $this->request->getVar('judul'),
             'keterangan' => $this->request->getVar('keterangan'),
-            'file' => ($file->getError() == 4) ? $namaFile : $file->getName(),
+            'file' => $file->getName(),
             'link' => $this->request->getVar('link')
         ];
 
@@ -96,7 +99,7 @@ class DetailMapel extends BaseController
         $this->builder->update($data);
         $edit = true;
         $data = [
-            'title' => 'FSELEARNING - Detail Mapel',
+            'title' => 'ELEARNING - Detail Mapel',
             'edit' => $edit,
             'detailmapel' => $this->dataModel->getData(),
             'idkelas' => $idkelas,
@@ -120,7 +123,7 @@ class DetailMapel extends BaseController
         $this->builder->delete(['id_detailmapel' => $id]);
         $delete = true;
         $data = [
-            'title' => 'FSELEARNING - Detail Mapel',
+            'title' => 'ELEARNING - Detail Mapel',
             'delete' => $delete,
             'detailmapel' => $this->dataModel->getData(),
             'idkelas' => $_GET['idkelas'],

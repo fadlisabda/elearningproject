@@ -38,7 +38,7 @@ class Login extends BaseController
                     $_SESSION["login"] = true;
                     $_SESSION["status"] = $result["status"];
                     $data = [
-                        'title' => 'FSELEARNING'
+                        'title' => 'ELEARNING'
                     ];
                     return view('home/index', $data);
                 } else {

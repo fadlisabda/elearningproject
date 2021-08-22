@@ -16,7 +16,7 @@ class User extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'FSELEARNING - User',
+            'title' => 'ELEARNING - User',
             'user' => $this->dataModel->getData()
         ];
         return view('datamaster/user', $data);
@@ -44,7 +44,7 @@ class User extends BaseController
         ]);
         $tambah = true;
         $data = [
-            'title' => 'FSELEARNING - User',
+            'title' => 'ELEARNING - User',
             'tambah' => $tambah,
             'user' => $this->dataModel->getData()
         ];
@@ -77,7 +77,7 @@ class User extends BaseController
         $this->builder->update($data);
         $edit = true;
         $data = [
-            'title' => 'FSELEARNING - User',
+            'title' => 'ELEARNING - User',
             'edit' => $edit,
             'user' => $this->dataModel->getData()
         ];
@@ -93,7 +93,7 @@ class User extends BaseController
         $this->builder->delete(['id_user' => $id]);
         $delete = true;
         $data = [
-            'title' => 'FSELEARNING - User',
+            'title' => 'ELEARNING - User',
             'delete' => $delete,
             'user' => $this->dataModel->getData()
         ];

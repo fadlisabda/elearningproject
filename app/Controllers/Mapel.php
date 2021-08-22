@@ -16,7 +16,7 @@ class mapel extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'FSELEARNING - Mapel',
+            'title' => 'ELEARNING - Mapel',
             'mapel' => $this->dataModel->getData()
         ];
         return view('datamaster/mapel', $data);
@@ -38,7 +38,7 @@ class mapel extends BaseController
         ]);
         $tambah = true;
         $data = [
-            'title' => 'FSELEARNING - Mapel',
+            'title' => 'ELEARNING - Mapel',
             'tambah' => $tambah,
             'mapel' => $this->dataModel->getData()
         ];
@@ -65,7 +65,7 @@ class mapel extends BaseController
         $this->builder->update($data);
         $edit = true;
         $data = [
-            'title' => 'FSELEARNING - Mapel',
+            'title' => 'ELEARNING - Mapel',
             'edit' => $edit,
             'mapel' => $this->dataModel->getData()
         ];
@@ -81,7 +81,7 @@ class mapel extends BaseController
         $this->builder->delete(['id_mapel' => $id]);
         $delete = true;
         $data = [
-            'title' => 'FSELEARNING - Mapel',
+            'title' => 'ELEARNING - Mapel',
             'delete' => $delete,
             'mapel' => $this->dataModel->getData()
         ];

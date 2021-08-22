@@ -21,12 +21,10 @@ if (!isset($_SESSION["login"])) {
                     <label for="keterangan" class="form-label">Keterangan</label>
                     <textarea class="form-control" id="keterangan" name="keterangan" rows="3"><?= $detailmapel['keterangan']; ?></textarea>
                 </div>
-                <?php if (!empty($detailmapel['file'])) : ?>
-                    <div class="mb-3">
-                        <label for="file" class="custom-file-label">File</label>
-                        <input type="file" class="form-control" id="file" name="file">
-                    </div>
-                <?php endif; ?>
+                <div class="mb-3">
+                    <label for="file" class="custom-file-label">File</label>
+                    <input type="file" class="form-control" id="file" name="file">
+                </div>
                 <div class="mb-3">
                     <label for="link" class="form-label">Link</label>
                     <input type="text" class="form-control" id="link" name="link" value="<?= $detailmapel['link']; ?>">

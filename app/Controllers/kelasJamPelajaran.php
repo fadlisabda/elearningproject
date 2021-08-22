@@ -16,7 +16,7 @@ class kelasJamPelajaran extends BaseController
         $this->builder->join('data_mata_pelajaran', 'data_mata_pelajaran.id_mapel = kelas_jam_pelajaran.id_mapel');
         $query = $this->builder->get();
         $data = [
-            'title' => 'FSELEARNING - Kelas Jam Pelajaran',
+            'title' => 'ELEARNING - Kelas Jam Pelajaran',
             'kelasjampelajaran' => $query->getResult(),
             'id' => $id,
             'namakelas' => $namakelas

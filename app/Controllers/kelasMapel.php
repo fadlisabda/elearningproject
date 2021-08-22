@@ -17,7 +17,7 @@ class kelasMapel extends BaseController
         $this->builder->join('data_guru', 'data_guru.nip = kelas_mapel.nip');
         $query = $this->builder->get();
         $data = [
-            'title' => 'FSELEARNING - Kelas Mapel',
+            'title' => 'ELEARNING - Kelas Mapel',
             'kelasmapel' => $query->getResult(),
             'id' => $id,
             'namakelas' => $namakelas

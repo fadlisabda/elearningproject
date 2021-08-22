@@ -16,7 +16,7 @@ class guru extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'FSELEARNING - Guru',
+            'title' => 'ELEARNING - Guru',
             'guru' => $this->dataModel->getData()
         ];
         return view('datamaster/guru', $data);
@@ -43,7 +43,7 @@ class guru extends BaseController
         ]);
         $tambah = true;
         $data = [
-            'title' => 'FSELEARNING - Guru',
+            'title' => 'ELEARNING - Guru',
             'tambah' => $tambah,
             'guru' => $this->dataModel->getData()
         ];
@@ -59,7 +59,7 @@ class guru extends BaseController
         $this->builder->delete(['id_guru' => $id]);
         $delete = true;
         $data = [
-            'title' => 'FSELEARNING - Guru',
+            'title' => 'ELEARNING - Guru',
             'delete' => $delete,
             'guru' => $this->dataModel->getData()
         ];
@@ -91,7 +91,7 @@ class guru extends BaseController
         $this->builder->update($data);
         $edit = true;
         $data = [
-            'title' => 'FSELEARNING - Guru',
+            'title' => 'ELEARNING - Guru',
             'edit' => $edit,
             'guru' => $this->dataModel->getData()
         ];

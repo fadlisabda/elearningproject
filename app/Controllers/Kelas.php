@@ -16,7 +16,7 @@ class kelas extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'FSELEARNING - Kelas',
+            'title' => 'ELEARNING - Kelas',
             'kelas' => $this->dataModel->getData()
         ];
         return view('datamaster/kelas', $data);
@@ -39,7 +39,7 @@ class kelas extends BaseController
         ]);
         $tambah = true;
         $data = [
-            'title' => 'FSELEARNING - Kelas',
+            'title' => 'ELEARNING - Kelas',
             'tambah' => $tambah,
             'kelas' => $this->dataModel->getData()
         ];
@@ -67,7 +67,7 @@ class kelas extends BaseController
         $this->builder->update($data);
         $edit = true;
         $data = [
-            'title' => 'FSELEARNING - Kelas',
+            'title' => 'ELEARNING - Kelas',
             'edit' => $edit,
             'kelas' => $this->dataModel->getData()
         ];
@@ -83,7 +83,7 @@ class kelas extends BaseController
         $this->builder->delete(['id_kelas' => $id]);
         $delete = true;
         $data = [
-            'title' => 'FSELEARNING - Kelas',
+            'title' => 'ELEARNING - Kelas',
             'delete' => $delete,
             'kelas' => $this->dataModel->getData()
         ];

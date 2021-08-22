@@ -16,7 +16,7 @@ class kelasSiswa extends BaseController
         $this->builder->join('siswa', 'siswa.nis = kelas_siswa.nis');
         $query = $this->builder->get();
         $data = [
-            'title' => 'FSELEARNING - Kelas Siswa',
+            'title' => 'ELEARNING - Kelas Siswa',
             'kelassiswa' => $query->getResult(),
             'id' => $id,
             'namakelas' => $namakelas

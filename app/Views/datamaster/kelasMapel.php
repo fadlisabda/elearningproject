@@ -8,28 +8,20 @@ if (!isset($_SESSION["login"])) {
 ?>
 <h1 class="text-center">Data Mapel Kelas <?= $namakelas; ?></h1>
 <a href="<?= base_url(); ?>/kelas" class="btn btn-danger">Kembali</a>
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">NO</th>
-            <th scope="col">NAMA MATA PELAJARAN</th>
-            <th scope="col">NAMA GURU</th>
-            <th scope="col">ACTIONS</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php $i = 1; ?>
-        <?php foreach ($kelasmapel as $km) : ?>
-            <tr>
-                <?php if ($id === $km->id_kelas) : ?>
-                    <th scope="row"><?= $i++; ?></th>
-                    <td><?= $km->nama_mapel; ?></td>
-                    <td><?= $km->nama_guru; ?></td>
-                    <td><a href="<?= base_url(); ?>/DetailMapel/index/<?= $km->id_kelas; ?>/<?= $km->nama_mapel; ?>/<?= $namakelas; ?>/<?= $km->nama_guru; ?>" class="btn btn-info">Detail Mapel</a></td>
-                <?php endif; ?>
-            </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
-
-<?= $this->endSection(); ?>
+<br><br>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    <?php $i = 1; ?>
+    <?php foreach ($kelasmapel as $km) : ?>
+        <?php if ($id === $km->id_kelas) : ?>
+            <div class="col">
+                <div class="card">
+                    <div class="card-header"><?= $km->nama_mapel; ?></div>
+                    <div class="card-body">
+                        <p class="card-text"><?= $km->nama_guru; ?></p>
+                    </div>
+                    <div class="card-footer"><a href="<?= base_url(); ?>/DetailMapel/index/<?= $km->id_kelas; ?>/<?= $km->nama_mapel; ?>/<?= $namakelas; ?>/<?= $km->nama_guru; ?>" class="btn btn-info">Detail Mapel</a></div>
+                </div>
+            </div>
+        <?php endif; ?>
+    <?php endforeach; ?>
+    <?= $this->endSection(); ?>

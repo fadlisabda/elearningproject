@@ -3,14 +3,14 @@
 
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-    <title>FSELEARNING - Registrasi</title>
+    <title>ELEARNING - Registrasi</title>
 </head>
 
 <body>
     <div class="d-flex justify-content-center position-absolute top-50 start-50 translate-middle">
         <div class="row">
             <div class="col">
-                <h1>FSELEARNING - Registrasi</h1>
+                <h1>ELEARNING - Registrasi</h1>
                 <a href="<?= base_url(); ?>/login" class="btn btn-primary">Login</a>
                 <?php if (isset($error)) : ?>
                     <p style="color: red;">Input hanya huruf dan angka yang diijinkan, dan tidak boleh menggunakan spasi ...!<br></p>
