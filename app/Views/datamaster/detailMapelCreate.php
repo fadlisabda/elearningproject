@@ -33,7 +33,7 @@ if (!isset($_SESSION["login"])) {
                 </div>
                 <div class="mb-3">
                     <label for="tenggat" class="form-label">Tenggat</label>
-                    <input type="datetime-local" class="form-control" id="tenggat" name="tenggat" required>
+                    <input type="datetime-local" class="form-control" id="tenggat" name="tenggat">
                 </div>
                 <button type="submit" class="btn btn-primary">Tambah</button>
                 <a href="<?= base_url(); ?>/detailmapel/index/<?= $_GET['idkelas']; ?>/<?= $_GET['namamapel']; ?>/<?= $_GET['namakelas']; ?>/<?= $_GET['namaguru']; ?>" class="btn btn-danger">Kembali</a>
