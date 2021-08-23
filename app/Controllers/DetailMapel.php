@@ -50,7 +50,8 @@ class DetailMapel extends BaseController
             'judul' => $this->request->getVar('judul'),
             'keterangan' => $this->request->getVar('keterangan'),
             'file' => (empty($file)) ?  null : $file->getName(),
-            'link' => (empty($this->request->getVar('link'))) ?  null : $this->request->getVar('link')
+            'link' => (empty($this->request->getVar('link'))) ?  null : $this->request->getVar('link'),
+            'tenggat' => $this->request->getVar('tenggat')
         ]);
         $tambah = true;
         $data = [
@@ -92,7 +93,8 @@ class DetailMapel extends BaseController
             'judul' => $this->request->getVar('judul'),
             'keterangan' => $this->request->getVar('keterangan'),
             'file' => $file->getName(),
-            'link' => $this->request->getVar('link')
+            'link' => $this->request->getVar('link'),
+            'tenggat' => $this->request->getVar('tenggat')
         ];
 
         $this->builder->where('id_detailmapel', $id);

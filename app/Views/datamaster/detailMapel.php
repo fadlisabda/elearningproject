@@ -35,6 +35,7 @@ if (!isset($_SESSION["login"])) {
             <th scope="col">KETERANGAN</th>
             <th scope="col">FILE</th>
             <th scope="col">LINK</th>
+            <th scope="col">TENGGAT</th>
             <th scope="col">ACTIONS</th>
         </tr>
     </thead>
@@ -61,6 +62,7 @@ if (!isset($_SESSION["login"])) {
                             <?= $dm['link']; ?>
                         </a>
                     </td>
+                    <td><?= $dm['tenggat']; ?></td>
                     <td>
                         <a href="<?= base_url(); ?>/detailmapel/edit/<?= $dm['id_detailmapel']; ?>?idkelas=<?= $idkelas ?>&namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-warning">Edit</a>
                         <a href="<?= base_url(); ?>/detailmapel/delete/<?= $dm['id_detailmapel']; ?>?idkelas=<?= $idkelas ?>&namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-danger" onclick="return confirm('apakah anda yakin?');">Delete</a>

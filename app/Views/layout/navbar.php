@@ -10,16 +10,7 @@
                     <a class="nav-link active" aria-current="page" href="<?= base_url(); ?>/home">Home</a>
                 </li>
                 <?php if ($_SESSION["status"] === "guru") : ?>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Data Master
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="<?= base_url(); ?>/guru">Guru</a></li>
-                            <li><a class="dropdown-item" href="<?= base_url(); ?>/mapel">Mapel</a></li>
-                            <li><a class="dropdown-item" href="<?= base_url(); ?>/kelas">Kelas</a></li>
-                        </ul>
-                    </li>
+                    <a class="nav-link active" aria-current="page" href="<?= base_url(); ?>/kelas">Kelas</a>
                 <?php endif; ?>
                 <?php if ($_SESSION["status"] === "admin") : ?>
                     <li class="nav-item dropdown">

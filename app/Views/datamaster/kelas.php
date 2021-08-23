@@ -27,7 +27,7 @@ if (!isset($_SESSION["login"])) {
         <tr>
             <th scope="col">NO</th>
             <th scope="col">NAMA KELAS</th>
-            <th scope="col">NAMA WALI KELAS</th>
+            <th scope="col">NIP</th>
             <th scope="col">ACTIONS</th>
         </tr>
     </thead>
