@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class DetailMapelModel extends Model
 {
-    protected $table = 'detail_mapel';
+    protected $table = 'el_detail_mapel';
     protected $useTimestamps = true;
     protected $allowedFields = ['namamapel', 'namakelas', 'namaguru', 'judul', 'keterangan', 'file', 'link', 'tenggat'];
     public function getData($id = false)

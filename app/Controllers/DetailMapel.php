@@ -11,7 +11,7 @@ class DetailMapel extends BaseController
     {
         $this->dataModel = new DetailMapelModel();
         $this->db      = \Config\Database::connect();
-        $this->builder = $this->db->table('detail_mapel');
+        $this->builder = $this->db->table('el_detail_mapel');
     }
 
     public function index($idkelas, $namamapel, $namakelas, $namaguru)
@@ -51,7 +51,7 @@ class DetailMapel extends BaseController
             'keterangan' => $this->request->getVar('keterangan'),
             'file' => (empty($file)) ?  null : $file->getName(),
             'link' => (empty($this->request->getVar('link'))) ?  null : $this->request->getVar('link'),
-            'tenggat' => $this->request->getVar('tenggat')
+            'tenggat' => (empty($this->request->getVar('tenggat'))) ? null : $this->request->getVar('tenggat')
         ]);
         $tambah = true;
         $data = [
@@ -94,7 +94,7 @@ class DetailMapel extends BaseController
             'keterangan' => $this->request->getVar('keterangan'),
             'file' => $file->getName(),
             'link' => $this->request->getVar('link'),
-            'tenggat' => $this->request->getVar('tenggat')
+            'tenggat' => (empty($this->request->getVar('tenggat'))) ? null : $this->request->getVar('tenggat')
         ];
 
         $this->builder->where('id_detailmapel', $id);

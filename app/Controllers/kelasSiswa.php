@@ -21,6 +21,7 @@ class kelasSiswa extends BaseController
         $data = [
             'title' => 'ELEARNING - Kelas Siswa',
             'kelassiswa' => $query->getResult(),
+            'kelasSiswaInsert' => $this->dataModel->getData(),
             'id' => $id,
             'namakelas' => $namakelas
         ];
@@ -52,6 +53,7 @@ class kelasSiswa extends BaseController
             'title' => 'ELEARNING - Kelas Siswa',
             'tambah' => $tambah,
             'kelassiswa' => $query->getResult(),
+            'kelasSiswaInsert' => $this->dataModel->getData(),
             'id' => $_GET['id'],
             'namakelas' => $_GET['namakelas']
         ];
@@ -73,6 +75,7 @@ class kelasSiswa extends BaseController
             'title' => 'ELEARNING - Kelas Siswa',
             'delete' => $delete,
             'kelassiswa' => $query->getResult(),
+            'kelasSiswaInsert' => $this->dataModel->getData(),
             'id' => $_GET['id'],
             'namakelas' => $_GET['namakelas']
         ];
@@ -109,6 +112,7 @@ class kelasSiswa extends BaseController
             'title' => 'ELEARNING - Kelas Siswa',
             'edit' => $edit,
             'kelassiswa' => $query->getResult(),
+            'kelasSiswaInsert' => $this->dataModel->getData(),
             'id' => $_GET['id'],
             'namakelas' => $_GET['namakelas']
         ];

@@ -10,7 +10,7 @@ class Register extends BaseController
     public function __construct()
     {
         $this->db      = \Config\Database::connect();
-        $this->builder = $this->db->table('userelearning');
+        $this->builder = $this->db->table('el_user');
         $this->registerModel = new RegisterModel();
     }
     public function index()

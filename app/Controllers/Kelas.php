@@ -6,18 +6,23 @@ use App\Models\KelasModel;
 
 class kelas extends BaseController
 {
-    protected $dataModel, $builder;
+    protected $db, $dataModel, $builder;
     public function __construct()
     {
         $this->dataModel = new KelasModel();
-        $db      = \Config\Database::connect();
-        $this->builder = $db->table('kelas');
+        $this->db      = \Config\Database::connect();
+        $this->builder = $this->db->table('kelas');
     }
+
     public function index()
     {
+        $this->builder->select('kelas.nip as kelasnip,id_kelas,nama_kelas,nama_guru');
+        $this->builder->join('data_guru', 'data_guru.nip = kelas.nip');
+        $query = $this->builder->get();
         $data = [
             'title' => 'ELEARNING - Kelas',
-            'kelas' => $this->dataModel->getData()
+            'kelas' => $query->getResult(),
+            'kelasInsert' => $this->dataModel->getData()
         ];
         return view('datamaster/kelas', $data);
     }
@@ -33,6 +38,9 @@ class kelas extends BaseController
 
     public function save()
     {
+        $this->builder->select('kelas.nip as kelasnip,id_kelas,nama_kelas,nama_guru');
+        $this->builder->join('data_guru', 'data_guru.nip = kelas.nip');
+        $query = $this->builder->get();
         $this->dataModel->save([
             'nama_kelas' => $this->request->getVar('nama_kelas'),
             'nip' => $this->request->getVar('nip')
@@ -41,7 +49,8 @@ class kelas extends BaseController
         $data = [
             'title' => 'ELEARNING - Kelas',
             'tambah' => $tambah,
-            'kelas' => $this->dataModel->getData()
+            'kelas' => $query->getResult(),
+            'kelasInsert' => $this->dataModel->getData()
         ];
         return view('datamaster/kelas', $data);
     }
@@ -58,6 +67,9 @@ class kelas extends BaseController
 
     public function update($id)
     {
+        $this->builder->select('kelas.nip as kelasnip,id_kelas,nama_kelas,nama_guru');
+        $this->builder->join('data_guru', 'data_guru.nip = kelas.nip');
+        $query = $this->builder->get();
         $data = [
             'nama_kelas' => $this->request->getVar('nama_kelas'),
             'nip' => $this->request->getVar('nip')
@@ -69,13 +81,17 @@ class kelas extends BaseController
         $data = [
             'title' => 'ELEARNING - Kelas',
             'edit' => $edit,
-            'kelas' => $this->dataModel->getData()
+            'kelas' => $query->getResult(),
+            'kelasInsert' => $this->dataModel->getData()
         ];
         return view('datamaster/kelas', $data);
     }
 
     public function delete($id)
     {
+        $this->builder->select('kelas.nip as kelasnip,id_kelas,nama_kelas,nama_guru');
+        $this->builder->join('data_guru', 'data_guru.nip = kelas.nip');
+        $query = $this->builder->get();
         if (!isset($_SESSION["login"])) {
             header("Location: " . base_url() . "/login");
             exit;
@@ -85,7 +101,8 @@ class kelas extends BaseController
         $data = [
             'title' => 'ELEARNING - Kelas',
             'delete' => $delete,
-            'kelas' => $this->dataModel->getData()
+            'kelas' => $query->getResult(),
+            'kelasInsert' => $this->dataModel->getData()
         ];
         return view('datamaster/kelas', $data);
     }
