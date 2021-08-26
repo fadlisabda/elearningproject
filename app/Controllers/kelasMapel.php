@@ -122,4 +122,24 @@ class kelasMapel extends BaseController
         ];
         return view('datamaster/kelasMapel', $data);
     }
+
+    public function siswa()
+    {
+        $this->builder->select('kelas_mapel.id_mapel as kelas_mapelid_mapel,kelas_mapel.id_kelas as kelas_mapelid_kelas,nama_kelas,nama_mapel,kelas_mapel.nip as kelas_mapelnip,nama_guru,id_kelas_mapel');
+
+        $this->builder->join('data_mata_pelajaran', 'data_mata_pelajaran.id_mapel = kelas_mapel.id_mapel');
+
+        $this->builder->join('kelas_siswa', 'kelas_siswa.id_kelas = kelas_mapel.id_kelas');
+
+        $this->builder->join('kelas', 'kelas.id_kelas = kelas_mapel.id_kelas');
+
+        $this->builder->join('data_guru', 'data_guru.nip = kelas_mapel.nip');
+        $this->builder->where('kelas_siswa.nis', $_SESSION["username"]);
+        $query = $this->builder->get();
+        $data = [
+            'title' => 'ELEARNING - Kelas Mapel Siswa',
+            'kelasmapelsiswa' => $query->getResult(),
+        ];
+        return view('datamaster/kelasMapelSiswa', $data);
+    }
 }

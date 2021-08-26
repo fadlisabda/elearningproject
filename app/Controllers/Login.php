@@ -37,6 +37,7 @@ class Login extends BaseController
                     // set session
                     $_SESSION["login"] = true;
                     $_SESSION["status"] = $result["status"];
+                    $_SESSION["username"] = $result["username"];
                     $data = [
                         'title' => 'ELEARNING'
                     ];

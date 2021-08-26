@@ -8,8 +8,10 @@ if (!isset($_SESSION["login"])) {
 ?>
 <h1 class="text-center">Detail Mapel <?= $namamapel ?> Kelas <?= $namakelas ?></h1>
 <h4 class="text-center">Guru : <?= $namaguru ?></h4>
-<a href="<?= base_url(); ?>/detailmapel/create?idkelas=<?= $idkelas ?>&namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-primary float-start">Tambah Data Detail Mapel</a>
-<a href="<?= base_url(); ?>/kelasMapel/index/<?= $idkelas ?>/<?= $namakelas ?>" class="btn btn-danger float-end">Kembali</a>
+<?php if ($_SESSION['status'] === 'guru') : ?>
+    <a href="<?= base_url(); ?>/detailmapel/create?idkelas=<?= $idkelas ?>&namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-primary float-start">Tambah Data Detail Mapel</a>
+<?php endif; ?>
+<a href="<?= base_url(); ?>/kelasmapel/siswa" class="btn btn-danger float-end">Kembali</a>
 <div class="clearfix"></div>
 <br>
 <?php if (isset($delete)) : ?>
@@ -19,7 +21,12 @@ if (!isset($_SESSION["login"])) {
 <?php endif; ?>
 <?php if (isset($edit)) : ?>
     <div class="alert alert-success" role="alert">
-        Data Berhasil Di Edit
+        <?php if ($_SESSION['status'] === 'siswa') : ?>
+            Data Berhasil Di Tambah
+        <?php endif; ?>
+        <?php if ($_SESSION['status'] === 'guru') : ?>
+            Data Berhasil Di Edit
+        <?php endif; ?>
     </div>
 <?php endif; ?>
 <?php if (isset($tambah)) : ?>
@@ -36,6 +43,7 @@ if (!isset($_SESSION["login"])) {
             <th scope="col">FILE</th>
             <th scope="col">LINK</th>
             <th scope="col">TENGGAT</th>
+            <th scope="col">TUGAS SISWA</th>
             <th scope="col">ACTIONS</th>
         </tr>
     </thead>
@@ -59,13 +67,26 @@ if (!isset($_SESSION["login"])) {
                     </td>
                     <td>
                         <a href="<?= $dm['link']; ?>" target="_blank">
-                            <?= $dm['link']; ?>
+                            <?php
+                            $str = $dm['link'];
+                            echo wordwrap($str, 30, "<br>", TRUE);
+                            ?>
                         </a>
                     </td>
                     <td><?= $dm['tenggat']; ?></td>
                     <td>
-                        <a href="<?= base_url(); ?>/detailmapel/edit/<?= $dm['id_detailmapel']; ?>?idkelas=<?= $idkelas ?>&namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-warning">Edit</a>
-                        <a href="<?= base_url(); ?>/detailmapel/delete/<?= $dm['id_detailmapel']; ?>?idkelas=<?= $idkelas ?>&namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-danger" onclick="return confirm('apakah anda yakin?');">Delete</a>
+                        <a href="<?= base_url() ?>/public/file/<?= $dm['tugassiswa']; ?>" target="_blank">
+                            <?= $dm['tugassiswa']; ?>
+                        </a>
+                    </td>
+                    <td>
+                        <?php if ($_SESSION['status'] === 'guru') : ?>
+                            <a href="<?= base_url(); ?>/detailmapel/edit/<?= $dm['id_detailmapel']; ?>?idkelas=<?= $idkelas ?>&namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-warning">Edit</a>
+                            <a href="<?= base_url(); ?>/detailmapel/delete/<?= $dm['id_detailmapel']; ?>?idkelas=<?= $idkelas ?>&namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-danger" onclick="return confirm('apakah anda yakin?');">Delete</a>
+                        <?php endif; ?>
+                        <?php if ($_SESSION['status'] === 'siswa') : ?>
+                            <a href="<?= base_url(); ?>/detailmapel/siswa/<?= $dm['id_detailmapel']; ?>?idkelas=<?= $idkelas ?>&namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-primary">Detail</a>
+                        <?php endif; ?>
                     </td>
                 <?php endif; ?>
             </tr>
