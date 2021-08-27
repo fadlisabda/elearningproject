@@ -73,7 +73,22 @@ if (!isset($_SESSION["login"])) {
                             ?>
                         </a>
                     </td>
-                    <td><?= $dm['tenggat']; ?></td>
+                    <td>
+                        <?= $dm['tenggat']; ?>
+                        <?php
+                        date_default_timezone_set('Asia/Jakarta');
+                        $sekarang = date("Y-m-d H:i:sa");
+                        $exp = date($dm['tenggat']);
+                        if ($dm['tenggat'] != '0000-00-00 00:00:00') {
+                            if ($sekarang >= $exp) {
+                                echo "<b>Diserahkan terlambat
+                                    </b>";
+                            } else {
+                                echo "<b>Diserahkan</b>";
+                            }
+                        }
+                        ?>
+                    </td>
                     <td>
                         <a href="<?= base_url() ?>/public/file/<?= $dm['tugassiswa']; ?>" target="_blank">
                             <?= $dm['tugassiswa']; ?>

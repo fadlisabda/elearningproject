@@ -18,11 +18,20 @@
                 <div class="card-body">
                     <h5 class="card-title">Tugas Anda</h5>
                     <h6 class="card-subtitle mb-2 text-muted">
-                        <?php $date = date("Y-m-d\TH:i:s"); ?>
                         <?php if (empty($detailmapelsiswa['tugassiswa'])) : ?>
                             Tidak Ada
                         <?php elseif (!empty($detailmapelsiswa['tugassiswa'])) : ?>
-                            Diserahkan
+                            <?php
+                            date_default_timezone_set('Asia/Jakarta');
+                            $sekarang = date("Y-m-d H:i:sa");
+                            $exp = date($detailmapelsiswa['tenggat']);
+                            if ($sekarang >= $exp) {
+                                echo "<b>Diserahkan terlambat
+                                </b>";
+                            } else {
+                                echo "<b>Diserahkan</b>";
+                            }
+                            ?>
                         <?php endif; ?>
                     </h6>
                     <a href="<?= base_url() ?>/public/file/<?= $detailmapelsiswa['tugassiswa']; ?>" target="_blank" class="card-link"><?= $detailmapelsiswa['tugassiswa']; ?></a><br>

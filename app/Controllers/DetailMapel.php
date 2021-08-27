@@ -38,21 +38,28 @@ class DetailMapel extends BaseController
 
     public function save($idkelas, $namamapel, $namakelas, $namaguru)
     {
-        if ($this->request->getFile('file')->getError() === 0) {
-            $file = $this->request->getFile('file');
-            $namaFile = $file->getName();
-            $file->move('/xampp/htdocs/elearning/public/file/', $namaFile);
+        // if ($this->request->getFile('file')->getError() === 0) {
+        //     $file = $this->request->getFile('file');
+        //     $namaFile = $file->getName();
+        //     $file->move('/xampp/htdocs/elearning/public/file/', $namaFile);
+        // }
+        $files = $this->request->getFiles();
+        foreach ($files['file_upload'] as $file) {
+            if ($file->getError() === 0) {
+                $file->move('/xampp/htdocs/elearning/public/file/', $file->getName());
+            }
+            $this->dataModel->save([
+                'namamapel' => $this->request->getVar('namamapel'),
+                'namakelas' => $this->request->getVar('namakelas'),
+                'namaguru' => $this->request->getVar('namaguru'),
+                'judul' => $this->request->getVar('judul'),
+                'keterangan' => $this->request->getVar('keterangan'),
+                // 'file' => (empty($file)) ?  null : $file->getName(),
+                'file' => ($file->getError() === 4) ?  null : $file->getName(),
+                'link' => (empty($this->request->getVar('link'))) ?  null : $this->request->getVar('link'),
+                'tenggat' => $this->request->getVar('tenggat')
+            ]);
         }
-        $this->dataModel->save([
-            'namamapel' => $this->request->getVar('namamapel'),
-            'namakelas' => $this->request->getVar('namakelas'),
-            'namaguru' => $this->request->getVar('namaguru'),
-            'judul' => $this->request->getVar('judul'),
-            'keterangan' => $this->request->getVar('keterangan'),
-            'file' => (empty($file)) ?  null : $file->getName(),
-            'link' => (empty($this->request->getVar('link'))) ?  null : $this->request->getVar('link'),
-            'tenggat' => $this->request->getVar('tenggat')
-        ]);
         $tambah = true;
         $data = [
             'title' => 'ELEARNING - Detail Mapel',
@@ -109,7 +116,6 @@ class DetailMapel extends BaseController
             'tenggat' => (empty($this->request->getVar('tenggat'))) ? null : $this->request->getVar('tenggat'),
             'tugassiswa' => ($file2->getError() == 4) ? $namaFile2 : $file2->getName()
         ];
-
         $this->builder->where('id_detailmapel', $id);
         $this->builder->update($data);
         $edit = true;

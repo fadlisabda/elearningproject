@@ -23,9 +23,13 @@ if (!isset($_SESSION["login"])) {
                     <label for="keterangan" class="form-label">Keterangan</label>
                     <textarea class="form-control" id="keterangan" name="keterangan" rows="3"></textarea>
                 </div>
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                     <label for="file" class="form-label">File</label>
                     <input type="file" class="form-control" id="file" name="file">
+                </div> -->
+                <div class="mb-3">
+                    <label for="file" class="form-label">File</label>
+                    <input type="file" class="form-control" id="file" name="file_upload[]" multiple="true">
                 </div>
                 <div class="mb-3">
                     <label for="link" class="form-label">Link</label>
