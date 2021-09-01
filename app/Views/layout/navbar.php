@@ -26,7 +26,7 @@
                             <li><a class="dropdown-item" href="<?= base_url(); ?>/user">User</a></li>
                             <li><a class="dropdown-item" href="<?= base_url(); ?>/mapel">Mapel</a></li>
                             <li><a class="dropdown-item" href="<?= base_url(); ?>/kelas">Kelas</a></li>
-                            <li><a href="<?= base_url(); ?>/register" class="dropdown-item">Eluser</a></li>
+                            <li><a href="<?= base_url(); ?>/eluser" class="dropdown-item">Eluser</a></li>
                         </ul>
                     </li>
                 <?php endif; ?>

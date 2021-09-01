@@ -7,8 +7,6 @@ if (!isset($_SESSION["login"])) {
 }
 ?>
 <h1 class="text-center">Data Mapel Kelas Siswa <?= $kelasmapelsiswa[0]->nama_kelas; ?></h1>
-<a href="<?= base_url(); ?>/kelas" class="btn btn-danger">Kembali</a>
-<br><br>
 <div class="row row-cols-1 row-cols-md-3 g-4">
     <?php $i = 1; ?>
     <?php foreach ($kelasmapelsiswa as $kms) : ?>

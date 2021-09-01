@@ -11,7 +11,12 @@ if (!isset($_SESSION["login"])) {
 <?php if ($_SESSION['status'] === 'guru') : ?>
     <a href="<?= base_url(); ?>/detailmapel/create?idkelas=<?= $idkelas ?>&namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-primary float-start">Tambah Data Detail Mapel</a>
 <?php endif; ?>
-<a href="<?= base_url(); ?>/kelasmapel/index/<?= $idkelas ?>/<?= $namakelas ?>" class="btn btn-danger float-end">Kembali</a>
+<?php if ($_SESSION['status'] === 'guru') : ?>
+    <a href="<?= base_url(); ?>/kelasmapel/index/<?= $idkelas ?>/<?= $namakelas ?>" class="btn btn-danger float-end">Kembali</a>
+<?php endif; ?>
+<?php if ($_SESSION['status'] === 'siswa') : ?>
+    <a href="<?= base_url(); ?>/kelasmapel/siswa/" class="btn btn-danger float-end">Kembali</a>
+<?php endif; ?>
 <div class="clearfix"></div>
 <br>
 <?php if (isset($delete)) : ?>

@@ -22,10 +22,6 @@ if (isset($_SESSION["login"])) {
                     <p style="color: red;">username / password salah</p>
                 <?php endif; ?>
 
-                <?php if (isset($sukses)) : ?>
-                    <p style="color: green;">Anda Berhasil Daftar Silahkan Login</p>
-                <?php endif; ?>
-
                 <form action="<?= base_url() ?>/login/save" method="post">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
