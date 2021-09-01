@@ -54,7 +54,10 @@ if (!isset($_SESSION["login"])) {
                 <?php if ($dm['namamapel'] === $namamapel && $dm['namakelas'] === $namakelas && $dm['namaguru'] === $namaguru) : ?>
                     <th scope="row"><?= $i++; ?></th>
                     <td>
-                        <?= character_limiter($dm['judul'], 20); ?>
+                        <?php
+                        $str = $dm['judul'];
+                        echo wordwrap($str, 25, "<br>", TRUE);
+                        ?>
                     </td>
                     <td>
                         <?= character_limiter($dm['keterangan'], 20); ?>
