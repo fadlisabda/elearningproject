@@ -18,7 +18,6 @@ if (isset($_SESSION["login"])) {
         <div class="row">
             <div class="col">
                 <h1>ELEARNING - Login</h1>
-                <a href="<?= base_url(); ?>/register" class="btn btn-primary">Register</a>
                 <?php if (isset($error)) : ?>
                     <p style="color: red;">username / password salah</p>
                 <?php endif; ?>

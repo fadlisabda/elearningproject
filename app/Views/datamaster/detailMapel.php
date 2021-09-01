@@ -11,7 +11,7 @@ if (!isset($_SESSION["login"])) {
 <?php if ($_SESSION['status'] === 'guru') : ?>
     <a href="<?= base_url(); ?>/detailmapel/create?idkelas=<?= $idkelas ?>&namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-primary float-start">Tambah Data Detail Mapel</a>
 <?php endif; ?>
-<a href="<?= base_url(); ?>/kelasmapel/siswa" class="btn btn-danger float-end">Kembali</a>
+<a href="<?= base_url(); ?>/kelasmapel/index/<?= $idkelas ?>/<?= $namakelas ?>" class="btn btn-danger float-end">Kembali</a>
 <div class="clearfix"></div>
 <br>
 <?php if (isset($delete)) : ?>
@@ -53,23 +53,25 @@ if (!isset($_SESSION["login"])) {
             <tr>
                 <?php if ($dm['namamapel'] === $namamapel && $dm['namakelas'] === $namakelas && $dm['namaguru'] === $namaguru) : ?>
                     <th scope="row"><?= $i++; ?></th>
-                    <td><?= $dm['judul']; ?></td>
                     <td>
-                        <?php
-                        $str = $dm['keterangan'];
-                        echo wordwrap($str, 30, "<br>", TRUE);
-                        ?>
+                        <?= character_limiter($dm['judul'], 20); ?>
+                    </td>
+                    <td>
+                        <?= character_limiter($dm['keterangan'], 20); ?>
                     </td>
                     <td>
                         <a href="<?= base_url() ?>/public/file/<?= $dm['file']; ?>" target="_blank">
-                            <?= $dm['file']; ?>
+                            <?php
+                            $str = $dm['file'];
+                            echo wordwrap($str, 25, "<br>", TRUE);
+                            ?>
                         </a>
                     </td>
                     <td>
                         <a href="<?= $dm['link']; ?>" target="_blank">
                             <?php
                             $str = $dm['link'];
-                            echo wordwrap($str, 30, "<br>", TRUE);
+                            echo wordwrap($str, 25, "<br>", TRUE);
                             ?>
                         </a>
                     </td>
@@ -99,9 +101,7 @@ if (!isset($_SESSION["login"])) {
                             <a href="<?= base_url(); ?>/detailmapel/edit/<?= $dm['id_detailmapel']; ?>?idkelas=<?= $idkelas ?>&namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-warning">Edit</a>
                             <a href="<?= base_url(); ?>/detailmapel/delete/<?= $dm['id_detailmapel']; ?>?idkelas=<?= $idkelas ?>&namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-danger" onclick="return confirm('apakah anda yakin?');">Delete</a>
                         <?php endif; ?>
-                        <?php if ($_SESSION['status'] === 'siswa') : ?>
-                            <a href="<?= base_url(); ?>/detailmapel/siswa/<?= $dm['id_detailmapel']; ?>?idkelas=<?= $idkelas ?>&namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-primary">Detail</a>
-                        <?php endif; ?>
+                        <a href="<?= base_url(); ?>/detailmapel/siswa/<?= $dm['id_detailmapel']; ?>?idkelas=<?= $idkelas ?>&namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-primary">Detail</a>
                     </td>
                 <?php endif; ?>
             </tr>

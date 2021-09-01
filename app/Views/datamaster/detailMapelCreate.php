@@ -42,6 +42,9 @@ if (!isset($_SESSION["login"])) {
                 <button type="submit" class="btn btn-primary">Tambah</button>
                 <a href="<?= base_url(); ?>/detailmapel/index/<?= $_GET['idkelas']; ?>/<?= $_GET['namamapel']; ?>/<?= $_GET['namakelas']; ?>/<?= $_GET['namaguru']; ?>" class="btn btn-danger">Kembali</a>
             </form>
+            <script>
+                CKEDITOR.replace('keterangan');
+            </script>
         </div>
     </div>
 </div>

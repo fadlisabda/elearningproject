@@ -11,7 +11,6 @@
         <div class="row">
             <div class="col">
                 <h1>ELEARNING - Registrasi</h1>
-                <a href="<?= base_url(); ?>/login" class="btn btn-primary">Login</a>
                 <?php if (isset($error)) : ?>
                     <p style="color: red;">Input hanya huruf dan angka yang diijinkan, dan tidak boleh menggunakan spasi ...!<br></p>
                 <?php endif; ?>
