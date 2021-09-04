@@ -25,11 +25,11 @@ if (!isset($_SESSION["login"])) {
                 </div>
                 <div class="mb-3">
                     <label for="keterangan" class="form-label" style="display:<?= ($_SESSION['status'] === 'siswa') ? 'none' : ''  ?>">Keterangan</label>
-                    <textarea style="display:<?= ($_SESSION['status'] === 'siswa') ? 'none' : ''  ?>" class="form-control" id="keterangan" name="keterangan" rows="3"><?= $detailmapel['keterangan']; ?></textarea>
+                    <textarea class="form-control" id="keterangan" name="keterangan" rows="3" style="display:<?= ($_SESSION['status'] === 'siswa') ? 'none' : ''  ?>"><?= $detailmapel['keterangan']; ?></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="file" class="custom-file-label" style="display:<?= ($_SESSION['status'] === 'siswa') ? 'none' : ''  ?>">File</label>
-                    <input type="file" class="form-control" id="file" name="file" style="display:<?= ($_SESSION['status'] === 'siswa') ? 'none' : ''  ?>">
+                    <input type="file" class="form-control" id="file" name="file_upload[]" style="display:<?= ($_SESSION['status'] === 'siswa') ? 'none' : ''  ?>" multiple="true">
                 </div>
                 <div class="mb-3">
                     <label for="link" class="form-label" style="display:<?= ($_SESSION['status'] === 'siswa') ? 'none' : ''  ?>">Link</label>
@@ -42,12 +42,20 @@ if (!isset($_SESSION["login"])) {
                 </div>
                 <div class="mb-3">
                     <label for="tugassiswa" class="custom-file-label" style="display:<?= ($_SESSION['status'] === 'guru') ? 'none' : ''  ?>">Tugas Siswa</label>
-                    <input type="file" class="form-control" id="tugassiswa" name="tugassiswa" style="display:<?= ($_SESSION['status'] === 'guru') ? 'none' : ''  ?>">
+                    <input type="file" class="form-control" id="tugassiswa" name="file_upload_ts[]" style="display:<?= ($_SESSION['status'] === 'guru') ? 'none' : ''  ?>" multiple="true">
                 </div>
                 <button type="submit" class="btn btn-primary"><?= ($_SESSION['status'] === 'guru') ? 'Ubah' : 'Tambah' ?></button>
-                <a href="<?= base_url(); ?>/detailmapel/index/<?= $_GET['idkelas']; ?>/<?= $_GET['namamapel']; ?>/<?= $_GET['namakelas']; ?>/<?= $_GET['namaguru']; ?>" class="btn btn-danger">Kembali</a>
+                <?php if ($_SESSION['status'] === 'guru') : ?>
+                    <a href="<?= base_url(); ?>/detailmapel/index/<?= $_GET['idkelas']; ?>/<?= $_GET['namamapel']; ?>/<?= $_GET['namakelas']; ?>/<?= $_GET['namaguru']; ?>" class="btn btn-danger">Kembali</a>
+                <?php endif; ?>
+                <?php if ($_SESSION['status'] === 'siswa') : ?>
+                    <a href="<?= base_url(); ?>/detailmapel/siswa/<?= $detailmapel['id_detailmapel']; ?>?idkelas=<?= $_GET['idkelas']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru'] ?>" class="btn btn-danger">Kembali</a>
+                <?php endif; ?>
             </form>
             <script>
+                <?php if ($_SESSION['status'] === 'siswa') : ?>
+                    $('#keterangan').hide();
+                <?php endif; ?>
                 CKEDITOR.replace('keterangan');
             </script>
         </div>

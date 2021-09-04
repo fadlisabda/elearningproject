@@ -68,12 +68,12 @@ if (!isset($_SESSION["login"])) {
                         <?= character_limiter($dm['keterangan'], 20); ?>
                     </td>
                     <td>
-                        <a href="<?= base_url() ?>/public/file/<?= $dm['file']; ?>" target="_blank">
-                            <?php
-                            $str = $dm['file'];
-                            echo wordwrap($str, 25, "<br>", TRUE);
-                            ?>
-                        </a>
+                        <?php
+                        $str = explode('|', $dm['file']);
+                        for ($i = 0; $i < count($str); $i++) {
+                            echo '-' . '<a href=' . base_url() . '/public/file/' .  $str[$i]  . ' target=_blank>' . wordwrap($str[$i], 25, "<br>", TRUE) . '</a><br>';
+                        }
+                        ?>
                     </td>
                     <td>
                         <a href="<?= $dm['link']; ?>" target="_blank">
@@ -90,8 +90,11 @@ if (!isset($_SESSION["login"])) {
                         $sekarang = date("Y-m-d H:i:sa");
                         $exp = date($dm['tenggat']);
                         if ($dm['tenggat'] != '0000-00-00 00:00:00') {
-                            if ($sekarang >= $exp) {
+                            if ($sekarang >= $exp && !empty($dm['tugassiswa'])) {
                                 echo "<b>Diserahkan terlambat
+                                    </b>";
+                            } else if (empty($dm['tugassiswa'])) {
+                                echo "<b>Tidak Ada
                                     </b>";
                             } else {
                                 echo "<b>Diserahkan</b>";
@@ -100,9 +103,12 @@ if (!isset($_SESSION["login"])) {
                         ?>
                     </td>
                     <td>
-                        <a href="<?= base_url() ?>/public/file/<?= $dm['tugassiswa']; ?>" target="_blank">
-                            <?= $dm['tugassiswa']; ?>
-                        </a>
+                        <?php
+                        $str = explode('|', $dm['tugassiswa']);
+                        for ($i = 0; $i < count($str); $i++) {
+                            echo '-' . '<a href=' . base_url() . '/public/file/' .  $str[$i]  . ' target=_blank>' . wordwrap($str[$i], 25, "<br>", TRUE) . '</a><br>';
+                        }
+                        ?>
                     </td>
                     <td>
                         <?php if ($_SESSION['status'] === 'guru') : ?>

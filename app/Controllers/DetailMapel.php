@@ -38,28 +38,29 @@ class DetailMapel extends BaseController
 
     public function save($idkelas, $namamapel, $namakelas, $namaguru)
     {
-        // if ($this->request->getFile('file')->getError() === 0) {
-        //     $file = $this->request->getFile('file');
-        //     $namaFile = $file->getName();
-        //     $file->move('/xampp/htdocs/elearning/public/file/', $namaFile);
-        // }
         $files = $this->request->getFiles();
+        $namaFile = $files['file_upload'][0]->getName();
+        $i = 0;
         foreach ($files['file_upload'] as $file) {
             if ($file->getError() === 0) {
-                $file->move('/xampp/htdocs/elearning/public/file/', $file->getName());
+                $file->move('/xampp/htdocs/elearning/public/file/', str_replace(' ', '', $file->getName()));
+                if ($i !== 0) {
+                    $namaFile .= '|';
+                    $namaFile .= $file->getName();
+                }
             }
-            $this->dataModel->save([
-                'namamapel' => $this->request->getVar('namamapel'),
-                'namakelas' => $this->request->getVar('namakelas'),
-                'namaguru' => $this->request->getVar('namaguru'),
-                'judul' => $this->request->getVar('judul'),
-                'keterangan' => $this->request->getVar('keterangan'),
-                // 'file' => (empty($file)) ?  null : $file->getName(),
-                'file' => ($file->getError() === 4) ?  null : $file->getName(),
-                'link' => (empty($this->request->getVar('link'))) ?  null : $this->request->getVar('link'),
-                'tenggat' => $this->request->getVar('tenggat')
-            ]);
+            $i++;
         }
+        $this->dataModel->save([
+            'namamapel' => $this->request->getVar('namamapel'),
+            'namakelas' => $this->request->getVar('namakelas'),
+            'namaguru' => $this->request->getVar('namaguru'),
+            'judul' => $this->request->getVar('judul'),
+            'keterangan' => $this->request->getVar('keterangan'),
+            'file' => ($file->getError() === 4) ?  null : str_replace(' ', '', $namaFile),
+            'link' => (empty($this->request->getVar('link'))) ?  null : $this->request->getVar('link'),
+            'tenggat' => $this->request->getVar('tenggat')
+        ]);
         $tambah = true;
         $data = [
             'title' => 'ELEARNING - Detail Mapel',
@@ -85,36 +86,69 @@ class DetailMapel extends BaseController
 
     public function update($id, $idkelas, $namamapel, $namakelas, $namaguru)
     {
-        $file = $this->request->getFile('file');
-        if ($file->getError() == 4) {
-            $namaFile = $this->request->getVar('filelama');
-        } else if ($this->request->getVar('filelama') == null) {
-            $namaFile = $file->getName();
-            $file->move('/xampp/htdocs/elearning/public/file/', $namaFile);
-        } else if ($this->request->getVar('filelama') != null) {
-            $namaFile = $file->getName();
-            $file->move('/xampp/htdocs/elearning/public/file/', $namaFile);
-            unlink('/xampp/htdocs/elearning/public/file/' . $this->request->getVar('filelama'));
+        $files = $this->request->getFiles();
+        $str = explode('|', $this->request->getVar('filelama'));
+        $namaFile = $files['file_upload'][0]->getName();
+        $i = 0;
+        foreach ($files['file_upload'] as $file) {
+            if ($file->getError() == 4) {
+                $namaFile = $this->request->getVar('filelama');
+            } else if ($this->request->getVar('filelama') == null) {
+                $file->move('/xampp/htdocs/elearning/public/file/', str_replace(' ', '', $file->getName()));
+                if ($i !== 0) {
+                    $namaFile .= '|';
+                    $namaFile .= $file->getName();
+                }
+            } else if ($this->request->getVar('filelama') != null) {
+                $file->move('/xampp/htdocs/elearning/public/file/', str_replace(' ', '', $file->getName()));
+                if ($i !== 0) {
+                    $namaFile .= '|';
+                    $namaFile .= $file->getName();
+                }
+            }
+            $i++;
+        }
+        if ($this->request->getVar('filelama') != null && $_SESSION['status'] === 'guru') {
+            for ($i = 0; $i < count($str); $i++) {
+                unlink('/xampp/htdocs/elearning/public/file/' . $str[$i]);
+            }
         }
 
-        $file2 = $this->request->getFile('tugassiswa');
-        if ($file2->getError() == 4) {
-            $namaFile2 = $this->request->getVar('tugassiswalama');
-        } else if ($this->request->getVar('tugassiswalama') == null) {
-            $namaFile2 = $file2->getName();
-            $file2->move('/xampp/htdocs/elearning/public/file/', $namaFile2);
-        } else if ($this->request->getVar('tugassiswalama') != null) {
-            $namaFile2 = $file2->getName();
-            $file2->move('/xampp/htdocs/elearning/public/file/', $namaFile2);
-            unlink('/xampp/htdocs/elearning/public/file/' . $this->request->getVar('tugassiswalama'));
+        $files2 = $this->request->getFiles();
+        $str2 = explode('|', $this->request->getVar('tugassiswalama'));
+        $namaFile2 = $files2['file_upload_ts'][0]->getName();
+        $j = 0;
+        foreach ($files2['file_upload_ts'] as $filets) {
+            if ($filets->getError() == 4) {
+                $namaFile2 = $this->request->getVar('tugassiswalama');
+            } else if ($this->request->getVar('tugassiswalama') == null) {
+                $filets->move('/xampp/htdocs/elearning/public/file/', str_replace(' ', '', $filets->getName()));
+                if ($j !== 0) {
+                    $namaFile2 .= '|';
+                    $namaFile2 .= $filets->getName();
+                }
+            } else if ($this->request->getVar('tugassiswalama') != null) {
+                $filets->move('/xampp/htdocs/elearning/public/file/', str_replace(' ', '', $filets->getName()));
+                if ($j !== 0) {
+                    $namaFile2 .= '|';
+                    $namaFile2 .= $filets->getName();
+                }
+            }
+            $j++;
         }
+        if ($this->request->getVar('tugassiswalama') != null && $_SESSION['status'] === 'siswa') {
+            for ($j = 0; $j < count($str2); $j++) {
+                unlink('/xampp/htdocs/elearning/public/file/' . $str2[$j]);
+            }
+        }
+
         $data = [
             'judul' => $this->request->getVar('judul'),
             'keterangan' => $this->request->getVar('keterangan'),
-            'file' => ($file->getError() == 4) ? $namaFile : $file->getName(),
+            'file' => ($files['file_upload'][0]->getError() == 4) ? $namaFile : str_replace(' ', '', $namaFile),
             'link' => $this->request->getVar('link'),
             'tenggat' => (empty($this->request->getVar('tenggat'))) ? null : $this->request->getVar('tenggat'),
-            'tugassiswa' => ($file2->getError() == 4) ? $namaFile2 : $file2->getName()
+            'tugassiswa' => ($files2['file_upload_ts'][0]->getError() == 4) ? $namaFile2 : str_replace(' ', '', $namaFile2)
         ];
         $this->builder->where('id_detailmapel', $id);
         $this->builder->update($data);
@@ -138,10 +172,33 @@ class DetailMapel extends BaseController
             exit;
         }
         $file = $this->dataModel->getData($id);
-        if (file_exists('/xampp/htdocs/elearning/public/file/' . $file['file']) && $file['file'] != null) {
-            unlink('/xampp/htdocs/elearning/public/file/' . $file['file']);
+        $str = explode('|', $file['file']);
+        $str2 = explode('|', $file['tugassiswa']);
+
+        if ($_SESSION['status'] === 'guru') {
+            for ($i = 0; $i < count($str); $i++) {
+                if (file_exists('/xampp/htdocs/elearning/public/file/' . $str[$i]) && $str[$i] != null) {
+                    unlink('/xampp/htdocs/elearning/public/file/' . $str[$i]);
+                }
+            }
         }
-        $this->builder->delete(['id_detailmapel' => $id]);
+
+        if ($_SESSION['status'] === 'siswa' || $_SESSION['status'] === 'guru') {
+            for ($i = 0; $i < count($str2); $i++) {
+                if (file_exists('/xampp/htdocs/elearning/public/file/' . $str2[$i]) && $str2[$i] != null) {
+                    unlink('/xampp/htdocs/elearning/public/file/' . $str2[$i]);
+                }
+            }
+            $data = [
+                'tugassiswa' => null
+            ];
+            $this->builder->where('id_detailmapel', $id);
+            $this->builder->update($data);
+        }
+
+        if ($_SESSION['status'] === 'guru') {
+            $this->builder->delete(['id_detailmapel' => $id]);
+        }
         $delete = true;
         $data = [
             'title' => 'ELEARNING - Detail Mapel',
