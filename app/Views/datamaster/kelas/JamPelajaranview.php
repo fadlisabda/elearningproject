@@ -6,7 +6,7 @@ if (!isset($_SESSION["login"])) {
     exit;
 }
 ?>
-<h1 class="text-center">Data Kelas Jam Pelajaran <?= $namakelas ?></h1>
+<h1 class="text-center">Data Jam Pelajaran Kelas <?= $namakelas ?></h1>
 <?php if ($_SESSION["status"] === 'admin') : ?>
     <a href="<?= base_url(); ?>/kelasjampelajarancontroller/create?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-primary float-end">Tambah Data Jam Pelajaran</a>
 <?php endif; ?>

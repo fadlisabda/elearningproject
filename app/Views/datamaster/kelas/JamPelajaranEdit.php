@@ -9,7 +9,7 @@ if (!isset($_SESSION["login"])) {
 <div class="container mt-3 mb-4">
     <div class="row">
         <div class="col">
-            <h2>Edit Data Kelas Jam Pelajaran</h2>
+            <h2>Edit Data Jam Pelajaran</h2>
             <form action="<?= base_url(); ?>/kelasjampelajarancontroller/update/<?= $kelasjampelajaran['id_jadwal']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" method="post">
                 <?= csrf_field(); ?>
                 <div class="mb-3">
