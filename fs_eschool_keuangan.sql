@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 27, 2021 at 11:56 AM
+-- Generation Time: Sep 07, 2021 at 06:16 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -186,10 +186,7 @@ CREATE TABLE `el_detail_mapel` (
 --
 
 INSERT INTO `el_detail_mapel` (`id_detailmapel`, `namamapel`, `namakelas`, `namaguru`, `judul`, `keterangan`, `file`, `link`, `tugassiswa`, `tenggat`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(6, 'Kimia', 'I A', 'willy', 'qwe', 'qwe', 'gambar.jpg.jpg', NULL, NULL, '0000-00-00 00:00:00', '2021-08-27 02:23:07', '2021-08-27 02:23:07', NULL),
-(7, 'Kimia', 'I A', 'willy', 'qwe', 'qwe', 'images.jpg', NULL, NULL, '0000-00-00 00:00:00', '2021-08-27 02:23:08', '2021-08-27 02:23:08', NULL),
-(8, 'Kimia', 'I A', 'willy', 'qwe', 'qwe', 'Komponen input.png', NULL, NULL, '0000-00-00 00:00:00', '2021-08-27 02:23:08', '2021-08-27 02:23:08', NULL),
-(10, 'Kimia', 'I A', 'willy', 'qwe', 'qwe', '', '', '20190618_085053.jpg', '2021-08-27 15:23:00', '2021-08-27 02:47:40', '2021-08-27 02:47:40', NULL);
+(139, 'Kimia', 'I A', 'willy', 'qwe', '<p>qwe</p>\r\n', 'ProgrammerPragmatis,The_FromJourneymantoMasterAndrewHuntDavidThomas.pdf|104ThePragmaticProgrammer,FromJourneymanToMaster-AndrewHunt,DavidThomas-AddisonWesley-1999.pdf', '', NULL, '2021-09-04 16:50:00', '2021-09-04 04:45:50', '2021-09-04 04:45:50', NULL);
 
 -- --------------------------------------------------------
 
@@ -209,7 +206,7 @@ CREATE TABLE `el_user` (
 --
 
 INSERT INTO `el_user` (`id`, `username`, `password`, `status`) VALUES
-(12, '3115864953', '$2y$10$9fYsOKatgk9l78lamb/WU.aaYE7/FScZX92G8dKZnNlxJ0yzw2sDu', 'admin'),
+(12, '3115864953', '$2y$10$SVC3xS7rw8KIOBl3UNGyt.n3DSJDuzEBw9omlp6Ydb.by1eP42yb6', 'admin'),
 (13, '123', '$2y$10$15vG.jQvlznLCTQs/sIBgunJKGaAiQSFoAj7HvMqAQld2fWilfHLe', 'guru'),
 (14, '3129164448', '$2y$10$sn4qRDc.T8Y.aDgFy2UYhumVuzBwCX3yjBNEb2XHCaZCitDI3hxUG', 'siswa');
 
@@ -845,7 +842,7 @@ ALTER TABLE `akreditas_standar`
 -- AUTO_INCREMENT for table `data_guru`
 --
 ALTER TABLE `data_guru`
-  MODIFY `id_guru` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id_guru` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `data_mata_pelajaran`
@@ -857,13 +854,13 @@ ALTER TABLE `data_mata_pelajaran`
 -- AUTO_INCREMENT for table `el_detail_mapel`
 --
 ALTER TABLE `el_detail_mapel`
-  MODIFY `id_detailmapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_detailmapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
 
 --
 -- AUTO_INCREMENT for table `el_user`
 --
 ALTER TABLE `el_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `kategori`
@@ -923,7 +920,7 @@ ALTER TABLE `semester`
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id_siswa` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_siswa` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `siswa_invoice`
