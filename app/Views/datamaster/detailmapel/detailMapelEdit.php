@@ -9,53 +9,41 @@ if (!isset($_SESSION["login"])) {
 <div class="container mt-3 mb-4">
     <div class="row">
         <div class="col">
-            <?php if ($_SESSION['status'] === 'guru') : ?>
-                <h2>Ubah Data Detail Mapel</h2>
-            <?php endif; ?>
-            <?php if ($_SESSION['status'] === 'siswa') : ?>
-                <h2>Tambah Tugas</h2>
-            <?php endif; ?>
-            <form action="<?= base_url(); ?>/detailmapelcontroller/update/<?= $detailmapel['id_detailmapel']; ?>/<?= $_GET['idkelas']; ?>/<?= $_GET['namamapel']; ?>/<?= $_GET['namakelas']; ?>/<?= $_GET['namaguru']; ?>" method="post" enctype="multipart/form-data">
+            <h2>Ubah Data Detail Mapel</h2>
+            <form action="<?= base_url(); ?>/detailmapelcontroller/update/<?= $detailmapel->getResult()[0]->id_detailmapel; ?>/<?= $_GET['idkelas']; ?>/<?= $_GET['namamapel']; ?>/<?= $_GET['namakelas']; ?>/<?= $_GET['namaguru']; ?>" method="post" enctype="multipart/form-data">
                 <?= csrf_field(); ?>
-                <input type="hidden" name="filelama" value="<?= $detailmapel['file']; ?>">
-                <input type="hidden" name="tugassiswalama" value="<?= $detailmapel['tugassiswa']; ?>">
+                <input type="hidden" name="filelama" value="<?= $detailmapel->getResult()[0]->file; ?>">
                 <div class="mb-3">
-                    <label for="judul" class="form-label" style="display:<?= ($_SESSION['status'] === 'siswa') ? 'none' : ''  ?>">judul</label>
-                    <input type="<?= ($_SESSION['status'] === 'guru') ? 'text' : 'hidden'  ?>" class="form-control" id="judul" name="judul" value="<?= $detailmapel['judul']; ?>" required>
+                    <label for="judul">judul</label>
+                    <input type="text" class="form-control" id="judul" name="judul" value="<?= $detailmapel->getResult()[0]->judul; ?>" required>
                 </div>
                 <div class="mb-3">
-                    <label for="keterangan" class="form-label" style="display:<?= ($_SESSION['status'] === 'siswa') ? 'none' : ''  ?>">Keterangan</label>
-                    <textarea class="form-control" id="keterangan" name="keterangan" rows="3" style="display:<?= ($_SESSION['status'] === 'siswa') ? 'none' : ''  ?>"><?= $detailmapel['keterangan']; ?></textarea>
+                    <label for="keterangan">Keterangan</label>
+                    <textarea class="form-control" id="keterangan" name="keterangan" rows="3"><?= $detailmapel->getResult()[0]->keterangan; ?></textarea>
+                </div>
+                <div class="mb-3 custom-file">
+                    <label for="file" class="custom-file-label">File</label>
+                    <input type="file" class="custom-file-input" id="file" name="file_upload[]" multiple="true">
                 </div>
                 <div class="mb-3">
-                    <label for="file" class="custom-file-label" style="display:<?= ($_SESSION['status'] === 'siswa') ? 'none' : ''  ?>">File</label>
-                    <input type="file" class="form-control" id="file" name="file_upload[]" style="display:<?= ($_SESSION['status'] === 'siswa') ? 'none' : ''  ?>" multiple="true">
+                    <label for="link">Link</label>
+                    <input type="text" class="form-control" id="link" name="link" value="<?= $detailmapel->getResult()[0]->link; ?>">
                 </div>
+                <?php $date = date("Y-m-d\TH:i:s", strtotime($detailmapel->getResult()[0]->tenggat)); ?>
                 <div class="mb-3">
-                    <label for="link" class="form-label" style="display:<?= ($_SESSION['status'] === 'siswa') ? 'none' : ''  ?>">Link</label>
-                    <input type="<?= ($_SESSION['status'] === 'guru') ? 'text' : 'hidden'  ?>" class="form-control" id="link" name="link" value="<?= $detailmapel['link']; ?>">
+                    <label for="tenggat">Tenggat</label>
+                    <input type="datetime-local" class="form-control" id="tenggat" name="tenggat" value="<?= $date; ?>">
                 </div>
-                <?php $date = date("Y-m-d\TH:i:s", strtotime($detailmapel['tenggat'])); ?>
-                <div class="mb-3">
-                    <label style="display:<?= ($_SESSION['status'] === 'siswa') ? 'none' : ''  ?>" for="tenggat" class="form-label">Tenggat</label>
-                    <input type="<?= ($_SESSION['status'] === 'guru') ? 'datetime-local' : 'hidden'  ?>" class="form-control" id="tenggat" name="tenggat" value="<?= $date; ?>">
-                </div>
-                <div class="mb-3">
-                    <label for="tugassiswa" class="custom-file-label" style="display:<?= ($_SESSION['status'] === 'guru') ? 'none' : ''  ?>">Tugas Siswa</label>
-                    <input type="file" class="form-control" id="tugassiswa" name="file_upload_ts[]" style="display:<?= ($_SESSION['status'] === 'guru') ? 'none' : ''  ?>" multiple="true">
-                </div>
-                <button type="submit" class="btn btn-primary"><?= ($_SESSION['status'] === 'guru') ? 'Ubah' : 'Tambah' ?></button>
-                <?php if ($_SESSION['status'] === 'guru') : ?>
-                    <a href="<?= base_url(); ?>/detailmapelcontroller/index/<?= $_GET['idkelas']; ?>/<?= $_GET['namamapel']; ?>/<?= $_GET['namakelas']; ?>/<?= $_GET['namaguru']; ?>" class="btn btn-danger">Kembali</a>
-                <?php endif; ?>
-                <?php if ($_SESSION['status'] === 'siswa') : ?>
-                    <a href="<?= base_url(); ?>/detailmapelcontroller/siswa/<?= $detailmapel['id_detailmapel']; ?>?idkelas=<?= $_GET['idkelas']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru'] ?>" class="btn btn-danger">Kembali</a>
-                <?php endif; ?>
+                <label for="tipe">Tipe</label>
+                <select class="custom-select mb-3" id="tipe" name="tipe">
+                    <option <?= ($detailmapel->getResult()[0]->tipe == "absen") ? "selected" : "" ?> value="absen">Absen</option>
+                    <option <?= ($detailmapel->getResult()[0]->tipe == "kuis") ? "selected" : "" ?> value="kuis">Kuis</option>
+                    <option <?= ($detailmapel->getResult()[0]->tipe == "tugasmateri") ? "selected" : "" ?> value="tugasmateri">Tugas Materi</option>
+                </select>
+                <button type="submit" class="btn btn-primary">Ubah</button>
+                <a href="<?= base_url(); ?>/detailmapelcontroller/index/<?= $_GET['idkelas']; ?>/<?= $_GET['namamapel']; ?>/<?= $_GET['namakelas']; ?>/<?= $_GET['namaguru']; ?>" class="btn btn-danger">Kembali</a>
             </form>
             <script>
-                <?php if ($_SESSION['status'] === 'siswa') : ?>
-                    $('#keterangan').hide();
-                <?php endif; ?>
                 CKEDITOR.replace('keterangan');
             </script>
         </div>

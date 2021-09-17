@@ -9,6 +9,9 @@ class LogoutController extends BaseController
         $_SESSION = [];
         session_unset();
         session_destroy();
-        return view('login/loginview');
+        $data = [
+            'title' => 'ELEARNING - Login'
+        ];
+        return view('login/loginview',$data);
     }
 }

@@ -13,19 +13,19 @@ if (!isset($_SESSION["login"])) {
             <form action="<?= base_url(); ?>/usercontroller/save" method="post">
                 <?= csrf_field(); ?>
                 <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
+                    <label for="username">Username</label>
                     <input type="text" class="form-control" id="username" name="username" required>
                 </div>
                 <div class="mb-3">
-                    <label for="nama_user" class="form-label">Nama Pengguna</label>
+                    <label for="nama_user">Nama Pengguna</label>
                     <input type="text" class="form-control" id="nama_user" name="nama_user" required>
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
+                    <label for="password">Password</label>
                     <input type="password" class="form-control" id="password" name="password" required>
                 </div>
                 <div class="mb-3">
-                    <label for="level_user" class="form-label">Level Akses</label>
+                    <label for="level_user">Level Akses</label>
                     <input type="text" class="form-control" id="level_user" name="level_user" required>
                 </div>
                 <div class="form-check">

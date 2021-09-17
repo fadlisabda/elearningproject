@@ -13,27 +13,27 @@ if (!isset($_SESSION["login"])) {
             <form action="<?= base_url(); ?>/siswacontroller/save" method="post">
                 <?= csrf_field(); ?>
                 <div class="mb-3">
-                    <label for="nis" class="form-label">NIS</label>
+                    <label for="nis">NIS</label>
                     <input type="number" class="form-control" id="nis" name="nis" required>
                 </div>
                 <div class="mb-3">
-                    <label for="nisn" class="form-label">NISN</label>
+                    <label for="nisn">NISN</label>
                     <input type="number" class="form-control" id="nisn" name="nisn" required>
                 </div>
                 <div class="mb-3">
-                    <label for="nama_siswa" class="form-label">Nama Siswa</label>
+                    <label for="nama_siswa">Nama Siswa</label>
                     <input type="text" class="form-control" id="nama_siswa" name="nama_siswa" required>
                 </div>
                 <div class="mb-3">
-                    <label for="tempat_lahir" class="form-label">Tempat Lahir</label>
+                    <label for="tempat_lahir">Tempat Lahir</label>
                     <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" required>
                 </div>
                 <div class="mb-3">
-                    <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
+                    <label for="tanggal_lahir">Tanggal Lahir</label>
                     <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" required>
                 </div>
                 <div class="mb-3">
-                    <label for="no_telp" class="form-label">No Telepon</label>
+                    <label for="no_telp">No Telepon</label>
                     <input type="text" class="form-control" id="no_telp" name="no_telp" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Tambah</button>

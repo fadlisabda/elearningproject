@@ -14,7 +14,10 @@ class LoginController extends BaseController
     }
     public function index()
     {
-        return view('login/loginview');
+        $data = [
+            'title' => 'ELEARNING - Login'
+        ];
+        return view('login/loginview', $data);
     }
 
     public function save()
@@ -27,6 +30,7 @@ class LoginController extends BaseController
             if (empty($result["username"])) {
                 $error = true;
                 $data = [
+                    'title' => 'ELEARNING - Login',
                     'error' => $error
                 ];
                 return view('login/loginview', $data);
@@ -45,6 +49,7 @@ class LoginController extends BaseController
                 } else {
                     $error = true;
                     $data = [
+                        'title' => 'ELEARNING - Login',
                         'error' => $error
                     ];
                     return view('login/loginview', $data);

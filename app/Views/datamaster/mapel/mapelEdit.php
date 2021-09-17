@@ -13,7 +13,7 @@ if (!isset($_SESSION["login"])) {
             <form action="<?= base_url(); ?>/mapelcontroller/update/<?= $mapel['id_mapel']; ?>" method="post">
                 <?= csrf_field(); ?>
                 <div class="mb-3">
-                    <label for="nama_mapel" class="form-label">Mapel</label>
+                    <label for="nama_mapel">Mapel</label>
                     <input type="text" class="form-control" id="nama_mapel" name="nama_mapel" value="<?= $mapel['nama_mapel']; ?>" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Ubah</button>

@@ -7,11 +7,11 @@ if (!isset($_SESSION["login"])) {
 }
 ?>
 <h1 class="text-center">Data Mapel Kelas Siswa <?= $kelasmapelsiswa[0]->nama_kelas; ?></h1>
-<div class="row row-cols-1 row-cols-md-3 g-4">
+<div class="row row-cols-1 row-cols-md-3">
     <?php $i = 1; ?>
     <?php foreach ($kelasmapelsiswa as $kms) : ?>
-        <div class="col">
-            <div class="card">
+        <div class="col mb-4">
+            <div class="card h-100">
                 <div class="card-header"><?= $kms->nama_mapel; ?></div>
                 <div class="card-body">
                     <p class="card-text"><?= $kms->nama_guru; ?></p>

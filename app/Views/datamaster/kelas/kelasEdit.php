@@ -13,11 +13,11 @@ if (!isset($_SESSION["login"])) {
             <form action="<?= base_url(); ?>/kelascontroller/update/<?= $kelas['id_kelas']; ?>" method="post">
                 <?= csrf_field(); ?>
                 <div class="mb-3">
-                    <label for="nama_kelas" class="form-label">Nama Kelas</label>
+                    <label for="nama_kelas">Nama Kelas</label>
                     <input type="text" class="form-control" id="nama_kelas" name="nama_kelas" value="<?= $kelas['nama_kelas']; ?>" required>
                 </div>
                 <div class="mb-3">
-                    <label for="nip" class="form-label">Nip</label>
+                    <label for="nip">Nip</label>
                     <input type="number" class="form-control" id="nip" name="nip" value="<?= $kelas['nip']; ?>" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Ubah</button>

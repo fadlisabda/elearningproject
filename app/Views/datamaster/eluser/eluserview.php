@@ -7,20 +7,8 @@ if (!isset($_SESSION["login"])) {
 }
 ?>
 <a href="<?= base_url(); ?>/elusercontroller/create" class="btn btn-primary mt-3 mb-3">Tambah Data ElUser</a>
-<?php if (isset($delete)) : ?>
-    <div class="alert alert-success" role="alert">
-        Data Berhasil Di Hapus
-    </div>
-<?php endif; ?>
-<?php if (isset($edit)) : ?>
-    <div class="alert alert-success" role="alert">
-        Data Berhasil Di Edit
-    </div>
-<?php endif; ?>
-<?php if (isset($tambah)) : ?>
-    <div class="alert alert-success" role="alert">
-        Data Berhasil Di Tambah
-    </div>
+<?php if (isset($edit)||isset($tambah)) : ?>
+    <div class="flash-data" data-flashdata="<?= (isset($edit)) ? 'Diedit' : 'Ditambah' ?>"></div>
 <?php endif; ?>
 <table class="table">
     <thead>
@@ -38,7 +26,7 @@ if (!isset($_SESSION["login"])) {
                 <td><?= $eu['username'] ?></td>
                 <td>
                     <a href="<?= base_url(); ?>/elusercontroller/edit/<?= $eu['id']; ?>" class="btn btn-warning">Edit</a>
-                    <a href="<?= base_url(); ?>/elusercontroller/delete/<?= $eu['id']; ?>" class="btn btn-danger" onclick="return confirm('apakah anda yakin?');">Delete</a>
+                    <a href="<?= base_url(); ?>/elusercontroller/delete/<?= $eu['id']; ?>" class="btn btn-danger hapusdata">Delete</a>
                 </td>
             </tr>
         <?php endforeach; ?>

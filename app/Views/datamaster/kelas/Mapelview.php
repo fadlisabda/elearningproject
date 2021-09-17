@@ -8,25 +8,13 @@ if (!isset($_SESSION["login"])) {
 ?>
 <h1 class="text-center">Data Mapel Kelas <?= $namakelas; ?></h1>
 <?php if ($_SESSION["status"] === 'admin') : ?>
-    <a href="<?= base_url(); ?>/kelasmapelcontroller/create?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-primary float-end">Tambah Data Kelas Mapel</a>
+    <a href="<?= base_url(); ?>/kelasmapelcontroller/create?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-primary float-right">Tambah Data Kelas Mapel</a>
 <?php endif; ?>
 <a href="<?= base_url(); ?>/kelascontroller" class="btn btn-danger">Kembali</a>
 <br><br>
 <?php if ($_SESSION["status"] === 'admin') : ?>
-    <?php if (isset($delete)) : ?>
-        <div class="alert alert-success" role="alert">
-            Data Berhasil Di Hapus
-        </div>
-    <?php endif; ?>
-    <?php if (isset($edit)) : ?>
-        <div class="alert alert-success" role="alert">
-            Data Berhasil Di Edit
-        </div>
-    <?php endif; ?>
-    <?php if (isset($tambah)) : ?>
-        <div class="alert alert-success" role="alert">
-            Data Berhasil Di Tambah
-        </div>
+    <?php if (isset($edit)||isset($tambah)) : ?>
+        <div class="flash-data" data-flashdata="<?= (isset($edit)) ? 'Diedit' : 'Ditambah' ?>"></div>
     <?php endif; ?>
 <?php endif; ?>
 
@@ -53,7 +41,7 @@ if (!isset($_SESSION["login"])) {
                         <td>
                             <a href="<?= base_url(); ?>/kelasmapelcontroller/edit/<?= $kmi['id_kelas_mapel']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-warning">Edit</a>
 
-                            <a href="<?= base_url(); ?>/kelasmapelcontroller/delete/<?= $kmi['id_kelas_mapel']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-danger" onclick="return confirm('apakah anda yakin?');">Delete</a>
+                            <a href="<?= base_url(); ?>/kelasmapelcontroller/delete/<?= $kmi['id_kelas_mapel']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-danger hapusdata">Delete</a>
                         </td>
                     <?php endif; ?>
                 </tr>
@@ -63,7 +51,7 @@ if (!isset($_SESSION["login"])) {
 <?php endif; ?>
 
 <?php if ($_SESSION["status"] === 'guru') : ?>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="row row-cols-1 row-cols-md-3">
         <?php $i = 1; ?>
         <?php foreach ($kelasmapel as $km) : ?>
             <?php if ($id === $km->id_kelas) : ?>

@@ -13,15 +13,15 @@ if (!isset($_SESSION["login"])) {
             <form action="<?= base_url(); ?>/kelasmapelcontroller/update/<?= $kelasmapel['id_kelas_mapel']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" method="post">
                 <?= csrf_field(); ?>
                 <div class="mb-3">
-                    <label for="id_mapel" class="form-label">Id Mapel</label>
+                    <label for="id_mapel">Id Mapel</label>
                     <input type="number" class="form-control" id="id_mapel" name="id_mapel" value="<?= $kelasmapel['id_mapel']; ?>" required>
                 </div>
                 <div class=" mb-3">
-                    <label for="id_kelas" class="form-label">Id Kelas</label>
+                    <label for="id_kelas">Id Kelas</label>
                     <input type="number" class="form-control" id="id_kelas" name="id_kelas" value="<?= $kelasmapel['id_kelas']; ?>" required>
                 </div>
                 <div class=" mb-3">
-                    <label for="nip" class="form-label">NIP</label>
+                    <label for="nip">NIP</label>
                     <input type="number" class="form-control" id="nip" name="nip" value="<?= $kelasmapel['nip']; ?>" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Edit</button>
