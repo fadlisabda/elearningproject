@@ -15,6 +15,8 @@ if (!isset($_SESSION["login"])) {
                 <input type="hidden" name="namamapel" value="<?= $_GET['namamapel']; ?>">
                 <input type="hidden" name="namakelas" value="<?= $_GET['namakelas']; ?>">
                 <input type="hidden" name="namaguru" value="<?= $_GET['namaguru']; ?>">
+                <input type="hidden" name="username" value="<?= $_SESSION['username']; ?>">
+                <input type="hidden" name="status" value="<?= $_SESSION['status']; ?>">
                 <div class="mb-3">
                     <label for="judul">judul</label>
                     <input type="text" class="form-control" id="judul" name="judul" required>
@@ -29,7 +31,7 @@ if (!isset($_SESSION["login"])) {
                 </div>
                 <div class="mb-3">
                     <label for="link">Link</label>
-                    <input type="text" class="form-control" id="link" name="link">
+                    <input type="text" class="form-control" id="link" name="link" placeholder="PISAH DENGAN SPASI JIKA INGIN INPUT LEBIH DARI 1 LINK">
                 </div>
                 <div class="mb-3">
                     <label for="tenggat">Tenggat</label>
@@ -37,9 +39,8 @@ if (!isset($_SESSION["login"])) {
                 </div>
                 <label for="tipe">Tipe</label>
                 <select class="custom-select mb-3" id="tipe" name="tipe">
-                    <option value="absen">Absen</option>
-                    <option value="kuis">Kuis</option>
-                    <option value="tugasmateri">Tugas Materi</option>
+                    <option value="materi">Materi</option>
+                    <option value="tugas">Tugas</option>
                 </select>
                 <button type="submit" class="btn btn-primary">Tambah</button>
                 <a href="<?= base_url(); ?>/detailmapelcontroller/index/<?= $_GET['idkelas']; ?>/<?= $_GET['namamapel']; ?>/<?= $_GET['namakelas']; ?>/<?= $_GET['namaguru']; ?>" class="btn btn-danger">Kembali</a>

@@ -36,9 +36,8 @@ if (!isset($_SESSION["login"])) {
                 </div>
                 <label for="tipe">Tipe</label>
                 <select class="custom-select mb-3" id="tipe" name="tipe">
-                    <option <?= ($detailmapel->getResult()[0]->tipe == "absen") ? "selected" : "" ?> value="absen">Absen</option>
-                    <option <?= ($detailmapel->getResult()[0]->tipe == "kuis") ? "selected" : "" ?> value="kuis">Kuis</option>
-                    <option <?= ($detailmapel->getResult()[0]->tipe == "tugasmateri") ? "selected" : "" ?> value="tugasmateri">Tugas Materi</option>
+                    <option <?= ($detailmapel->getResult()[0]->tipe == "materi") ? "selected" : "" ?> value="materi">Materi</option>
+                    <option <?= ($detailmapel->getResult()[0]->tipe == "tugas") ? "selected" : "" ?> value="tugas">Tugas</option>
                 </select>
                 <button type="submit" class="btn btn-primary">Ubah</button>
                 <a href="<?= base_url(); ?>/detailmapelcontroller/index/<?= $_GET['idkelas']; ?>/<?= $_GET['namamapel']; ?>/<?= $_GET['namakelas']; ?>/<?= $_GET['namaguru']; ?>" class="btn btn-danger">Kembali</a>
