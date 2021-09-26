@@ -11,6 +11,9 @@ if (!isset($_SESSION["login"])) {
     <?php if (isset($edit) || isset($tambah)) : ?>
         <div class="flash-data" data-flashdata="<?= (isset($edit)) ? 'Diedit' : 'Ditambah' ?>"></div>
     <?php endif; ?>
+    <?php if (isset($delete)) : ?>
+        <div class="flash-data" data-flashdata="Dihapus"></div>
+    <?php endif; ?>
 <?php endif; ?>
 <table class="table">
     <thead>

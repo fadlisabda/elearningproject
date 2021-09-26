@@ -7,6 +7,12 @@ if (!isset($_SESSION["login"])) {
     exit;
 }
 ?>
+<?php if (isset($tambah)) : ?>
+    <div class="flash-data" data-flashdata="Ditambah"></div>
+<?php endif; ?>
+<?php if (isset($delete)) : ?>
+    <div class="flash-data" data-flashdata="Dihapus"></div>
+<?php endif; ?>
 <div class="container mt-3">
 
     <div class="row">

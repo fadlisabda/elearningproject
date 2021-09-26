@@ -47,8 +47,10 @@ class komentarController extends BaseController
             'tipe' => $this->request->getVar('tipe')
         ];
         $this->builder->insert($data);
+        $tambah = true;
         $data = [
             'id' => $id,
+            'tambah' => $tambah,
             'idkelas' => $_GET['idkelas'],
             'namamapel' => $_GET['namamapel'],
             'namakelas' => $_GET['namakelas'],

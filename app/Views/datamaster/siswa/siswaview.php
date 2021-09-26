@@ -7,8 +7,11 @@ if (!isset($_SESSION["login"])) {
 }
 ?>
 <a href="<?= base_url(); ?>/siswacontroller/create" class="btn btn-primary mt-3 mb-3">Tambah Data Siswa</a>
-<?php if (isset($edit)||isset($tambah)) : ?>
+<?php if (isset($edit) || isset($tambah)) : ?>
     <div class="flash-data" data-flashdata="<?= (isset($edit)) ? 'Diedit' : 'Ditambah' ?>"></div>
+<?php endif; ?>
+<?php if (isset($delete)) : ?>
+    <div class="flash-data" data-flashdata="Dihapus"></div>
 <?php endif; ?>
 <table class="table">
     <thead>

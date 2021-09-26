@@ -13,8 +13,11 @@ if (!isset($_SESSION["login"])) {
 <a href="<?= base_url(); ?>/kelascontroller" class="btn btn-danger">Kembali</a>
 <br><br>
 <?php if ($_SESSION["status"] === 'admin') : ?>
-    <?php if (isset($edit)||isset($tambah)) : ?>
+    <?php if (isset($edit) || isset($tambah)) : ?>
         <div class="flash-data" data-flashdata="<?= (isset($edit)) ? 'Diedit' : 'Ditambah' ?>"></div>
+    <?php endif; ?>
+    <?php if (isset($delete)) : ?>
+        <div class="flash-data" data-flashdata="Dihapus"></div>
     <?php endif; ?>
 <?php endif; ?>
 <table class="table">

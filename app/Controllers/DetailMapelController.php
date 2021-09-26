@@ -180,8 +180,10 @@ class DetailMapelController extends BaseController
                 }
                 $this->dataModel->where('id_tugassiswa', $_GET['idtugassiswa'])->delete();
             }
+            $delete = true;
             $data = [
                 'title' => 'Detail Mapel Siswa',
+                'delete' => $delete,
                 'id' => $id,
                 'tugassiswa' => $this->dataModel->getdata(),
                 'tugassiswaid' => $this->dataModel->getdata($id),
@@ -255,9 +257,11 @@ class DetailMapelController extends BaseController
             'linktugas' => (empty($this->request->getVar('link'))) ?  null : $this->request->getVar('link')
         ]);
         $this->builder->where('id_detailmapel', $id);
+        $tambah = true;
         $data = [
             'title' => 'Detail Mapel Siswa',
             'id' => $id,
+            'tambah' => $tambah,
             'tugassiswa' => $this->dataModel->getdata(),
             'tugassiswaid' => $this->dataModel->getdata($id),
             'detailmapel' => $this->builder->get()
