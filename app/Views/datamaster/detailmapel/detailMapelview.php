@@ -11,8 +11,6 @@ if (!isset($_SESSION["login"])) {
 <div class="container">
     <a href="<?= base_url(); ?>/detailmapelcontroller/create?idkelas=<?= $idkelas ?>&namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-primary float-left">Tambah Data Detail Mapel</a>
 
-    <a href="<?= base_url(); ?>/detailmapelcontroller/tugaskelas?idkelas=<?= $idkelas ?>&namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-info ml-2">Tugas Kelas</a>
-
     <?php if ($_SESSION['status'] === 'guru') : ?>
         <a href="<?= base_url(); ?>/kelasmapelcontroller/index/<?= $idkelas ?>/<?= $namakelas ?>" class="btn btn-danger float-right">Kembali</a>
     <?php endif; ?>

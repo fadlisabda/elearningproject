@@ -191,19 +191,6 @@ class DetailMapelController extends BaseController
         }
     }
 
-    public function tugaskelas()
-    {
-        $data = [
-            'title' => 'ELEARNING - Tugas Kelas',
-            'idkelas' => $_GET['idkelas'],
-            'namamapel' => $_GET['namamapel'],
-            'namakelas' => $_GET['namakelas'],
-            'namaguru' => $_GET['namaguru'],
-            'tugaskelas' => $this->builder->get()
-        ];
-        return view('datamaster/detailmapel/tugasKelasView', $data);
-    }
-
     public function tugassiswa($id)
     {
         $this->builder->where('id_detailmapel', $id);
