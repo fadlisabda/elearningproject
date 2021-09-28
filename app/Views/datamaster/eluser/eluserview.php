@@ -13,26 +13,28 @@ if (!isset($_SESSION["login"])) {
 <?php if (isset($delete)) : ?>
     <div class="flash-data" data-flashdata="Dihapus"></div>
 <?php endif; ?>
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">NO</th>
-            <th scope="col">USERNAME</th>
-            <th scope="col">AKSI</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php $i = 1; ?>
-        <?php foreach ($eluser as $eu) : ?>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
             <tr>
-                <th scope="row"><?= $i++; ?></th>
-                <td><?= $eu['username'] ?></td>
-                <td>
-                    <a href="<?= base_url(); ?>/elusercontroller/edit/<?= $eu['id']; ?>" class="btn btn-warning">Edit</a>
-                    <a href="<?= base_url(); ?>/elusercontroller/delete/<?= $eu['id']; ?>" class="btn btn-danger hapusdata">Delete</a>
-                </td>
+                <th scope="col">NO</th>
+                <th scope="col">USERNAME</th>
+                <th scope="col">AKSI</th>
             </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <?php $i = 1; ?>
+            <?php foreach ($eluser as $eu) : ?>
+                <tr>
+                    <th scope="row"><?= $i++; ?></th>
+                    <td><?= $eu['username'] ?></td>
+                    <td>
+                        <a href="<?= base_url(); ?>/elusercontroller/edit/<?= $eu['id']; ?>" class="btn btn-warning">Edit</a>
+                        <a href="<?= base_url(); ?>/elusercontroller/delete/<?= $eu['id']; ?>" class="btn btn-danger hapusdata">Delete</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
 <?= $this->endSection(); ?>

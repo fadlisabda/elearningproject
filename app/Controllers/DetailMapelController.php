@@ -91,7 +91,6 @@ class DetailMapelController extends BaseController
     public function update($id, $namamapel, $namakelas, $namaguru)
     {
         $files = $this->request->getFiles();
-        $str = explode('|', $this->request->getVar('filelama'));
         $namaFile = $files['file_upload'][0]->getName();
         $i = 0;
         foreach ($files['file_upload'] as $file) {
@@ -141,7 +140,7 @@ class DetailMapelController extends BaseController
             header("Location: " . base_url() . "/logincontroller");
             exit;
         }
-        if ($_SESSION['status'] === 'guru') {
+        if (empty($_GET['idtugassiswa'])) {
             $this->builder->where('id_detailmapel', $id);
             $file = $this->builder->get();
             $str = explode('|', $file->getResult()[0]->file);
@@ -166,7 +165,7 @@ class DetailMapelController extends BaseController
             return view('datamaster/detailmapel/detailMapelview', $data);
         }
 
-        if ($_SESSION['status'] === 'siswa') {
+        if ($_SESSION['status'] === 'siswa' && !empty($_GET['idtugassiswa'])) {
             $file = $this->dataModel->getDataIdTugasSiswa($_GET['idtugassiswa']);
 
             $str2 = explode('|', $file['filetugas']);
