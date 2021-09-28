@@ -7,7 +7,7 @@ if (!isset($_SESSION["login"])) {
 }
 ?>
 <div class="container">
-    <a href="<?= base_url(); ?>/detailmapelcontroller/index/<?= $_GET['idkelas']; ?>/<?= $detailmapel->getResult()[0]->namamapel; ?>/<?= $detailmapel->getResult()[0]->namakelas; ?>/<?= $detailmapel->getResult()[0]->namaguru; ?>" class="btn btn-warning mt-2 mb-2">Kembali</a>
+    <a href="<?= base_url(); ?>/detailmapelcontroller/index/<?= $detailmapel->getResult()[0]->namamapel; ?>/<?= $detailmapel->getResult()[0]->namakelas; ?>/<?= $detailmapel->getResult()[0]->namaguru; ?>" class="btn btn-warning mt-2 mb-2">Kembali</a>
     <table class="table">
         <thead>
             <tr>

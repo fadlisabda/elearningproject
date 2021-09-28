@@ -9,8 +9,13 @@ if (!isset($_SESSION["login"])) {
 <h1 class="text-center">Data Kelas Siswa <?= $namakelas ?></h1>
 <?php if ($_SESSION["status"] === 'admin') : ?>
     <a href="<?= base_url(); ?>/kelassiswacontroller/create?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-primary float-right">Tambah Data Kelas Siswa</a>
+
+    <a href="<?= base_url(); ?>/kelascontroller" class="btn btn-danger">Kembali</a>
 <?php endif; ?>
-<a href="<?= base_url(); ?>/kelascontroller" class="btn btn-danger">Kembali</a>
+
+<?php if ($_SESSION["status"] === 'guru') : ?>
+    <a href="<?= base_url(); ?>/kelasmapelcontroller/index" class="btn btn-danger">Kembali</a>
+<?php endif; ?>
 <br><br>
 <?php if ($_SESSION["status"] === 'admin') : ?>
     <?php if (isset($edit) || isset($tambah)) : ?>

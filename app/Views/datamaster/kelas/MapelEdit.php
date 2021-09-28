@@ -25,7 +25,7 @@ if (!isset($_SESSION["login"])) {
                     <input type="number" class="form-control" id="nip" name="nip" value="<?= $kelasmapel['nip']; ?>" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Edit</button>
-                <a href="<?= base_url(); ?>/kelasMapelcontroller/index/<?= $id; ?>/<?= $namakelas; ?>" class="btn btn-danger">Kembali</a>
+                <a href="<?= base_url(); ?>/kelasMapelcontroller/admin/<?= $id; ?>/<?= $namakelas; ?>" class="btn btn-danger">Kembali</a>
             </form>
         </div>
     </div>

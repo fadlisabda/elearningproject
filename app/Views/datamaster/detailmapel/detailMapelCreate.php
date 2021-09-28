@@ -10,7 +10,7 @@ if (!isset($_SESSION["login"])) {
     <div class="row">
         <div class="col">
             <h2>Tambah Data Detail Mapel</h2>
-            <form action="<?= base_url(); ?>/detailmapelcontroller/save/<?= $_GET['idkelas']; ?>/<?= $_GET['namamapel']; ?>/<?= $_GET['namakelas']; ?>/<?= $_GET['namaguru']; ?>" method="post" enctype="multipart/form-data">
+            <form action="<?= base_url(); ?>/detailmapelcontroller/save/<?= $_GET['namamapel']; ?>/<?= $_GET['namakelas']; ?>/<?= $_GET['namaguru']; ?>" method="post" enctype="multipart/form-data">
                 <?= csrf_field(); ?>
                 <input type="hidden" name="namamapel" value="<?= $_GET['namamapel']; ?>">
                 <input type="hidden" name="namakelas" value="<?= $_GET['namakelas']; ?>">
@@ -43,7 +43,7 @@ if (!isset($_SESSION["login"])) {
                     <option value="tugas">Tugas</option>
                 </select>
                 <button type="submit" class="btn btn-primary">Tambah</button>
-                <a href="<?= base_url(); ?>/detailmapelcontroller/index/<?= $_GET['idkelas']; ?>/<?= $_GET['namamapel']; ?>/<?= $_GET['namakelas']; ?>/<?= $_GET['namaguru']; ?>" class="btn btn-danger">Kembali</a>
+                <a href="<?= base_url(); ?>/detailmapelcontroller/index/<?= $_GET['namamapel']; ?>/<?= $_GET['namakelas']; ?>/<?= $_GET['namaguru']; ?>" class="btn btn-danger">Kembali</a>
             </form>
             <script>
                 CKEDITOR.replace('keterangan');

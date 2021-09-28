@@ -13,15 +13,26 @@ class kelasMapelcontroller extends BaseController
         $this->db      = \Config\Database::connect();
         $this->builder = $this->db->table('kelas_mapel');
     }
-    public function index($id, $namakelas)
+    public function index()
     {
-        $this->builder->select('kelas_mapel.id_mapel as kelas_mapelid_mapel,id_kelas,nama_mapel,kelas_mapel.nip as kelas_mapelnip,nama_guru,id_kelas_mapel');
+        $this->builder->select('kelas_mapel.id_mapel as kelas_mapelid_mapel,kelas_mapel.id_kelas as kelas_mapelid_kelas,kelas_mapel.nip as kelas_mapelnip,nama_mapel,nama_guru,nama_kelas');
         $this->builder->join('data_mata_pelajaran', 'data_mata_pelajaran.id_mapel = kelas_mapel.id_mapel');
         $this->builder->join('data_guru', 'data_guru.nip = kelas_mapel.nip');
+        $this->builder->join('kelas', 'kelas.id_kelas = kelas_mapel.id_kelas');
+        $this->builder->where('kelas_mapel.nip', $_SESSION["username"]);
         $query = $this->builder->get();
         $data = [
             'title' => 'ELEARNING - Kelas Mapel',
             'kelasmapel' => $query->getResult(),
+            'kelasMapelInsert' => $this->dataModel->getData(),
+        ];
+        return view('datamaster/kelas/Mapelview', $data);
+    }
+
+    public function admin($id, $namakelas)
+    {
+        $data = [
+            'title' => 'ELEARNING - Kelas Mapel',
             'kelasMapelInsert' => $this->dataModel->getData(),
             'id' => $id,
             'namakelas' => $namakelas
@@ -125,7 +136,7 @@ class kelasMapelcontroller extends BaseController
 
     public function siswa()
     {
-        $this->builder->select('kelas_mapel.id_mapel as kelas_mapelid_mapel,kelas_mapel.id_kelas as kelas_mapelid_kelas,nama_kelas,nama_mapel,kelas_mapel.nip as kelas_mapelnip,nama_guru,id_kelas_mapel');
+        $this->builder->select('kelas_mapel.id_mapel as kelas_mapelid_mapel,kelas_mapel.id_kelas as kelas_mapelid_kelas,nama_kelas,nama_mapel,kelas_mapel.nip as kelas_mapelnip,nama_guru');
 
         $this->builder->join('data_mata_pelajaran', 'data_mata_pelajaran.id_mapel = kelas_mapel.id_mapel');
 

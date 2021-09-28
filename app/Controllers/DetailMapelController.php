@@ -14,12 +14,11 @@ class DetailMapelController extends BaseController
         $this->builder = $this->db->table('el_detail_mapel');
     }
 
-    public function index($idkelas, $namamapel, $namakelas, $namaguru)
+    public function index($namamapel, $namakelas, $namaguru)
     {
         $data = [
             'title' => 'ELEARNING - Detail Mapel',
             'detailmapel' => $this->builder->get(),
-            'idkelas' => $idkelas,
             'namamapel' => $namamapel,
             'namakelas' => $namakelas,
             'namaguru' => $namaguru
@@ -36,7 +35,7 @@ class DetailMapelController extends BaseController
         return view('datamaster/detailmapel/detailMapelCreate', $data);
     }
 
-    public function save($idkelas, $namamapel, $namakelas, $namaguru)
+    public function save($namamapel, $namakelas, $namaguru)
     {
         $files = $this->request->getFiles();
         $namaFile = $files['file_upload'][0]->getName();
@@ -71,7 +70,6 @@ class DetailMapelController extends BaseController
             'title' => 'ELEARNING - Detail Mapel',
             'tambah' => $tambah,
             'detailmapel' => $this->builder->get(),
-            'idkelas' => $idkelas,
             'namamapel' => $namamapel,
             'namakelas' => $namakelas,
             'namaguru' => $namaguru
@@ -90,7 +88,7 @@ class DetailMapelController extends BaseController
         return view('datamaster/detailmapel/detailMapelEdit', $data);
     }
 
-    public function update($id, $idkelas, $namamapel, $namakelas, $namaguru)
+    public function update($id, $namamapel, $namakelas, $namaguru)
     {
         $files = $this->request->getFiles();
         $str = explode('|', $this->request->getVar('filelama'));
@@ -130,7 +128,6 @@ class DetailMapelController extends BaseController
             'title' => 'ELEARNING - Detail Mapel',
             'edit' => $edit,
             'detailmapel' => $this->builder->get(),
-            'idkelas' => $idkelas,
             'namamapel' => $namamapel,
             'namakelas' => $namakelas,
             'namaguru' => $namaguru
@@ -162,7 +159,6 @@ class DetailMapelController extends BaseController
                 'title' => 'ELEARNING - Detail Mapel',
                 'delete' => $delete,
                 'detailmapel' => $this->builder->get(),
-                'idkelas' => $_GET['idkelas'],
                 'namamapel' => $_GET['namamapel'],
                 'namakelas' => $_GET['namakelas'],
                 'namaguru' => $_GET['namaguru']
@@ -199,7 +195,6 @@ class DetailMapelController extends BaseController
         $data = [
             'title' => 'ELEARNING - Tugas Siswa',
             'id' => $id,
-            'idkelas' => $_GET['idkelas'],
             'namamapel' => $_GET['namamapel'],
             'namakelas' => $_GET['namakelas'],
             'namaguru' => $_GET['namaguru'],

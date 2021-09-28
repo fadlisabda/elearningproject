@@ -14,14 +14,14 @@ if (!isset($_SESSION["login"])) {
 <?php endif; ?>
 <div class="container">
     <?php if ($_SESSION['status'] == 'siswa') : ?>
-        <a href="<?= base_url() ?>/komentarController/createKomentar/?detailmapelsiswa=<?= $_GET['detailmapelsiswa']; ?>&idkelas=<?= $_GET['idkelas']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&komentar=<?= $_GET['komentar']; ?>" class="btn btn-primary mt-2 mb-2">Tambahkan Komentar</a>
+        <a href="<?= base_url() ?>/komentarController/createKomentar/?detailmapelsiswa=<?= $_GET['detailmapelsiswa']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&komentar=<?= $_GET['komentar']; ?>" class="btn btn-primary mt-2 mb-2">Tambahkan Komentar</a>
     <?php endif; ?>
 
     <?php if ($_SESSION['status'] == 'guru' && $_GET['komentar'] == 'kelas') : ?>
-        <a href="<?= base_url() ?>/komentarController/createKomentar/?detailmapelsiswa=<?= $_GET['detailmapelsiswa']; ?>&idkelas=<?= $_GET['idkelas']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&komentar=<?= $_GET['komentar']; ?>" class="btn btn-primary mt-2 mb-2">Tambahkan Komentar</a>
+        <a href="<?= base_url() ?>/komentarController/createKomentar/?detailmapelsiswa=<?= $_GET['detailmapelsiswa']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&komentar=<?= $_GET['komentar']; ?>" class="btn btn-primary mt-2 mb-2">Tambahkan Komentar</a>
     <?php endif; ?>
 
-    <a href="<?= base_url(); ?>/detailmapelcontroller/siswa/<?= $_GET['detailmapelsiswa']; ?>?idkelas=<?= $_GET['idkelas']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru'] ?>" class="btn btn-danger mb-2 mt-2">Kembali</a>
+    <a href="<?= base_url(); ?>/detailmapelcontroller/siswa/<?= $_GET['detailmapelsiswa']; ?>?namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru'] ?>" class="btn btn-danger mb-2 mt-2">Kembali</a>
     <table class="table">
         <thead>
             <tr>
@@ -51,7 +51,7 @@ if (!isset($_SESSION["login"])) {
                         </td>
                         <?php if ($k->tipe == 'siswa') : ?>
                             <td>
-                                <a href="<?= base_url(); ?>/komentarcontroller/delete/<?= $k->id_komentar; ?>?detailmapelsiswa=<?= $_GET['detailmapelsiswa']; ?>&idkelas=<?= $_GET['idkelas']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&status=<?= $_GET['komentar']; ?>" class="btn btn-danger hapusdata">Delete</a>
+                                <a href="<?= base_url(); ?>/komentarcontroller/delete/<?= $k->id_komentar; ?>?detailmapelsiswa=<?= $_GET['detailmapelsiswa']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&status=<?= $_GET['komentar']; ?>" class="btn btn-danger hapusdata">Delete</a>
                             </td>
                         <?php endif; ?>
                     </tr>
@@ -73,12 +73,12 @@ if (!isset($_SESSION["login"])) {
                         </td>
                         <?php if ($k->username == $_SESSION['username'] && $_SESSION['status'] == 'siswa') : ?>
                             <td>
-                                <a href="<?= base_url(); ?>/komentarcontroller/delete/<?= $k->id_komentar; ?>?detailmapelsiswa=<?= $_GET['detailmapelsiswa']; ?>&idkelas=<?= $_GET['idkelas']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&status=<?= $_GET['komentar']; ?>" class="btn btn-danger hapusdata">Delete</a>
+                                <a href="<?= base_url(); ?>/komentarcontroller/delete/<?= $k->id_komentar; ?>?detailmapelsiswa=<?= $_GET['detailmapelsiswa']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&status=<?= $_GET['komentar']; ?>" class="btn btn-danger hapusdata">Delete</a>
                             </td>
                         <?php endif; ?>
                         <?php if ($_SESSION['status'] == 'guru') : ?>
                             <td>
-                                <a href="<?= base_url(); ?>/komentarcontroller/delete/<?= $k->id_komentar; ?>?detailmapelsiswa=<?= $_GET['detailmapelsiswa']; ?>&idkelas=<?= $_GET['idkelas']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&status=<?= $_GET['komentar']; ?>" class="btn btn-danger hapusdata">Delete</a>
+                                <a href="<?= base_url(); ?>/komentarcontroller/delete/<?= $k->id_komentar; ?>?detailmapelsiswa=<?= $_GET['detailmapelsiswa']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&status=<?= $_GET['komentar']; ?>" class="btn btn-danger hapusdata">Delete</a>
                             </td>
                         <?php endif; ?>
                     </tr>
@@ -99,9 +99,9 @@ if (!isset($_SESSION["login"])) {
                             ?>
                         </td>
                         <td>
-                            <a href="<?= base_url() ?>/komentarController/createKomentar/?detailmapelsiswa=<?= $_GET['detailmapelsiswa']; ?>&idkelas=<?= $_GET['idkelas']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&komentar=<?= $_GET['komentar']; ?>&username=<?= $k->username ?>" class="btn btn-primary mt-2 mb-2">Balas Komentar</a>
+                            <a href="<?= base_url() ?>/komentarController/createKomentar/?detailmapelsiswa=<?= $_GET['detailmapelsiswa']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&komentar=<?= $_GET['komentar']; ?>&username=<?= $k->username ?>" class="btn btn-primary mt-2 mb-2">Balas Komentar</a>
 
-                            <a href="<?= base_url(); ?>/komentarcontroller/delete/<?= $k->id_komentar; ?>?detailmapelsiswa=<?= $_GET['detailmapelsiswa']; ?>&idkelas=<?= $_GET['idkelas']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&status=<?= $_GET['komentar']; ?>" class="btn btn-danger hapusdata">Delete</a>
+                            <a href="<?= base_url(); ?>/komentarcontroller/delete/<?= $k->id_komentar; ?>?detailmapelsiswa=<?= $_GET['detailmapelsiswa']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&status=<?= $_GET['komentar']; ?>" class="btn btn-danger hapusdata">Delete</a>
                         </td>
                     </tr>
                 <?php endif; ?>

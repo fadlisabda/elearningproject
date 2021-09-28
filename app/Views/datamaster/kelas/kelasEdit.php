@@ -10,15 +10,15 @@ if (!isset($_SESSION["login"])) {
     <div class="row">
         <div class="col">
             <h2>Ubah Data Kelas</h2>
-            <form action="<?= base_url(); ?>/kelascontroller/update/<?= $kelas['id_kelas']; ?>" method="post">
+            <form action="<?= base_url(); ?>/kelascontroller/update/<?= $kelas[0]->id_kelas; ?>" method="post">
                 <?= csrf_field(); ?>
                 <div class="mb-3">
                     <label for="nama_kelas">Nama Kelas</label>
-                    <input type="text" class="form-control" id="nama_kelas" name="nama_kelas" value="<?= $kelas['nama_kelas']; ?>" required>
+                    <input type="text" class="form-control" id="nama_kelas" name="nama_kelas" value="<?= $kelas[0]->nama_kelas; ?>" required>
                 </div>
                 <div class="mb-3">
                     <label for="nip">Nip</label>
-                    <input type="number" class="form-control" id="nip" name="nip" value="<?= $kelas['nip']; ?>" required>
+                    <input type="number" class="form-control" id="nip" name="nip" value="<?= $kelas[0]->nip; ?>" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Ubah</button>
                 <a href="<?= base_url(); ?>/kelascontroller" class="btn btn-danger">Kembali</a>

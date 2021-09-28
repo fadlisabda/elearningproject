@@ -51,14 +51,13 @@ class komentarController extends BaseController
         $data = [
             'id' => $id,
             'tambah' => $tambah,
-            'idkelas' => $_GET['idkelas'],
             'namamapel' => $_GET['namamapel'],
             'namakelas' => $_GET['namakelas'],
             'namaguru' => $_GET['namaguru'],
             'komentar' => $_GET['komentar']
         ];
 
-        return redirect()->to(base_url() . '/komentarController/index/?detailmapelsiswa=' . $data['id'] . '&idkelas=' . $data['idkelas'] . '&namamapel=' . $data['namamapel'] . '&namakelas=' . $data['namakelas'] . '&namaguru=' . $data['namaguru'] . '&komentar=' . $data['komentar'] . '&tambah=true');
+        return redirect()->to(base_url() . '/komentarController/index/?detailmapelsiswa=' . $data['id'] . '&namamapel=' . $data['namamapel'] . '&namakelas=' . $data['namakelas'] . '&namaguru=' . $data['namaguru'] . '&komentar=' . $data['komentar'] . '&tambah=true');
     }
 
     public function delete($id)
@@ -69,13 +68,12 @@ class komentarController extends BaseController
         }
         $this->builder->delete(['id_komentar' => $id]);
         $data = [
-            'idkelas' => $_GET['idkelas'],
             'id' => $_GET['detailmapelsiswa'],
             'namamapel' => $_GET['namamapel'],
             'namakelas' => $_GET['namakelas'],
             'namaguru' => $_GET['namaguru'],
             'status' => $_GET['status']
         ];
-        return redirect()->to(base_url() . '/komentarController/index/?detailmapelsiswa=' . $data['id'] . '&idkelas=' . $data['idkelas'] . '&namamapel=' . $data['namamapel'] . '&namakelas=' . $data['namakelas'] . '&namaguru=' . $data['namaguru'] . '&komentar=' . $data['status'] . '&delete=true');
+        return redirect()->to(base_url() . '/komentarController/index/?detailmapelsiswa=' . $data['id'] . '&namamapel=' . $data['namamapel'] . '&namakelas=' . $data['namakelas'] . '&namaguru=' . $data['namaguru'] . '&komentar=' . $data['status'] . '&delete=true');
     }
 }

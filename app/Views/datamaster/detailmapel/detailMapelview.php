@@ -9,10 +9,10 @@ if (!isset($_SESSION["login"])) {
 <h1 class="text-center">Detail Mapel <?= $namamapel ?> Kelas <?= $namakelas ?></h1>
 <h4 class="text-center">Guru : <?= $namaguru ?></h4>
 <div class="container">
-    <a href="<?= base_url(); ?>/detailmapelcontroller/create?idkelas=<?= $idkelas ?>&namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-primary float-left">Tambah Data Detail Mapel</a>
+    <a href="<?= base_url(); ?>/detailmapelcontroller/create?namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-primary float-left">Tambah Data Detail Mapel</a>
 
     <?php if ($_SESSION['status'] === 'guru') : ?>
-        <a href="<?= base_url(); ?>/kelasmapelcontroller/index/<?= $idkelas ?>/<?= $namakelas ?>" class="btn btn-danger float-right">Kembali</a>
+        <a href="<?= base_url(); ?>/kelasmapelcontroller/index/" class="btn btn-danger float-right">Kembali</a>
     <?php endif; ?>
     <?php if ($_SESSION['status'] === 'siswa') : ?>
         <a href="<?= base_url(); ?>/kelasmapelcontroller/siswa/" class="btn btn-danger float-right">Kembali</a>
@@ -87,14 +87,13 @@ if (!isset($_SESSION["login"])) {
                         </td>
                         <td>
                             <?php if ($_SESSION['status'] === 'guru') : ?>
-                                <a href="<?= base_url(); ?>/detailmapelcontroller/edit/<?= $dm->id_detailmapel; ?>?idkelas=<?= $idkelas ?>&namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-warning">Edit</a>
+                                <a href="<?= base_url(); ?>/detailmapelcontroller/edit/<?= $dm->id_detailmapel; ?>?namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-warning">Edit</a>
 
-                                <a href="<?= base_url(); ?>/detailmapelcontroller/delete/<?= $dm->id_detailmapel; ?>?idkelas=<?= $idkelas ?>&namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-danger hapusdata">Delete</a>
-                                <?php if ($dm->tipe === 'tugas') : ?>
-                                    <a href="<?= base_url(); ?>/detailmapelcontroller/tugassiswa/<?= $dm->id_detailmapel; ?>?idkelas=<?= $idkelas ?>&namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-info">Tugas Siswa</a>
-                                <?php endif; ?>
+                                <a href="<?= base_url(); ?>/detailmapelcontroller/delete/<?= $dm->id_detailmapel; ?>?namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-danger hapusdata">Delete</a>
+
+                                <a href="<?= base_url(); ?>/detailmapelcontroller/tugassiswa/<?= $dm->id_detailmapel; ?>?namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-info">Tugas Siswa</a>
                             <?php endif; ?>
-                            <a href="<?= base_url(); ?>/detailmapelcontroller/siswa/<?= $dm->id_detailmapel; ?>?idkelas=<?= $idkelas ?>&idkelas=<?= $idkelas ?>&namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-primary">Detail</a>
+                            <a href="<?= base_url(); ?>/detailmapelcontroller/siswa/<?= $dm->id_detailmapel; ?>?namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-primary">Detail</a>
                         </td>
                     <?php endif; ?>
                 </tr>

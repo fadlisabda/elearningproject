@@ -46,9 +46,9 @@ if (!isset($_SESSION["login"])) {
                     }
                     ?>
                     <hr>
-                    <a href="<?= base_url() ?>/komentarController/index/?detailmapelsiswa=<?= $detailmapel->getResult()[0]->id_detailmapel; ?>&idkelas=<?= $_GET['idkelas']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&komentar=kelas" class="btn btn-info mt-2">Komentar Kelas</a>
+                    <a href="<?= base_url() ?>/komentarController/index/?detailmapelsiswa=<?= $detailmapel->getResult()[0]->id_detailmapel; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&komentar=kelas" class="btn btn-info mt-2">Komentar Kelas</a>
 
-                    <a href="<?= base_url(); ?>/detailmapelcontroller/index/<?= $_GET['idkelas']; ?>/<?= $detailmapel->getResult()[0]->namamapel; ?>/<?= $detailmapel->getResult()[0]->namakelas; ?>/<?= $detailmapel->getResult()[0]->namaguru; ?>" class="btn btn-warning mt-2">Kembali</a>
+                    <a href="<?= base_url(); ?>/detailmapelcontroller/index/<?= $detailmapel->getResult()[0]->namamapel; ?>/<?= $detailmapel->getResult()[0]->namakelas; ?>/<?= $detailmapel->getResult()[0]->namaguru; ?>" class="btn btn-warning mt-2">Kembali</a>
                 </div>
             </div>
         </div>
@@ -96,17 +96,17 @@ if (!isset($_SESSION["login"])) {
                                     }
                                 }
                     ?>
-                    <a href="<?= base_url(); ?>/detailmapelcontroller/delete/<?= $detailmapel->getResult()[0]->id_detailmapel; ?>?idtugassiswa=<?= $ts['id_tugassiswa']; ?>&idkelas=<?= $_GET['idkelas']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru'] ?>" class="btn btn-danger mt-2 hapusdata">Batal</a>
+                    <a href="<?= base_url(); ?>/detailmapelcontroller/delete/<?= $detailmapel->getResult()[0]->id_detailmapel; ?>?idtugassiswa=<?= $ts['id_tugassiswa']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru'] ?>" class="btn btn-danger mt-2 hapusdata">Batal</a>
                 <?php endif; ?>
             <?php endforeach; ?>
             <?php if ($tugassiswaid == null && $_SESSION['status'] == 'siswa') : ?>
-                <a href="<?= base_url() ?>/detailmapelcontroller/createSiswa/?detailmapelsiswa=<?= $detailmapel->getResult()[0]->id_detailmapel; ?>&idkelas=<?= $_GET['idkelas']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>" class="btn btn-dark mt-2">Kumpul Tugas</a>
+                <a href="<?= base_url() ?>/detailmapelcontroller/createSiswa/?detailmapelsiswa=<?= $detailmapel->getResult()[0]->id_detailmapel; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>" class="btn btn-dark mt-2">Kumpul Tugas</a>
             <?php endif; ?>
             <?php if ($tugassiswaid != null) : ?>
-                <a href="<?= base_url() ?>/detailmapelcontroller/createSiswa/?detailmapelsiswa=<?= $detailmapel->getResult()[0]->id_detailmapel; ?>&idkelas=<?= $_GET['idkelas']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>"></a>
+                <a href="<?= base_url() ?>/detailmapelcontroller/createSiswa/?detailmapelsiswa=<?= $detailmapel->getResult()[0]->id_detailmapel; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>"></a>
             <?php endif; ?>
 
-            <a href="<?= base_url() ?>/komentarController/index/?detailmapelsiswa=<?= $detailmapel->getResult()[0]->id_detailmapel; ?>&idkelas=<?= $_GET['idkelas']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&komentar=pribadi" class="btn btn-info mt-2">Komentar Pribadi</a>
+            <a href="<?= base_url() ?>/komentarController/index/?detailmapelsiswa=<?= $detailmapel->getResult()[0]->id_detailmapel; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&komentar=pribadi" class="btn btn-info mt-2">Komentar Pribadi</a>
                 </div>
             </div>
         </div>
