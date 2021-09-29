@@ -16,11 +16,10 @@ if (!isset($_SESSION["login"])) {
 <div class="container mt-3">
 
     <div class="row">
-        <div class="col-9">
+        <div class="col-sm-9">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title float-right">Tenggat : <?= $detailmapel->getResult()[0]->tenggat; ?></h5>
-
+                    <h5 class="card-title float-sm-right">Tenggat : <?= $detailmapel->getResult()[0]->tenggat; ?></h5>
                     <h5 class="card-title"><?= $detailmapel->getResult()[0]->judul; ?></h5>
 
                     <h6 class="card-subtitle mb-2 text-muted"><?= $detailmapel->getResult()[0]->namaguru; ?></h6>
@@ -33,7 +32,7 @@ if (!isset($_SESSION["login"])) {
                     <?php
                     $str = explode('|', $detailmapel->getResult()[0]->file);
                     for ($i = 0; $i < count($str); $i++) {
-                        echo '-' . '<a href=' . base_url() . '/public/file/' .  $str[$i]  . ' target=_blank>' . wordwrap($str[$i], 25, "<br>", TRUE) . '</a><br>';
+                        echo '<i class="bi bi-cursor btn-outline-info"></i>' . '<a href=' . base_url() . '/public/file/' .  $str[$i]  . ' target=_blank>' . wordwrap($str[$i], 25, "<br>", TRUE) . '</a><br>';
                     }
                     ?>
                     <br>
@@ -41,7 +40,7 @@ if (!isset($_SESSION["login"])) {
                     if (!empty($detailmapel->getResult()[0]->link)) {
                         $str = explode(' ', $detailmapel->getResult()[0]->link);
                         for ($j = 0; $j < count($str); $j++) {
-                            echo '-' . '<a href=' . $str[$j] . ' target=_blank>' . wordwrap($str[$j], 25, "<br>", TRUE) . '</a><br>';
+                            echo '<i class="bi bi-cursor btn-outline-info"></i>' . '<a href=' . $str[$j] . ' target=_blank>' . wordwrap($str[$j], 25, "<br>", TRUE) . '</a><br>';
                         }
                     }
                     ?>
@@ -52,7 +51,8 @@ if (!isset($_SESSION["login"])) {
                 </div>
             </div>
         </div>
-        <div class="col-3">
+
+        <div class="col-sm-3 mt-3">
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">Tugas Anda</h5>
@@ -84,7 +84,7 @@ if (!isset($_SESSION["login"])) {
                                 if (!empty($ts['filetugas'])) {
                                     $str = explode('|', $ts['filetugas']);
                                     for ($i = 0; $i < count($str); $i++) {
-                                        echo '-' . '<a href=' . base_url() . '/public/file/' .  $str[$i]  . ' target=_blank class=card-link>' . wordwrap($str[$i], 25, "<br>", TRUE) . '</a><br>';
+                                        echo '<i class="bi bi-cursor btn-outline-info"></i>' . '<a href=' . base_url() . '/public/file/' .  $str[$i]  . ' target=_blank class=card-link>' . wordwrap($str[$i], 25, "<br>", TRUE) . '</a><br>';
                                     }
                                 }
                     ?>
@@ -92,7 +92,7 @@ if (!isset($_SESSION["login"])) {
                                 if (!empty($ts['linktugas'])) {
                                     $str = explode(' ', $ts['linktugas']);
                                     for ($j = 0; $j < count($str); $j++) {
-                                        echo '-' . '<a href=' . $str[$j] . ' target=_blank class=card-link>' . wordwrap($str[$j], 25, "<br>", TRUE) . '</a><br>';
+                                        echo '<i class="bi bi-cursor btn-outline-info"></i>' . '<a href=' . $str[$j] . ' target=_blank class=card-link>' . wordwrap($str[$j], 25, "<br>", TRUE) . '</a><br>';
                                     }
                                 }
                     ?>

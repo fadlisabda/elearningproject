@@ -6,7 +6,7 @@ if (isset($_SESSION["login"])) {
     exit;
 }
 ?>
-<div class="d-flex justify-content-center">
+<div class="container d-flex justify-content-center" style="margin-top: 10%;">
     <div class="row">
         <div class="col">
             <h1>ELEARNING - Login</h1>
