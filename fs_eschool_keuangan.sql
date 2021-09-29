@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 07, 2021 at 06:16 AM
+-- Generation Time: Sep 29, 2021 at 08:33 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -122,8 +122,8 @@ INSERT INTO `data_guru` (`id_guru`, `nip`, `nama_guru`, `tempat_lahir`, `tgl_lah
 (3, '2234555', 'Arini Fitria', 'pekanbaru', NULL, '08848466589', 'jl umban sari', '', NULL, NULL, NULL),
 (4, '12345346575', 'yuni hastuti', 'padang', NULL, '0823456786', 'pandau permai', 'GVT_5303.jpg', NULL, NULL, NULL),
 (5, '8840402728', 'ahmad dahlan', 'padang ', '1967-10-10', '882734778990', 'jl siak', 'GVT_5292.jpg', NULL, NULL, NULL),
-(6, '1234455', 'willy', 'pekanbaru', '1996-03-11', '08232143553', 'pandau', 'karyawan.jpg', NULL, NULL, NULL),
-(7, '12345667', 'maulida sari', 'padang sidempuan', NULL, '08127571706', 'Jl. KH Nasution No.990', '', NULL, NULL, NULL);
+(132, '1234455', 'willy', 'pekanbaru', '1996-03-11', '08232143553', 'pandau', 'karyawan.jpg', NULL, NULL, NULL),
+(133, '12345667', 'maulida sari', 'padang sidempuan', NULL, '08127571706', 'Jl. KH Nasution No.990', '', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -170,23 +170,76 @@ CREATE TABLE `el_detail_mapel` (
   `namamapel` varchar(255) NOT NULL,
   `namakelas` varchar(255) NOT NULL,
   `namaguru` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
   `judul` varchar(255) NOT NULL,
   `keterangan` longtext NOT NULL,
   `file` varchar(255) DEFAULT NULL,
   `link` varchar(255) DEFAULT NULL,
-  `tugassiswa` varchar(255) DEFAULT NULL,
   `tenggat` datetime NOT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL
+  `tipe` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `el_detail_mapel`
 --
 
-INSERT INTO `el_detail_mapel` (`id_detailmapel`, `namamapel`, `namakelas`, `namaguru`, `judul`, `keterangan`, `file`, `link`, `tugassiswa`, `tenggat`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(139, 'Kimia', 'I A', 'willy', 'qwe', '<p>qwe</p>\r\n', 'ProgrammerPragmatis,The_FromJourneymantoMasterAndrewHuntDavidThomas.pdf|104ThePragmaticProgrammer,FromJourneymanToMaster-AndrewHunt,DavidThomas-AddisonWesley-1999.pdf', '', NULL, '2021-09-04 16:50:00', '2021-09-04 04:45:50', '2021-09-04 04:45:50', NULL);
+INSERT INTO `el_detail_mapel` (`id_detailmapel`, `namamapel`, `namakelas`, `namaguru`, `username`, `judul`, `keterangan`, `file`, `link`, `tenggat`, `tipe`, `status`) VALUES
+(2, 'Pendidikan Olahraga', 'I B', 'Arini Fitria', '2234555', 'qwe', '', NULL, NULL, '0000-00-00 00:00:00', 'materi', 'guru'),
+(9, 'Pendidikan Olahraga', 'I B', 'Arini Fitria', '123', 'tes', '', NULL, NULL, '0000-00-00 00:00:00', 'materi', 'siswa'),
+(11, 'Kimia', 'I A', 'Arini Fitria', '2234555', 'tes', '', NULL, NULL, '0000-00-00 00:00:00', 'materi', 'guru');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `el_komentar`
+--
+
+CREATE TABLE `el_komentar` (
+  `id_komentar` int(11) NOT NULL,
+  `id_detailmapel` varchar(255) NOT NULL,
+  `namamapel` varchar(255) NOT NULL,
+  `namakelas` varchar(255) NOT NULL,
+  `namaguru` varchar(255) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `komentar` longtext NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `tipe` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `el_komentar`
+--
+
+INSERT INTO `el_komentar` (`id_komentar`, `id_detailmapel`, `namamapel`, `namakelas`, `namaguru`, `username`, `komentar`, `status`, `tipe`) VALUES
+(1, '4', '1', 'Kimia', 'I A', '2234555', '<p>tes</p>\r\n', 'kelas', 'guru'),
+(3, '4', '1', 'Kimia', 'I A', '3129164448', '<p>ya</p>\r\n', 'kelas', 'siswa'),
+(4, '4', '1', 'Kimia', 'I A', '3129164448', '<p>pak</p>\r\n', 'pribadi', 'siswa'),
+(5, '4', '1', 'Kimia', 'I A', '3129164448', '<p>goblok</p>\r\n', 'pribadi', 'guru');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `el_tugas_siswa`
+--
+
+CREATE TABLE `el_tugas_siswa` (
+  `id_tugassiswa` int(11) NOT NULL,
+  `id_detailmapel` varchar(255) NOT NULL,
+  `namamapel` varchar(255) NOT NULL,
+  `namakelas` varchar(255) NOT NULL,
+  `namaguru` varchar(255) NOT NULL,
+  `nis` varchar(100) NOT NULL,
+  `filetugas` varchar(255) DEFAULT NULL,
+  `linktugas` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `el_tugas_siswa`
+--
+
+INSERT INTO `el_tugas_siswa` (`id_tugassiswa`, `id_detailmapel`, `namamapel`, `namakelas`, `namaguru`, `nis`, `filetugas`, `linktugas`) VALUES
+(20, '11', 'Kimia', 'I A', 'Arini Fitria', '3129164448', NULL, 'tes');
 
 -- --------------------------------------------------------
 
@@ -206,9 +259,11 @@ CREATE TABLE `el_user` (
 --
 
 INSERT INTO `el_user` (`id`, `username`, `password`, `status`) VALUES
-(12, '3115864953', '$2y$10$SVC3xS7rw8KIOBl3UNGyt.n3DSJDuzEBw9omlp6Ydb.by1eP42yb6', 'admin'),
-(13, '123', '$2y$10$15vG.jQvlznLCTQs/sIBgunJKGaAiQSFoAj7HvMqAQld2fWilfHLe', 'guru'),
-(14, '3129164448', '$2y$10$sn4qRDc.T8Y.aDgFy2UYhumVuzBwCX3yjBNEb2XHCaZCitDI3hxUG', 'siswa');
+(12, '123', '$2y$10$dSI6xy7zl0bmPoribl.IWOE7W1rYT.WhVRdySZ9XqT.it8vdIodKa', 'siswa'),
+(13, '882947749', '$2y$10$SprYigxHnvqBGMQY.wTCXuQXjMD2D/GqEoKbXEh0xdgVo4NJ9A7u.', 'guru'),
+(14, '3129164448', '$2y$10$RdopDwB28Q7.kXU9eqTNVOzjQ7ojzFfRFJF/XdhmwgT9EQ5v6FUiC', 'siswa'),
+(22, '1233', '$2y$10$PHjBJl.S0SNqILTtuPVAAOhc4sYO39UT1UVpae9igIUh6zRlz.J7i', 'admin'),
+(23, '2234555', '$2y$10$keShSBxpFw7hrkWK.U6nbenci6A/TOenrG9v3cFSqU52a98ZtO0Su', 'guru');
 
 -- --------------------------------------------------------
 
@@ -715,6 +770,18 @@ ALTER TABLE `el_detail_mapel`
   ADD PRIMARY KEY (`id_detailmapel`);
 
 --
+-- Indexes for table `el_komentar`
+--
+ALTER TABLE `el_komentar`
+  ADD PRIMARY KEY (`id_komentar`);
+
+--
+-- Indexes for table `el_tugas_siswa`
+--
+ALTER TABLE `el_tugas_siswa`
+  ADD PRIMARY KEY (`id_tugassiswa`);
+
+--
 -- Indexes for table `el_user`
 --
 ALTER TABLE `el_user`
@@ -842,7 +909,7 @@ ALTER TABLE `akreditas_standar`
 -- AUTO_INCREMENT for table `data_guru`
 --
 ALTER TABLE `data_guru`
-  MODIFY `id_guru` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id_guru` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
 
 --
 -- AUTO_INCREMENT for table `data_mata_pelajaran`
@@ -854,13 +921,25 @@ ALTER TABLE `data_mata_pelajaran`
 -- AUTO_INCREMENT for table `el_detail_mapel`
 --
 ALTER TABLE `el_detail_mapel`
-  MODIFY `id_detailmapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
+  MODIFY `id_detailmapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `el_komentar`
+--
+ALTER TABLE `el_komentar`
+  MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `el_tugas_siswa`
+--
+ALTER TABLE `el_tugas_siswa`
+  MODIFY `id_tugassiswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `el_user`
 --
 ALTER TABLE `el_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `kategori`
@@ -872,7 +951,7 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id_kelas` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_kelas` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `kelas_jam_pelajaran`
@@ -884,13 +963,13 @@ ALTER TABLE `kelas_jam_pelajaran`
 -- AUTO_INCREMENT for table `kelas_mapel`
 --
 ALTER TABLE `kelas_mapel`
-  MODIFY `id_kelas_mapel` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_kelas_mapel` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `kelas_siswa`
 --
 ALTER TABLE `kelas_siswa`
-  MODIFY `id_kelas_siswa` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_kelas_siswa` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `kontrak_kerja`
@@ -920,7 +999,7 @@ ALTER TABLE `semester`
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id_siswa` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_siswa` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `siswa_invoice`
