@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Models\GuruModel;
 
-class gurucontroller extends BaseController
+class GuruController extends BaseController
 {
     protected $dataModel, $builder;
     public function __construct()
@@ -53,7 +53,7 @@ class gurucontroller extends BaseController
     public function delete($id)
     {
         if (!isset($_SESSION["login"])) {
-            header("Location: " . base_url() . "/logincontroller");
+            header("Location: " . base_url() . "/login");
             exit;
         }
         $this->builder->delete(['id_guru' => $id]);

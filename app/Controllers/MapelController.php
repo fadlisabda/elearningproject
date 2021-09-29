@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Models\MapelModel;
 
-class mapelcontroller extends BaseController
+class MapelController extends BaseController
 {
     protected $dataModel, $builder;
     public function __construct()
@@ -75,7 +75,7 @@ class mapelcontroller extends BaseController
     public function delete($id)
     {
         if (!isset($_SESSION["login"])) {
-            header("Location: " . base_url() . "/logincontroller");
+            header("Location: " . base_url() . "/login");
             exit;
         }
         $this->builder->delete(['id_mapel' => $id]);

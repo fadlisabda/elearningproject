@@ -2,7 +2,7 @@
 <?= $this->section('content'); ?>
 <?php
 if (!isset($_SESSION["login"])) {
-    header("Location: " . base_url() . "/logincontroller");
+    header("Location: " . base_url() . "/login");
     exit;
 }
 ?>
@@ -14,8 +14,8 @@ if (!isset($_SESSION["login"])) {
 <?php endif; ?>
 <div class="container">
     <?php if ($_SESSION["status"] === 'admin') : ?>
-        <a href="<?= base_url(); ?>/kelasmapelcontroller/create?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-primary float-right">Tambah Data Kelas Mapel</a>
-        <a href="<?= base_url(); ?>/kelascontroller" class="btn btn-danger">Kembali</a>
+        <a href="<?= base_url(); ?>/kelasmapel/create?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-primary float-right">Tambah Data Kelas Mapel</a>
+        <a href="<?= base_url(); ?>/kelas" class="btn btn-danger">Kembali</a>
     <?php endif; ?>
     <br><br>
     <?php if ($_SESSION["status"] === 'admin') : ?>
@@ -48,9 +48,9 @@ if (!isset($_SESSION["login"])) {
                             <td><?= $kmi['id_kelas']; ?></td>
                             <td><?= $kmi['nip']; ?></td>
                             <td>
-                                <a href="<?= base_url(); ?>/kelasmapelcontroller/edit/<?= $kmi['id_kelas_mapel']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-warning">Edit</a>
+                                <a href="<?= base_url(); ?>/kelasmapel/edit/<?= $kmi['id_kelas_mapel']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-warning">Edit</a>
 
-                                <a href="<?= base_url(); ?>/kelasmapelcontroller/delete/<?= $kmi['id_kelas_mapel']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-danger hapusdata">Delete</a>
+                                <a href="<?= base_url(); ?>/kelasmapel/delete/<?= $kmi['id_kelas_mapel']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-danger hapusdata">Delete</a>
                             </td>
                         <?php endif; ?>
                     </tr>
@@ -70,9 +70,9 @@ if (!isset($_SESSION["login"])) {
                             <p class="card-text"><?= $km->nama_guru; ?></p>
                         </div>
                         <div class="card-footer">
-                            <a href="<?= base_url(); ?>/DetailMapelcontroller/index/<?= $km->nama_mapel; ?>/<?= $km->nama_kelas; ?>/<?= $km->nama_guru; ?>" class="btn btn-info">Detail Mapel</a>
+                            <a href="<?= base_url(); ?>/detailmapel/<?= $km->nama_mapel; ?>/<?= $km->nama_kelas; ?>/<?= $km->nama_guru; ?>" class="btn btn-info">Detail Mapel</a>
 
-                            <a href="<?= base_url(); ?>/kelasSiswaController/index/<?= $km->kelas_mapelid_kelas; ?>/<?= $km->nama_kelas; ?>" class="btn btn-info">Data Siswa</a>
+                            <a href="<?= base_url(); ?>/kelassiswa/<?= $km->kelas_mapelid_kelas; ?>/<?= $km->nama_kelas; ?>" class="btn btn-info">Data Siswa</a>
                         </div>
                     </div>
                 </div>

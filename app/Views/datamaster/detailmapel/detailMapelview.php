@@ -2,20 +2,20 @@
 <?= $this->section('content'); ?>
 <?php
 if (!isset($_SESSION["login"])) {
-    header("Location: " . base_url() . "/logincontroller");
+    header("Location: " . base_url() . "/login");
     exit;
 }
 ?>
 <h1 class="text-center">Detail Mapel <?= $namamapel ?> Kelas <?= $namakelas ?></h1>
 <h4 class="text-center">Guru : <?= $namaguru ?></h4>
 <div class="container">
-    <a href="<?= base_url(); ?>/detailmapelcontroller/create?namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-primary float-left">Tambah Data Detail Mapel</a>
+    <a href="<?= base_url(); ?>/detailmapel/create?namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-primary float-left">Tambah Data Detail Mapel</a>
 
     <?php if ($_SESSION['status'] === 'guru') : ?>
-        <a href="<?= base_url(); ?>/kelasmapelcontroller/index/" class="btn btn-danger float-right">Kembali</a>
+        <a href="<?= base_url(); ?>/kelasmapel" class="btn btn-danger float-right">Kembali</a>
     <?php endif; ?>
     <?php if ($_SESSION['status'] === 'siswa') : ?>
-        <a href="<?= base_url(); ?>/kelasmapelcontroller/siswa/" class="btn btn-danger float-right">Kembali</a>
+        <a href="<?= base_url(); ?>/kelasmapel/siswa" class="btn btn-danger float-right">Kembali</a>
     <?php endif; ?>
     <div class="clearfix"></div>
     <br>
@@ -88,20 +88,20 @@ if (!isset($_SESSION["login"])) {
                             </td>
                             <td>
                                 <?php if ($_SESSION['status'] == 'guru') : ?>
-                                    <a href="<?= base_url(); ?>/detailmapelcontroller/edit/<?= $dm->id_detailmapel; ?>?namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-warning m-1">Edit</a>
+                                    <a href="<?= base_url(); ?>/detailmapel/edit/<?= $dm->id_detailmapel; ?>?namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-warning m-1">Edit</a>
 
-                                    <a href="<?= base_url(); ?>/detailmapelcontroller/delete/<?= $dm->id_detailmapel; ?>?namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-danger hapusdata m-1">Delete</a>
+                                    <a href="<?= base_url(); ?>/detailmapel/delete/<?= $dm->id_detailmapel; ?>?namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-danger hapusdata m-1">Delete</a>
 
-                                    <a href="<?= base_url(); ?>/detailmapelcontroller/tugassiswa/<?= $dm->id_detailmapel; ?>?namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-info m-1">Tugas Siswa</a>
+                                    <a href="<?= base_url(); ?>/detailmapel/tugassiswa/<?= $dm->id_detailmapel; ?>?namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-info m-1">Tugas Siswa</a>
                                 <?php endif; ?>
 
                                 <?php if ($dm->status == 'siswa' && $_SESSION['status'] == 'siswa') : ?>
-                                    <a href="<?= base_url(); ?>/detailmapelcontroller/edit/<?= $dm->id_detailmapel; ?>?namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-warning m-1">Edit</a>
+                                    <a href="<?= base_url(); ?>/detailmapel/edit/<?= $dm->id_detailmapel; ?>?namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-warning m-1">Edit</a>
 
-                                    <a href="<?= base_url(); ?>/detailmapelcontroller/delete/<?= $dm->id_detailmapel; ?>?namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-danger hapusdata m-1">Delete</a>
+                                    <a href="<?= base_url(); ?>/detailmapel/delete/<?= $dm->id_detailmapel; ?>?namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-danger hapusdata m-1">Delete</a>
                                 <?php endif; ?>
 
-                                <a href="<?= base_url(); ?>/detailmapelcontroller/siswa/<?= $dm->id_detailmapel; ?>?namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-primary m-1">Detail</a>
+                                <a href="<?= base_url(); ?>/detailmapel/siswa/<?= $dm->id_detailmapel; ?>?namamapel=<?= $namamapel ?>&namakelas=<?= $namakelas ?>&namaguru=<?= $namaguru ?>" class="btn btn-primary m-1">Detail</a>
                             </td>
                         <?php endif; ?>
                     </tr>

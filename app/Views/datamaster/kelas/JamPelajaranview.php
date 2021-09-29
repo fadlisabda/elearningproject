@@ -2,16 +2,16 @@
 <?= $this->section('content'); ?>
 <?php
 if (!isset($_SESSION["login"])) {
-    header("Location: " . base_url() . "/logincontroller");
+    header("Location: " . base_url() . "/login");
     exit;
 }
 ?>
 <h1 class="text-center">Data Jam Pelajaran Kelas <?= $namakelas ?></h1>
 <div class="container">
     <?php if ($_SESSION["status"] === 'admin') : ?>
-        <a href="<?= base_url(); ?>/kelasjampelajarancontroller/create?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-primary float-right">Tambah Data Jam Pelajaran</a>
+        <a href="<?= base_url(); ?>/kelasjampelajaran/create?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-primary float-right">Tambah Data Jam Pelajaran</a>
     <?php endif; ?>
-    <a href="<?= base_url(); ?>/kelascontroller" class="btn btn-danger">Kembali</a>
+    <a href="<?= base_url(); ?>/kelas" class="btn btn-danger">Kembali</a>
     <br><br>
     <?php if ($_SESSION["status"] === 'admin') : ?>
         <?php if (isset($edit) || isset($tambah)) : ?>
@@ -51,9 +51,9 @@ if (!isset($_SESSION["login"])) {
                             <td><?= $kjpi['hari']; ?></td>
                             <td><?= $kjpi['jam']; ?></td>
                             <td>
-                                <a href="<?= base_url(); ?>/kelasjampelajarancontroller/edit/<?= $kjpi['id_jadwal']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-warning">Edit</a>
+                                <a href="<?= base_url(); ?>/kelasjampelajaran/edit/<?= $kjpi['id_jadwal']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-warning">Edit</a>
 
-                                <a href="<?= base_url(); ?>/kelasjampelajarancontroller/delete/<?= $kjpi['id_jadwal']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-danger hapusdata">Delete</a>
+                                <a href="<?= base_url(); ?>/kelasjampelajaran/delete/<?= $kjpi['id_jadwal']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-danger hapusdata">Delete</a>
                             </td>
                         <?php endif; ?>
                     </tr>

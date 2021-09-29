@@ -137,7 +137,7 @@ class DetailMapelController extends BaseController
     public function delete($id)
     {
         if (!isset($_SESSION["login"])) {
-            header("Location: " . base_url() . "/logincontroller");
+            header("Location: " . base_url() . "/login");
             exit;
         }
         if (empty($_GET['idtugassiswa'])) {
@@ -216,7 +216,7 @@ class DetailMapelController extends BaseController
         return view('datamaster/detailmapel/detailMapelSiswaview', $data);
     }
 
-    public function createSiswa()
+    public function createsiswa()
     {
         $data = [
             'title' => 'Form Tambah Tugas'
@@ -225,7 +225,7 @@ class DetailMapelController extends BaseController
         return view('datamaster/detailmapel/detailMapelSiswaCreate', $data);
     }
 
-    public function saveSiswa($id)
+    public function savesiswa($id)
     {
         $files = $this->request->getFiles();
         $namaFile = $files['file_upload'][0]->getName();

@@ -2,12 +2,12 @@
 <?= $this->section('content'); ?>
 <?php
 if (!isset($_SESSION["login"])) {
-    header("Location: " . base_url() . "/logincontroller");
+    header("Location: " . base_url() . "/login");
     exit;
 }
 ?>
 <div class="container">
-    <a href="<?= base_url(); ?>/kelascontroller/create" class="btn btn-primary mt-3 mb-3">Tambah Data Kelas</a>
+    <a href="<?= base_url(); ?>/kelas/create" class="btn btn-primary mt-3 mb-3">Tambah Data Kelas</a>
     <?php if (isset($edit) || isset($tambah)) : ?>
         <div class="flash-data" data-flashdata="<?= (isset($edit)) ? 'Diedit' : 'Ditambah' ?>"></div>
     <?php endif; ?>
@@ -32,16 +32,16 @@ if (!isset($_SESSION["login"])) {
                         <td><?= $k->nama_kelas; ?></td>
                         <td><?= $k->nama_guru; ?></td>
                         <td>
-                            <a href="<?= base_url(); ?>/kelascontroller/edit/<?= $k->id_kelas; ?>" class="btn btn-warning">Edit</a>
+                            <a href="<?= base_url(); ?>/kelas/edit/<?= $k->id_kelas; ?>" class="btn btn-warning m-1">Edit</a>
 
-                            <a href="<?= base_url(); ?>/kelascontroller/delete/<?= $k->id_kelas; ?>" class="btn btn-danger hapusdata">Delete</a>
+                            <a href="<?= base_url(); ?>/kelas/delete/<?= $k->id_kelas; ?>" class="btn btn-danger hapusdata m-1">Delete</a>
                             <br>
 
-                            <a href="<?= base_url(); ?>/kelasSiswaController/index/<?= $k->id_kelas; ?>/<?= $k->nama_kelas; ?>" class="btn btn-info mt-2">Data Siswa</a>
+                            <a href="<?= base_url(); ?>/kelassiswa/<?= $k->id_kelas; ?>/<?= $k->nama_kelas; ?>" class="btn btn-info m-1">Data Siswa</a>
 
-                            <a href="<?= base_url(); ?>/kelasMapelController/admin/<?= $k->id_kelas; ?>/<?= $k->nama_kelas; ?>" class="btn btn-info mt-2">Mata Pelajaran</a>
+                            <a href="<?= base_url(); ?>/kelasmapel/<?= $k->id_kelas; ?>/<?= $k->nama_kelas; ?>" class="btn btn-info m-1">Mata Pelajaran</a>
 
-                            <a href="<?= base_url(); ?>/kelasJamPelajarancontroller/index/<?= $k->id_kelas; ?>/<?= $k->nama_kelas; ?>" class="btn btn-info mt-2">Jam Pelajaran</a>
+                            <a href="<?= base_url(); ?>/kelasjampelajaran/<?= $k->id_kelas; ?>/<?= $k->nama_kelas; ?>" class="btn btn-info m-1">Jam Pelajaran</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Models\DetailMapelModel;
 
-class komentarController extends BaseController
+class KomentarController extends BaseController
 {
     protected $dataModel, $db, $builder;
     public function __construct()
@@ -25,7 +25,7 @@ class komentarController extends BaseController
         ];
         return view('datamaster/detailmapel/komentarview', $data);
     }
-    public function createKomentar()
+    public function create()
     {
         $data = [
             'title' => 'Tambah Komentar'
@@ -34,7 +34,7 @@ class komentarController extends BaseController
         return view('datamaster/detailmapel/komentarCreate', $data);
     }
 
-    public function saveKomentar($id)
+    public function save($id)
     {
         $data = [
             'id_detailmapel' => $this->request->getVar('id_detailmapel'),
@@ -57,13 +57,13 @@ class komentarController extends BaseController
             'komentar' => $_GET['komentar']
         ];
 
-        return redirect()->to(base_url() . '/komentarController/index/?detailmapelsiswa=' . $data['id'] . '&namamapel=' . $data['namamapel'] . '&namakelas=' . $data['namakelas'] . '&namaguru=' . $data['namaguru'] . '&komentar=' . $data['komentar'] . '&tambah=true');
+        return redirect()->to(base_url() . '/komentar?detailmapelsiswa=' . $data['id'] . '&namamapel=' . $data['namamapel'] . '&namakelas=' . $data['namakelas'] . '&namaguru=' . $data['namaguru'] . '&komentar=' . $data['komentar'] . '&tambah=true');
     }
 
     public function delete($id)
     {
         if (!isset($_SESSION["login"])) {
-            header("Location: " . base_url() . "/logincontroller");
+            header("Location: " . base_url() . "/login");
             exit;
         }
         $this->builder->delete(['id_komentar' => $id]);
@@ -74,6 +74,6 @@ class komentarController extends BaseController
             'namaguru' => $_GET['namaguru'],
             'status' => $_GET['status']
         ];
-        return redirect()->to(base_url() . '/komentarController/index/?detailmapelsiswa=' . $data['id'] . '&namamapel=' . $data['namamapel'] . '&namakelas=' . $data['namakelas'] . '&namaguru=' . $data['namaguru'] . '&komentar=' . $data['status'] . '&delete=true');
+        return redirect()->to(base_url() . '/komentar?detailmapelsiswa=' . $data['id'] . '&namamapel=' . $data['namamapel'] . '&namakelas=' . $data['namakelas'] . '&namaguru=' . $data['namaguru'] . '&komentar=' . $data['status'] . '&delete=true');
     }
 }

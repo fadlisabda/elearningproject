@@ -2,7 +2,7 @@
 <?= $this->section('content'); ?>
 <?php
 if (!isset($_SESSION["login"])) {
-    header("Location: " . base_url() . "/logincontroller");
+    header("Location: " . base_url() . "/login");
     exit;
 }
 ?>
@@ -10,7 +10,7 @@ if (!isset($_SESSION["login"])) {
     <div class="row">
         <div class="col">
             <h2>Edit Data Jam Pelajaran</h2>
-            <form action="<?= base_url(); ?>/kelasjampelajarancontroller/update/<?= $kelasjampelajaran['id_jadwal']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" method="post">
+            <form action="<?= base_url(); ?>/kelasjampelajaran/update/<?= $kelasjampelajaran['id_jadwal']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" method="post">
                 <?= csrf_field(); ?>
                 <div class="mb-3">
                     <label for="id_mapel">Id Mapel</label>
@@ -29,7 +29,7 @@ if (!isset($_SESSION["login"])) {
                     <input type="text" class="form-control" id="jam" name="jam" value="<?= $kelasjampelajaran['jam']; ?>" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Edit</button>
-                <a href="<?= base_url(); ?>/kelasjampelajarancontroller/index/<?= $id; ?>/<?= $namakelas; ?>" class="btn btn-danger">Kembali</a>
+                <a href="<?= base_url(); ?>/kelasjampelajaran/<?= $id; ?>/<?= $namakelas; ?>" class="btn btn-danger">Kembali</a>
             </form>
         </div>
     </div>

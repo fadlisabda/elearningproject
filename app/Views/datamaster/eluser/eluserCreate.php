@@ -2,7 +2,7 @@
 <?= $this->section('content'); ?>
 <?php
 if (!isset($_SESSION["login"])) {
-    header("Location: " . base_url() . "/logincontroller");
+    header("Location: " . base_url() . "/login");
     exit;
 }
 ?>
@@ -10,7 +10,7 @@ if (!isset($_SESSION["login"])) {
     <div class="row">
         <div class="col">
             <h2>Tambah Data ElUser</h2>
-            <form action="<?= base_url(); ?>/elusercontroller/save" method="post">
+            <form action="<?= base_url(); ?>/eluser/save" method="post">
                 <?= csrf_field(); ?>
                 <div class="mb-3">
                     <label for="username">Username</label>
@@ -25,7 +25,7 @@ if (!isset($_SESSION["login"])) {
                     <input type="password" class="form-control" id="password" name="password" required>
                 </div>
                 <button type="submit" name="tambah" class="btn btn-primary">Tambah</button>
-                <a href="<?= base_url(); ?>/elusercontroller" class="btn btn-danger">Kembali</a>
+                <a href="<?= base_url(); ?>/eluser" class="btn btn-danger">Kembali</a>
             </form>
         </div>
     </div>

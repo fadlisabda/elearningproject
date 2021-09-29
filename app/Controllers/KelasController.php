@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class kelascontroller extends BaseController
+class KelasController extends BaseController
 {
     protected $db, $builder;
     public function __construct()
@@ -87,7 +87,7 @@ class kelascontroller extends BaseController
     public function delete($id)
     {
         if (!isset($_SESSION["login"])) {
-            header("Location: " . base_url() . "/logincontroller");
+            header("Location: " . base_url() . "/login");
             exit;
         }
         $this->builder->delete(['id_kelas' => $id]);

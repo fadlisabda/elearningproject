@@ -2,12 +2,12 @@
 <?= $this->section('content'); ?>
 <?php
 if (!isset($_SESSION["login"])) {
-    header("Location: " . base_url() . "/logincontroller");
+    header("Location: " . base_url() . "/login");
     exit;
 }
 ?>
 <div class="container">
-    <a href="<?= base_url(); ?>/usercontroller/create" class="btn btn-primary mt-3 mb-3">Tambah Data User</a>
+    <a href="<?= base_url(); ?>/user/create" class="btn btn-primary mt-3 mb-3">Tambah Data User</a>
     <?php if (isset($edit) || isset($tambah)) : ?>
         <div class="flash-data" data-flashdata="<?= (isset($edit)) ? 'Diedit' : 'Ditambah' ?>"></div>
     <?php endif; ?>
@@ -30,8 +30,8 @@ if (!isset($_SESSION["login"])) {
                         <th scope="row"><?= $i++; ?></th>
                         <td><?= $u['username'] ?></td>
                         <td>
-                            <a href="<?= base_url(); ?>/usercontroller/edit/<?= $u['id_user']; ?>" class="btn btn-warning">Edit</a>
-                            <a href="<?= base_url(); ?>/usercontroller/delete/<?= $u['id_user']; ?>" class="btn btn-danger hapusdata">Delete</a>
+                            <a href="<?= base_url(); ?>/user/edit/<?= $u['id_user']; ?>" class="btn btn-warning">Edit</a>
+                            <a href="<?= base_url(); ?>/user/delete/<?= $u['id_user']; ?>" class="btn btn-danger hapusdata">Delete</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

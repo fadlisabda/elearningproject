@@ -2,12 +2,12 @@
 <?= $this->section('content'); ?>
 <?php
 if (!isset($_SESSION["login"])) {
-    header("Location: " . base_url() . "/logincontroller");
+    header("Location: " . base_url() . "/login");
     exit;
 }
 ?>
 <div class="container">
-    <a href="<?= base_url(); ?>/gurucontroller/create" class="btn btn-primary mt-3 mb-3">Tambah Data Guru</a>
+    <a href="<?= base_url(); ?>/guru/create" class="btn btn-primary mt-3 mb-3">Tambah Data Guru</a>
     <?php if (isset($edit) || isset($tambah)) : ?>
         <div class="flash-data" data-flashdata="<?= (isset($edit)) ? 'Diedit' : 'Ditambah' ?>"></div>
     <?php endif; ?>
@@ -40,8 +40,9 @@ if (!isset($_SESSION["login"])) {
                         <td><?= $g['no_telp'] ?></td>
                         <td><?= $g['alamat'] ?></td>
                         <td>
-                            <a href="<?= base_url(); ?>/gurucontroller/edit/<?= $g['id_guru']; ?>" class="btn btn-warning">Edit</a>
-                            <a href="<?= base_url(); ?>/gurucontroller/delete/<?= $g['id_guru']; ?>" class="btn btn-danger hapusdata">Delete</a>
+                            <a href="<?= base_url(); ?>/guru/edit/<?= $g['id_guru']; ?>" class="btn btn-warning m-1">Edit</a>
+
+                            <a href="<?= base_url(); ?>/guru/delete/<?= $g['id_guru']; ?>" class="btn btn-danger hapusdata m-1">Delete</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

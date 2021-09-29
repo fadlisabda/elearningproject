@@ -7,16 +7,16 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="<?= base_url(); ?>/homecontroller">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="<?= base_url(); ?>/home">Home <span class="sr-only">(current)</span></a>
             </li>
             <?php if ($_SESSION["status"] === "guru") : ?>
                 <li class="nav-item active">
-                    <a class="nav-link active" aria-current="page" href="<?= base_url(); ?>/kelasmapelcontroller/index">Kelas</a>
+                    <a class="nav-link active" aria-current="page" href="<?= base_url(); ?>/kelasmapel">Kelas</a>
                 </li>
             <?php endif; ?>
             <?php if ($_SESSION["status"] === "siswa") : ?>
                 <li class="nav-item active">
-                    <a class="nav-link active" aria-current="page" href="<?= base_url(); ?>/kelasmapelcontroller/siswa">Mapel Kelas</a>
+                    <a class="nav-link active" aria-current="page" href="<?= base_url(); ?>/kelasmapel/siswa">Mapel Kelas</a>
                 </li>
             <?php endif; ?>
             <?php if ($_SESSION["status"] === "admin") : ?>
@@ -25,17 +25,17 @@
                         Data Master
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="<?= base_url(); ?>/gurucontroller">Guru</a>
-                        <a class="dropdown-item" href="<?= base_url(); ?>/siswacontroller">Siswa</a>
-                        <a class="dropdown-item" href="<?= base_url(); ?>/usercontroller">User</a>
-                        <a class="dropdown-item" href="<?= base_url(); ?>/mapelcontroller">Mapel</a>
-                        <a class="dropdown-item" href="<?= base_url(); ?>/kelascontroller">Kelas</a>
-                        <a class="dropdown-item" href="<?= base_url(); ?>/elusercontroller">ElUser</a>
+                        <a class="dropdown-item" href="<?= base_url(); ?>/guru">Guru</a>
+                        <a class="dropdown-item" href="<?= base_url(); ?>/siswa">Siswa</a>
+                        <a class="dropdown-item" href="<?= base_url(); ?>/user">User</a>
+                        <a class="dropdown-item" href="<?= base_url(); ?>/mapel">Mapel</a>
+                        <a class="dropdown-item" href="<?= base_url(); ?>/kelas">Kelas</a>
+                        <a class="dropdown-item" href="<?= base_url(); ?>/eluser">ElUser</a>
                     </div>
                 </li>
             <?php endif; ?>
             <li class="nav-item active">
-                <a class="nav-link active" aria-current="page" href="<?= base_url() ?>/logoutcontroller">Logout</a>
+                <a class="nav-link active" aria-current="page" href="<?= base_url() ?>/logout">Logout</a>
             </li>
         </ul>
     </div>

@@ -2,7 +2,7 @@
 <?= $this->section('content'); ?>
 <?php
 if (!isset($_SESSION["login"])) {
-    header("Location: " . base_url() . "/logincontroller");
+    header("Location: " . base_url() . "/login");
     exit;
 }
 ?>
@@ -10,7 +10,7 @@ if (!isset($_SESSION["login"])) {
     <div class="row">
         <div class="col">
             <h2>Ubah Data Siswa</h2>
-            <form action="<?= base_url(); ?>/siswacontroller/update/<?= $siswa['id_siswa']; ?>" method="post">
+            <form action="<?= base_url(); ?>/siswa/update/<?= $siswa['id_siswa']; ?>" method="post">
                 <?= csrf_field(); ?>
                 <div class="mb-3">
                     <label for="nis">NIS</label>
@@ -37,7 +37,7 @@ if (!isset($_SESSION["login"])) {
                     <input type="text" class="form-control" id="no_telp" name="no_telp" value="<?= $siswa['no_telp']; ?>" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Ubah</button>
-                <a href="<?= base_url(); ?>/siswacontroller" class="btn btn-danger">Kembali</a>
+                <a href="<?= base_url(); ?>/siswa" class="btn btn-danger">Kembali</a>
             </form>
         </div>
     </div>

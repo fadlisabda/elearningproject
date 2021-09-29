@@ -2,7 +2,7 @@
 <?= $this->section('content'); ?>
 <?php
 if (!isset($_SESSION["login"])) {
-    header("Location: " . base_url() . "/logincontroller");
+    header("Location: " . base_url() . "/login");
     exit;
 }
 ?>
@@ -17,7 +17,7 @@ if (!isset($_SESSION["login"])) {
                     <div class="card-body">
                         <p class="card-text"><?= $kms->nama_guru; ?></p>
                     </div>
-                    <div class="card-footer"><a href="<?= base_url(); ?>/detailmapelcontroller/index/<?= $kms->nama_mapel; ?>/<?= $kms->nama_kelas; ?>/<?= $kms->nama_guru; ?>" class="btn btn-info">Detail Mapel</a></div>
+                    <div class="card-footer"><a href="<?= base_url(); ?>/detailmapel/<?= $kms->nama_mapel; ?>/<?= $kms->nama_kelas; ?>/<?= $kms->nama_guru; ?>" class="btn btn-info">Detail Mapel</a></div>
                 </div>
             </div>
         <?php endforeach; ?>

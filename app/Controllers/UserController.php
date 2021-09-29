@@ -88,7 +88,7 @@ class UserController extends BaseController
     public function delete($id)
     {
         if (!isset($_SESSION["login"])) {
-            header("Location: " . base_url() . "/logincontroller");
+            header("Location: " . base_url() . "/login");
             exit;
         }
         $this->builder->delete(['id_user' => $id]);

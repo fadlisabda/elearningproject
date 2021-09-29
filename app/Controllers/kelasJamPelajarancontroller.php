@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Models\KelasJamPelajaranModel;
 
-class kelasJamPelajarancontroller extends BaseController
+class KelasJamPelajaranController extends BaseController
 {
     protected $dataModel, $db, $builder;
     public function __construct()
@@ -65,7 +65,7 @@ class kelasJamPelajarancontroller extends BaseController
     public function delete($id)
     {
         if (!isset($_SESSION["login"])) {
-            header("Location: " . base_url() . "/logincontroller");
+            header("Location: " . base_url() . "/login");
             exit;
         }
         $this->builder->select('kelas_jam_pelajaran.id_mapel as kelas_jam_pelajaranid_mapel,id_kelas,hari,jam,nama_mapel');

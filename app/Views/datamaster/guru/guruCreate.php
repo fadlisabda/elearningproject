@@ -2,7 +2,7 @@
 <?= $this->section('content'); ?>
 <?php
 if (!isset($_SESSION["login"])) {
-    header("Location: " . base_url() . "/logincontroller");
+    header("Location: " . base_url() . "/login");
     exit;
 }
 ?>
@@ -10,7 +10,7 @@ if (!isset($_SESSION["login"])) {
     <div class="row">
         <div class="col">
             <h2>Tambah Data Guru</h2>
-            <form action="<?= base_url(); ?>/gurucontroller/save" method="post">
+            <form action="<?= base_url(); ?>/guru/save" method="post">
                 <?= csrf_field(); ?>
                 <div class="mb-3">
                     <label for="nip" class="form-label">Nip</label>
@@ -37,7 +37,7 @@ if (!isset($_SESSION["login"])) {
                     <input type="text" class="form-control" id="alamat" name="alamat" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Tambah</button>
-                <a href="<?= base_url(); ?>/gurucontroller" class="btn btn-danger">Kembali</a>
+                <a href="<?= base_url(); ?>/guru" class="btn btn-danger">Kembali</a>
             </form>
         </div>
     </div>

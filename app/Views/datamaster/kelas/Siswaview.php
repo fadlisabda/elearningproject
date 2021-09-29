@@ -2,20 +2,20 @@
 <?= $this->section('content'); ?>
 <?php
 if (!isset($_SESSION["login"])) {
-    header("Location: " . base_url() . "/logincontroller");
+    header("Location: " . base_url() . "/login");
     exit;
 }
 ?>
 <h1 class="text-center">Data Kelas Siswa <?= $namakelas ?></h1>
 <div class="container">
     <?php if ($_SESSION["status"] === 'admin') : ?>
-        <a href="<?= base_url(); ?>/kelassiswacontroller/create?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-primary float-right">Tambah Data Kelas Siswa</a>
+        <a href="<?= base_url(); ?>/kelassiswa/create?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-primary mt-3 mb-3 float-right">Tambah Data Kelas Siswa</a>
 
-        <a href="<?= base_url(); ?>/kelascontroller" class="btn btn-danger">Kembali</a>
+        <a href="<?= base_url(); ?>/kelas" class="btn btn-danger">Kembali</a>
     <?php endif; ?>
 
     <?php if ($_SESSION["status"] === 'guru') : ?>
-        <a href="<?= base_url(); ?>/kelasmapelcontroller/index" class="btn btn-danger">Kembali</a>
+        <a href="<?= base_url(); ?>/kelasmapel" class="btn btn-danger">Kembali</a>
     <?php endif; ?>
     <br><br>
     <?php if ($_SESSION["status"] === 'admin') : ?>
@@ -50,9 +50,9 @@ if (!isset($_SESSION["login"])) {
                             <td><?= $ksi['nis']; ?></td>
                             <td><?= $ksi['id_kelas']; ?></td>
                             <td>
-                                <a href="<?= base_url(); ?>/kelassiswacontroller/edit/<?= $ksi['id_kelas_siswa']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-warning">Edit</a>
+                                <a href="<?= base_url(); ?>/kelassiswa/edit/<?= $ksi['id_kelas_siswa']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-warning">Edit</a>
 
-                                <a href="<?= base_url(); ?>/kelassiswacontroller/delete/<?= $ksi['id_kelas_siswa']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-danger hapusdata">Delete</a>
+                                <a href="<?= base_url(); ?>/kelassiswa/delete/<?= $ksi['id_kelas_siswa']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-danger hapusdata">Delete</a>
 
                             </td>
                         <?php endif; ?>

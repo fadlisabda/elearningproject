@@ -2,7 +2,7 @@
 <?= $this->section('content'); ?>
 <?php
 if (isset($_SESSION["login"])) {
-    header("Location: " . base_url() . "/homecontroller");
+    header("Location: " . base_url() . "/home");
     exit;
 }
 ?>
@@ -14,7 +14,7 @@ if (isset($_SESSION["login"])) {
                 <p style="color: red;">username / password salah</p>
             <?php endif; ?>
 
-            <form action="<?= base_url() ?>/logincontroller/save" method="post">
+            <form action="<?= base_url() ?>/login/save" method="post">
                 <div class="mb-3">
                     <label for="username">Username</label>
                     <input type="text" class="form-control" id="username" name="username" required>

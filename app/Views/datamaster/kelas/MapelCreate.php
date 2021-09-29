@@ -2,7 +2,7 @@
 <?= $this->section('content'); ?>
 <?php
 if (!isset($_SESSION["login"])) {
-    header("Location: " . base_url() . "/logincontroller");
+    header("Location: " . base_url() . "/login");
     exit;
 }
 ?>
@@ -10,7 +10,7 @@ if (!isset($_SESSION["login"])) {
     <div class="row">
         <div class="col">
             <h2>Tambah Data Kelas Mapel</h2>
-            <form action="<?= base_url(); ?>/kelasmapelcontroller/save?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" method="post">
+            <form action="<?= base_url(); ?>/kelasmapel/save?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" method="post">
                 <?= csrf_field(); ?>
                 <div class="mb-3">
                     <label for="id_mapel">Id Mapel</label>
@@ -25,7 +25,7 @@ if (!isset($_SESSION["login"])) {
                     <input type="number" class="form-control" id="nip" name="nip" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Tambah</button>
-                <a href="<?= base_url(); ?>/kelasMapelcontroller/admin/<?= $id; ?>/<?= $namakelas; ?>" class="btn btn-danger">Kembali</a>
+                <a href="<?= base_url(); ?>/kelasmapel/<?= $id; ?>/<?= $namakelas; ?>" class="btn btn-danger">Kembali</a>
             </form>
         </div>
     </div>
