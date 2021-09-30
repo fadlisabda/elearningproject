@@ -30,7 +30,9 @@ if (!isset($_SESSION["login"])) {
                                 <?php
                                 $str = explode('|', $t['filetugas']);
                                 for ($i = 0; $i < count($str); $i++) {
-                                    echo '-' . '<a href=' . base_url() . '/public/file/' .  $str[$i]  . ' target=_blank>' . wordwrap($str[$i], 25, "<br>", TRUE) . '</a><br>';
+                                    if (!empty($t['filetugas'])) {
+                                        echo '<i class="bi bi-cursor btn-outline-info"></i>' . '<a href=' . base_url() . '/public/file/' .  $str[$i]  . ' target=_blank>' . wordwrap($str[$i], 25, "<br>", TRUE) . '</a><br>';
+                                    }
                                 }
                                 ?>
                             </td>
@@ -38,7 +40,9 @@ if (!isset($_SESSION["login"])) {
                                 <?php
                                 $str = explode(' ', $t['linktugas']);
                                 for ($j = 0; $j < count($str); $j++) {
-                                    echo '-' . '<a href=' .  $str[$j]  . ' target=_blank>' . wordwrap($str[$j], 25, "<br>", TRUE) . '</a><br>';
+                                    if (!empty($t['linktugas'])) {
+                                        echo '<i class="bi bi-cursor btn-outline-info"></i>' . '<a href=' .  $str[$j]  . ' target=_blank>' . wordwrap($str[$j], 25, "<br>", TRUE) . '</a><br>';
+                                    }
                                 }
                                 ?>
                             </td>

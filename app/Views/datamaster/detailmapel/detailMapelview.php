@@ -66,7 +66,9 @@ if (!isset($_SESSION["login"])) {
                                 <?php
                                 $str = explode('|', $dm->file);
                                 for ($i = 0; $i < count($str); $i++) {
-                                    echo '<i class="bi bi-cursor btn-outline-info"></i>' . '<a href=' . base_url() . '/public/file/' .  $str[$i]  . ' target=_blank>' . wordwrap($str[$i], 25, "<br>", TRUE) . '</a><br>';
+                                    if (!empty($dm->file)) {
+                                        echo '<i class="bi bi-cursor btn-outline-info"></i>' . '<a href=' . base_url() . '/public/file/' .  $str[$i]  . ' target=_blank>' . wordwrap($str[$i], 25, "<br>", TRUE) . '</a><br>';
+                                    }
                                 }
                                 ?>
                             </td>
@@ -75,7 +77,9 @@ if (!isset($_SESSION["login"])) {
                                 if (!empty($dm->link)) {
                                     $str = explode(' ', $dm->link);
                                     for ($j = 0; $j < count($str); $j++) {
-                                        echo '<i class="bi bi-cursor btn-outline-info"></i>' . '<a href=' . $str[$j] . ' target=_blank>' . wordwrap($str[$j], 25, "<br>", TRUE) . '</a><br>';
+                                        if (!empty($dm->link)) {
+                                            echo '<i class="bi bi-cursor btn-outline-info"></i>' . '<a href=' . $str[$j] . ' target=_blank>' . wordwrap($str[$j], 25, "<br>", TRUE) . '</a><br>';
+                                        }
                                     }
                                 }
                                 ?>

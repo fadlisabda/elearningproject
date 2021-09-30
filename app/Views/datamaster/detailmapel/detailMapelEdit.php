@@ -15,14 +15,14 @@ if (!isset($_SESSION["login"])) {
                 <input type="hidden" name="filelama" value="<?= $detailmapel->getResult()[0]->file; ?>">
                 <div class="mb-3">
                     <label for="judul">judul</label>
-                    <input type="text" class="form-control" id="judul" name="judul" value="<?= $detailmapel->getResult()[0]->judul; ?>" required>
+                    <input type="text" class="form-control" id="judul" name="judul" value="<?= $detailmapel->getResult()[0]->judul; ?>">
                 </div>
                 <div class="mb-3">
                     <label for="keterangan">Keterangan</label>
                     <textarea class="form-control" id="keterangan" name="keterangan" rows="3"><?= $detailmapel->getResult()[0]->keterangan; ?></textarea>
                 </div>
                 <div class="mb-3 custom-file">
-                    <label for="file" class="custom-file-label" name="labelfile">File</label>
+                    <label for="file" class="custom-file-label" name="labelfile"><?= $detailmapel->getResult()[0]->file; ?></label>
                     <input type="file" class="custom-file-input" id="file" name="file_upload[]" multiple="true">
                 </div>
                 <div class="mb-3">

@@ -7,10 +7,22 @@ if (!isset($_SESSION["login"])) {
 }
 ?>
 <?php if ($_SESSION["status"] === 'admin') : ?>
-    <h1 class="text-center">Selamat Datang <?= $_SESSION["status"]; ?></h1>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="text-center display-4">Selamat Datang <?= $_SESSION["status"]; ?></h1>
+        </div>
+    </div>
 <?php elseif ($_SESSION["status"] === 'guru') : ?>
-    <h1 class="text-center">Selamat Datang <?= $_SESSION["status"]; ?></h1>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="text-center display-4">Selamat Datang <?= $_SESSION["status"]; ?></h1>
+        </div>
+    </div>
 <?php elseif ($_SESSION["status"] === 'siswa') : ?>
-    <h1 class="text-center">Selamat Datang <?= $_SESSION["status"]; ?></h1>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="text-center display-4">Selamat Datang <?= $_SESSION["status"]; ?></h1>
+        </div>
+    </div>
 <?php endif; ?>
 <?= $this->endSection(); ?>
