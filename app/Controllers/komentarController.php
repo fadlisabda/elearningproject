@@ -2,26 +2,30 @@
 
 namespace App\Controllers;
 
-use App\Models\DetailMapelModel;
+use App\Models\KomentarModel;
 
 class KomentarController extends BaseController
 {
-    protected $dataModel, $db, $builder;
+    protected $dataModel;
     public function __construct()
     {
-        $this->dataModel = new DetailMapelModel();
-        $this->db      = \Config\Database::connect();
-        $this->builder = $this->db->table('el_komentar');
+        $this->dataModel = new KomentarModel();
     }
     public function index()
     {
+        $keyword = $this->request->getVar('keyword');
+        if ($keyword) {
+            $elkomentar = $this->dataModel->search($keyword);
+        } else {
+            $elkomentar = $this->dataModel;
+        }
         $data = [
-            'title' => 'Komentar',
+            'title' => 'ELEARNING - Komentar',
             'id' => $_GET['detailmapelsiswa'],
             'namamapel' => $_GET['namamapel'],
             'namakelas' => $_GET['namakelas'],
             'namaguru' => $_GET['namaguru'],
-            'komentar' => $this->builder->get()
+            'komentar' => $this->dataModel->getData(),
         ];
         return view('datamaster/detailmapel/komentarview', $data);
     }
@@ -36,7 +40,7 @@ class KomentarController extends BaseController
 
     public function save($id)
     {
-        $data = [
+        $this->dataModel->save([
             'id_detailmapel' => $this->request->getVar('id_detailmapel'),
             'namamapel' => $this->request->getVar('namamapel'),
             'namakelas' => $this->request->getVar('namakelas'),
@@ -45,19 +49,9 @@ class KomentarController extends BaseController
             'komentar' => $this->request->getVar('komentar'),
             'status' => $this->request->getVar('status'),
             'tipe' => $this->request->getVar('tipe')
-        ];
-        $this->builder->insert($data);
-        $tambah = true;
-        $data = [
-            'id' => $id,
-            'tambah' => $tambah,
-            'namamapel' => $_GET['namamapel'],
-            'namakelas' => $_GET['namakelas'],
-            'namaguru' => $_GET['namaguru'],
-            'komentar' => $_GET['komentar']
-        ];
-
-        return redirect()->to(base_url() . '/komentar?detailmapelsiswa=' . $data['id'] . '&namamapel=' . $data['namamapel'] . '&namakelas=' . $data['namakelas'] . '&namaguru=' . $data['namaguru'] . '&komentar=' . $data['komentar'] . '&tambah=true');
+        ]);
+        session()->setFlashData('pesan', 'Ditambah');
+        return redirect()->to(base_url() . '/komentar?detailmapelsiswa=' . $id . '&namamapel=' . $_GET['namamapel'] . '&namakelas=' . $_GET['namakelas'] . '&namaguru=' . $_GET['namaguru'] . '&komentar=' . $_GET['komentar']);
     }
 
     public function delete($id)
@@ -66,14 +60,8 @@ class KomentarController extends BaseController
             header("Location: " . base_url() . "/login");
             exit;
         }
-        $this->builder->delete(['id_komentar' => $id]);
-        $data = [
-            'id' => $_GET['detailmapelsiswa'],
-            'namamapel' => $_GET['namamapel'],
-            'namakelas' => $_GET['namakelas'],
-            'namaguru' => $_GET['namaguru'],
-            'status' => $_GET['status']
-        ];
-        return redirect()->to(base_url() . '/komentar?detailmapelsiswa=' . $data['id'] . '&namamapel=' . $data['namamapel'] . '&namakelas=' . $data['namakelas'] . '&namaguru=' . $data['namaguru'] . '&komentar=' . $data['status'] . '&delete=true');
+        $this->dataModel->where('id_komentar', $id)->delete();
+        session()->setFlashData('pesan', 'Dihapus');
+        return redirect()->to(base_url() . '/komentar?detailmapelsiswa=' . $_GET['detailmapelsiswa'] . '&namamapel=' . $_GET['namamapel'] . '&namakelas=' . $_GET['namakelas'] . '&namaguru=' . $_GET['namaguru'] . '&komentar=' . $_GET['status']);
     }
 }

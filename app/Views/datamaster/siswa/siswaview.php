@@ -7,12 +7,17 @@ if (!isset($_SESSION["login"])) {
 }
 ?>
 <div class="container">
-    <a href="<?= base_url(); ?>/siswa/create" class="btn btn-primary mt-3 mb-3">Tambah Data Siswa</a>
-    <?php if (isset($edit) || isset($tambah)) : ?>
-        <div class="flash-data" data-flashdata="<?= (isset($edit)) ? 'Diedit' : 'Ditambah' ?>"></div>
-    <?php endif; ?>
-    <?php if (isset($delete)) : ?>
-        <div class="flash-data" data-flashdata="Dihapus"></div>
+    <a href="<?= base_url(); ?>/siswa/create?page_siswa=<?= (empty($_GET['page_siswa'])) ? 1 : $_GET['page_siswa'] ?>" class="btn btn-primary mt-3 mb-3">Tambah Data Siswa</a>
+    <form action="" method="post">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="cari nis dan nama siswa" name="keyword" autocomplete="off">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit" name="submit">Cari</button>
+            </div>
+        </div>
+    </form>
+    <?php if (session()->getFlashdata('pesan')) : ?>
+        <div class="flash-data" data-flashdata="<?= session()->getFlashdata('pesan'); ?>"></div>
     <?php endif; ?>
     <div class="table-responsive">
         <table class="table">
@@ -21,25 +26,30 @@ if (!isset($_SESSION["login"])) {
                     <th scope="col">NO</th>
                     <th scope="col">NIS</th>
                     <th scope="col">NAMA SISWA</th>
+                    <th scope="col">FOTO SISWA</th>
                     <th scope="col">ACTIONS</th>
                 </tr>
             </thead>
             <tbody>
-                <?php $i = 1; ?>
+                <?php $i = 1 + (5 * ($currentPage - 1)); ?>
                 <?php foreach ($siswa as $s) : ?>
                     <tr>
                         <th scope="row"><?= $i++; ?></th>
                         <td><?= $s['nis'] ?></td>
                         <td><?= $s['nama_siswa'] ?></td>
                         <td>
-                            <a href="<?= base_url(); ?>/siswa/edit/<?= $s['id_siswa']; ?>" class="btn btn-warning m-1">Edit</a>
+                            <img src="<?= base_url(); ?>/public/file/<?= $s['foto_siswa'] ?>" width="150">
+                        </td>
+                        <td>
+                            <a href="<?= base_url(); ?>/siswa/edit/<?= $s['id_siswa']; ?>?page_siswa=<?= (empty($_GET['page_siswa'])) ? 1 : $_GET['page_siswa'] ?>" class="btn btn-warning m-1">Edit</a>
 
-                            <a href="<?= base_url(); ?>/siswa/delete/<?= $s['id_siswa']; ?>" class="btn btn-danger hapusdata m-1">Delete</a>
+                            <a href="<?= base_url(); ?>/siswa/delete/<?= $s['id_siswa']; ?>?page_siswa=<?= (empty($_GET['page_siswa'])) ? 1 : $_GET['page_siswa'] ?>" class="btn btn-danger hapusdata m-1">Delete</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
+        <?= $pager->links('siswa', 'paginationview'); ?>
     </div>
 </div>
 <?= $this->endSection(); ?>

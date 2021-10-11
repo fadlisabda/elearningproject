@@ -10,14 +10,21 @@ class MapelController extends BaseController
     public function __construct()
     {
         $this->dataModel = new MapelModel();
-        $db      = \Config\Database::connect();
-        $this->builder = $db->table('data_mata_pelajaran');
     }
     public function index()
     {
+        $currentPage = $this->request->getVar('page_data_mata_pelajaran') ? $this->request->getVar('page_data_mata_pelajaran') : 1;
+        $keyword = $this->request->getVar('keyword');
+        if ($keyword) {
+            $mapel = $this->dataModel->search($keyword);
+        } else {
+            $mapel = $this->dataModel;
+        }
         $data = [
             'title' => 'ELEARNING - Mapel',
-            'mapel' => $this->dataModel->getData()
+            'mapel' => $mapel->paginate(5, 'data_mata_pelajaran'),
+            'pager' => $this->dataModel->pager,
+            'currentPage' => $currentPage
         ];
         return view('datamaster/mapel/mapelview', $data);
     }
@@ -36,13 +43,8 @@ class MapelController extends BaseController
         $this->dataModel->save([
             'nama_mapel' => $this->request->getVar('nama_mapel')
         ]);
-        $tambah = true;
-        $data = [
-            'title' => 'ELEARNING - Mapel',
-            'tambah' => $tambah,
-            'mapel' => $this->dataModel->getData()
-        ];
-        return view('datamaster/mapel/mapelview', $data);
+        session()->setFlashData('pesan', 'Ditambah');
+        return redirect()->to(base_url() . '/mapel?page_data_mata_pelajaran=' . $_GET['page_data_mata_pelajaran']);
     }
 
     public function edit($id)
@@ -61,15 +63,9 @@ class MapelController extends BaseController
             'nama_mapel' => $this->request->getVar('nama_mapel')
         ];
 
-        $this->builder->where('id_mapel', $id);
-        $this->builder->update($data);
-        $edit = true;
-        $data = [
-            'title' => 'ELEARNING - Mapel',
-            'edit' => $edit,
-            'mapel' => $this->dataModel->getData()
-        ];
-        return view('datamaster/mapel/mapelview', $data);
+        $this->dataModel->update($id, $data);
+        session()->setFlashData('pesan', 'Diedit');
+        return redirect()->to(base_url() . '/mapel?page_data_mata_pelajaran=' . $_GET['page_data_mata_pelajaran']);
     }
 
     public function delete($id)
@@ -78,13 +74,8 @@ class MapelController extends BaseController
             header("Location: " . base_url() . "/login");
             exit;
         }
-        $this->builder->delete(['id_mapel' => $id]);
-        $delete = true;
-        $data = [
-            'title' => 'ELEARNING - Mapel',
-            'delete' => $delete,
-            'mapel' => $this->dataModel->getData()
-        ];
-        return view('datamaster/mapel/mapelview', $data);
+        $this->dataModel->where('id_mapel', $id)->delete();
+        session()->setFlashData('pesan', 'Dihapus');
+        return redirect()->to(base_url() . '/mapel?page_data_mata_pelajaran=' . $_GET['page_data_mata_pelajaran']);
     }
 }

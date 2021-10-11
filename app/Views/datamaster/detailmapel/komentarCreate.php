@@ -15,8 +15,8 @@ if (!isset($_SESSION["login"])) {
                 <input type="hidden" name="namamapel" value="<?= $_GET['namamapel']; ?>">
                 <input type="hidden" name="namakelas" value="<?= $_GET['namakelas']; ?>">
                 <input type="hidden" name="namaguru" value="<?= $_GET['namaguru']; ?>">
-                <input type="hidden" name="id_detailmapel" value="<?= $_GET['detailmapelsiswa']; ?>">
                 <input type="hidden" name="tipe" value="<?= $_SESSION['status']; ?>">
+                <input type="hidden" name="id_detailmapel" value="<?= $_GET['detailmapelsiswa']; ?>">
 
                 <?php if ($_GET['komentar'] == 'pribadi' && $_SESSION['status'] == 'guru') : ?>
                     <input type="hidden" name="username" value="<?= $_GET["username"]; ?>">

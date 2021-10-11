@@ -10,7 +10,7 @@ if (!isset($_SESSION["login"])) {
     <div class="row">
         <div class="col">
             <h2>Tambah Data Jam Pelajaran</h2>
-            <form action="<?= base_url(); ?>/kelasjampelajaran/save?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" method="post">
+            <form action="<?= base_url(); ?>/kelasjampelajaran/save?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>&page_kelas_jam_pelajaran=<?= $_GET['page_kelas_jam_pelajaran']; ?>" method="post">
                 <?= csrf_field(); ?>
                 <div class="mb-3">
                     <label for="id_mapel">Id Mapel</label>
@@ -29,7 +29,7 @@ if (!isset($_SESSION["login"])) {
                     <input type="text" class="form-control" id="jam" name="jam" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Tambah</button>
-                <a href="<?= base_url(); ?>/kelasjampelajaran/<?= $id; ?>/<?= $namakelas; ?>" class="btn btn-danger">Kembali</a>
+                <a href="<?= base_url(); ?>/kelasjampelajaran/<?= $id; ?>/<?= $namakelas; ?>?page_kelas_jam_pelajaran=<?= $_GET['page_kelas_jam_pelajaran']; ?>" class="btn btn-danger">Kembali</a>
             </form>
         </div>
     </div>

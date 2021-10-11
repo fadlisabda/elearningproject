@@ -10,7 +10,7 @@ if (!isset($_SESSION["login"])) {
     <div class="row">
         <div class="col">
             <h2>Tambah Data User</h2>
-            <form action="<?= base_url(); ?>/user/save" method="post">
+            <form action="<?= base_url(); ?>/user/save?page_user=<?= $_GET['page_user']; ?>" method="post">
                 <?= csrf_field(); ?>
                 <div class="mb-3">
                     <label for="username">Username</label>
@@ -41,7 +41,7 @@ if (!isset($_SESSION["login"])) {
                     </label>
                 </div>
                 <button type="submit" class="btn btn-primary">Tambah</button>
-                <a href="<?= base_url(); ?>/user" class="btn btn-danger">Kembali</a>
+                <a href="<?= base_url(); ?>/user?page_user=<?= $_GET['page_user']; ?>" class="btn btn-danger">Kembali</a>
             </form>
         </div>
     </div>

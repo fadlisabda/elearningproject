@@ -10,15 +10,23 @@ if (!isset($_SESSION["login"])) {
     <div class="row">
         <div class="col">
             <h2>Ubah Data Siswa</h2>
-            <form action="<?= base_url(); ?>/siswa/update/<?= $siswa['id_siswa']; ?>" method="post">
+            <form action="<?= base_url(); ?>/siswa/update/<?= $siswa['id_siswa']; ?>?page_siswa=<?= $_GET['page_siswa']; ?>" method="post" enctype="multipart/form-data">
                 <?= csrf_field(); ?>
+                <input type="hidden" name="id" value="<?= $siswa['id_siswa']; ?>">
+                <input type="hidden" name="fotoLama" value="<?= $siswa['foto_siswa']; ?>">
                 <div class="mb-3">
                     <label for="nis">NIS</label>
-                    <input type="number" class="form-control" id="nis" name="nis" value="<?= $siswa['nis']; ?>" required>
+                    <input type="number" class="form-control <?= ($validation->hasError('nis')) ? 'is-invalid' : ''; ?>" id="nis" name="nis" value="<?= ($validation->hasError('nis')) ? old('nis') : $siswa['nis'] ?>">
+                    <div class="invalid-feedback">
+                        <?= $validation->getError('nis'); ?>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="nisn">NISN</label>
-                    <input type="number" class="form-control" id="nisn" name="nisn" value="<?= $siswa['nisn']; ?>" required>
+                    <input type="number" class="form-control <?= ($validation->hasError('nisn')) ? 'is-invalid' : ''; ?>" id="nisn" name="nisn" value="<?= ($validation->hasError('nisn')) ? old('nisn') : $siswa['nisn'] ?>">
+                    <div class="invalid-feedback">
+                        <?= $validation->getError('nisn'); ?>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="nama_siswa">Nama Siswa</label>
@@ -36,8 +44,21 @@ if (!isset($_SESSION["login"])) {
                     <label for="no_telp">No Telepon</label>
                     <input type="text" class="form-control" id="no_telp" name="no_telp" value="<?= $siswa['no_telp']; ?>" required>
                 </div>
+                <label for="foto">Foto Siswa</label>
+                <div>
+                    <img src="<?= base_url(); ?>/public/file/<?= $siswa['foto_siswa']; ?>" class="img-thumbnail img-preview mb-2" width="200">
+                </div>
+                <div class="mb-3">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input <?= ($validation->hasError('fotosiswa')) ? 'is-invalid' : ''; ?>" id="foto" name="fotosiswa" onchange="previewImg()">
+                        <div class="invalid-feedback">
+                            <?= $validation->getError('fotosiswa'); ?>
+                        </div>
+                        <label class="custom-file-label" for="foto" id="labelfoto"><?= $siswa['foto_siswa']; ?></label>
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-primary">Ubah</button>
-                <a href="<?= base_url(); ?>/siswa" class="btn btn-danger">Kembali</a>
+                <a href="<?= base_url(); ?>/siswa?page_siswa=<?= $_GET['page_siswa']; ?>" class="btn btn-danger">Kembali</a>
             </form>
         </div>
     </div>

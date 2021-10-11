@@ -10,11 +10,16 @@ if (!isset($_SESSION["login"])) {
     <div class="row">
         <div class="col">
             <h2>Ubah Data Guru</h2>
-            <form action="<?= base_url(); ?>/guru/update/<?= $guru['id_guru']; ?>" method="post">
+            <form action="<?= base_url(); ?>/guru/update/<?= $guru['id_guru']; ?>?page_data_guru=<?= $_GET['page_data_guru']; ?>" method="post" enctype="multipart/form-data">
                 <?= csrf_field(); ?>
+                <input type="hidden" name="id" value="<?= $guru['id_guru']; ?>">
+                <input type="hidden" name="fotoLama" value="<?= $guru['foto_guru']; ?>">
                 <div class="mb-3">
                     <label for="nip" class="form-label">Nip</label>
-                    <input type="number" class="form-control" id="nip" name="nip" value="<?= $guru['nip']; ?>" required>
+                    <input type="number" class="form-control <?= ($validation->hasError('nip')) ? 'is-invalid' : ''; ?>" id="nip" name="nip" value="<?= ($validation->hasError('nip')) ? old('nip') : $guru['nip'] ?>">
+                    <div class="invalid-feedback">
+                        <?= $validation->getError('nip'); ?>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="nama_guru" class="form-label">Nama Guru</label>
@@ -36,8 +41,21 @@ if (!isset($_SESSION["login"])) {
                     <label for="alamat" class="form-label">Alamat</label>
                     <input type="text" class="form-control" id="alamat" name="alamat" value="<?= $guru['alamat']; ?>" required>
                 </div>
+                <label for="foto">Foto Guru</label>
+                <div>
+                    <img src="<?= base_url(); ?>/public/file/<?= $guru['foto_guru']; ?>" class="img-thumbnail img-preview mb-2" width="200">
+                </div>
+                <div class="mb-3">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input <?= ($validation->hasError('fotoguru')) ? 'is-invalid' : ''; ?>" id="foto" name="fotoguru" onchange="previewImg()">
+                        <div class="invalid-feedback">
+                            <?= $validation->getError('fotoguru'); ?>
+                        </div>
+                        <label class="custom-file-label" for="foto" id="labelfoto"><?= $guru['foto_guru']; ?></label>
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-primary">Ubah</button>
-                <a href="<?= base_url(); ?>/guru" class="btn btn-danger">Kembali</a>
+                <a href="<?= base_url(); ?>/guru?page_data_guru=<?= $_GET['page_data_guru']; ?>" class="btn btn-danger">Kembali</a>
             </form>
         </div>
     </div>

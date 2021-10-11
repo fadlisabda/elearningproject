@@ -21,19 +21,35 @@ class kelasMapelcontroller extends BaseController
         $this->builder->join('kelas', 'kelas.id_kelas = kelas_mapel.id_kelas');
         $this->builder->where('kelas_mapel.nip', $_SESSION["username"]);
         $query = $this->builder->get();
+
         $data = [
             'title' => 'ELEARNING - Kelas Mapel',
-            'kelasmapel' => $query->getResult(),
-            'kelasMapelInsert' => $this->dataModel->getData(),
+            'kelasmapel' => $query->getResult()
         ];
         return view('datamaster/kelas/Mapelview', $data);
     }
 
     public function admin($id, $namakelas)
     {
+        $this->builder->select('kelas_mapel.id_mapel as kelas_mapelid_mapel,kelas_mapel.id_kelas as kelas_mapelid_kelas,kelas_mapel.nip as kelas_mapelnip,nama_mapel,nama_guru,nama_kelas');
+        $this->builder->join('data_mata_pelajaran', 'data_mata_pelajaran.id_mapel = kelas_mapel.id_mapel');
+        $this->builder->join('data_guru', 'data_guru.nip = kelas_mapel.nip');
+        $this->builder->join('kelas', 'kelas.id_kelas = kelas_mapel.id_kelas');
+        $query = $this->builder->getWhere(['kelas_mapel.id_kelas' => $id]);
+
+        $currentPage = $this->request->getVar('page_kelas_mapel') ? $this->request->getVar('page_kelas_mapel') : 1;
+        $keyword = $this->request->getVar('keyword');
+        if ($keyword) {
+            $kelasmapel = $this->dataModel->search($keyword);
+        } else {
+            $kelasmapel = $this->dataModel;
+        }
         $data = [
             'title' => 'ELEARNING - Kelas Mapel',
-            'kelasMapelInsert' => $this->dataModel->getData(),
+            'mapelkelasguru' => $query->getResult(),
+            'kelasMapelInsert' => $kelasmapel->where('id_kelas', $id)->paginate(5, 'kelas_mapel'),
+            'pager' => $this->dataModel->pager,
+            'currentPage' => $currentPage,
             'id' => $id,
             'namakelas' => $namakelas
         ];
@@ -53,25 +69,13 @@ class kelasMapelcontroller extends BaseController
 
     public function save()
     {
-        $this->builder->select('kelas_mapel.id_mapel as kelas_mapelid_mapel,id_kelas,nama_mapel,kelas_mapel.nip as kelas_mapelnip,nama_guru,id_kelas_mapel');
-        $this->builder->join('data_mata_pelajaran', 'data_mata_pelajaran.id_mapel = kelas_mapel.id_mapel');
-        $this->builder->join('data_guru', 'data_guru.nip = kelas_mapel.nip');
-        $query = $this->builder->get();
         $this->dataModel->save([
             'id_mapel' => $this->request->getVar('id_mapel'),
             'id_kelas' => $this->request->getVar('id_kelas'),
             'nip' => $this->request->getVar('nip')
         ]);
-        $tambah = true;
-        $data = [
-            'title' => 'ELEARNING - Kelas Mapel',
-            'tambah' => $tambah,
-            'kelasmapel' => $query->getResult(),
-            'kelasMapelInsert' => $this->dataModel->getData(),
-            'id' => $_GET['id'],
-            'namakelas' => $_GET['namakelas']
-        ];
-        return view('datamaster/kelas/Mapelview', $data);
+        session()->setFlashData('pesan', 'Ditambah');
+        return redirect()->to(base_url() . 'kelasmapel/' . $_GET['id'] . '/' . $_GET['namakelas']);
     }
 
     public function delete($id)
@@ -80,21 +84,9 @@ class kelasMapelcontroller extends BaseController
             header("Location: " . base_url() . "/login");
             exit;
         }
-        $this->builder->select('kelas_mapel.id_mapel as kelas_mapelid_mapel,id_kelas,nama_mapel,kelas_mapel.nip as kelas_mapelnip,nama_guru,id_kelas_mapel');
-        $this->builder->join('data_mata_pelajaran', 'data_mata_pelajaran.id_mapel = kelas_mapel.id_mapel');
-        $this->builder->join('data_guru', 'data_guru.nip = kelas_mapel.nip');
-        $query = $this->builder->get();
-        $this->builder->delete(['id_kelas_mapel' => $id]);
-        $delete = true;
-        $data = [
-            'title' => 'ELEARNING - Kelas Mapel',
-            'delete' => $delete,
-            'kelasmapel' => $query->getResult(),
-            'kelasMapelInsert' => $this->dataModel->getData(),
-            'id' => $_GET['id'],
-            'namakelas' => $_GET['namakelas']
-        ];
-        return view('datamaster/kelas/Mapelview', $data);
+        $this->dataModel->where('id_kelas_mapel', $id)->delete();
+        session()->setFlashData('pesan', 'Dihapus');
+        return redirect()->to(base_url() . 'kelasmapel/' . $_GET['id'] . '/' . $_GET['namakelas']);
     }
 
     public function edit($id)
@@ -111,27 +103,14 @@ class kelasMapelcontroller extends BaseController
 
     public function update($id)
     {
-        $this->builder->select('kelas_mapel.id_mapel as kelas_mapelid_mapel,id_kelas,nama_mapel,kelas_mapel.nip as kelas_mapelnip,nama_guru,id_kelas_mapel');
-        $this->builder->join('data_mata_pelajaran', 'data_mata_pelajaran.id_mapel = kelas_mapel.id_mapel');
-        $this->builder->join('data_guru', 'data_guru.nip = kelas_mapel.nip');
-        $query = $this->builder->get();
         $data = [
             'id_mapel' => $this->request->getVar('id_mapel'),
             'id_kelas' => $this->request->getVar('id_kelas'),
             'nip' => $this->request->getVar('nip')
         ];
-        $this->builder->where('id_kelas_mapel', $id);
-        $this->builder->update($data);
-        $edit = true;
-        $data = [
-            'title' => 'ELEARNING - Kelas Mapel',
-            'edit' => $edit,
-            'kelasmapel' => $query->getResult(),
-            'kelasMapelInsert' => $this->dataModel->getData(),
-            'id' => $_GET['id'],
-            'namakelas' => $_GET['namakelas']
-        ];
-        return view('datamaster/kelas/Mapelview', $data);
+        $this->dataModel->update($id, $data);
+        session()->setFlashData('pesan', 'Diedit');
+        return redirect()->to(base_url() . 'kelasmapel/' . $_GET['id'] . '/' . $_GET['namakelas']);
     }
 
     public function siswa()

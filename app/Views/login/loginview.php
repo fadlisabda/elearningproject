@@ -10,8 +10,8 @@ if (isset($_SESSION["login"])) {
     <div class="row">
         <div class="col">
             <h1>ELEARNING - Login</h1>
-            <?php if (isset($error)) : ?>
-                <p style="color: red;">username / password salah</p>
+            <?php if (session()->getFlashdata('error')) : ?>
+                <p style="color: red;"><?= session()->getFlashdata('error'); ?></p>
             <?php endif; ?>
 
             <form action="<?= base_url() ?>/login/save" method="post">

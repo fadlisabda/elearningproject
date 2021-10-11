@@ -2,23 +2,35 @@
 
 namespace App\Controllers;
 
+use App\Models\TugasSiswaModel;
 use App\Models\DetailMapelModel;
 
 class DetailMapelController extends BaseController
 {
-    protected $dataModel, $db, $builder;
+    protected $detailMapelModel, $db, $builder, $tugasSiswaModel;
     public function __construct()
     {
-        $this->dataModel = new DetailMapelModel();
+        $this->tugasSiswaModel = new TugasSiswaModel();
+        $this->detailMapelModel = new DetailMapelModel();
         $this->db      = \Config\Database::connect();
         $this->builder = $this->db->table('el_detail_mapel');
     }
 
     public function index($namamapel, $namakelas, $namaguru)
     {
+        $currentPage = $this->request->getVar('page_el_detail_mapel') ? $this->request->getVar('page_el_detail_mapel') : 1;
+        $keyword = $this->request->getVar('keyword');
+        if ($keyword) {
+            $eldetailmapel = $this->detailMapelModel->search($keyword);
+        } else {
+            $eldetailmapel = $this->detailMapelModel;
+        }
+        $array = array('namamapel' => $namamapel, 'namakelas' => $namakelas, 'namaguru' => $namaguru);
         $data = [
             'title' => 'ELEARNING - Detail Mapel',
-            'detailmapel' => $this->builder->get(),
+            'detailmapel' => $eldetailmapel->where($array)->paginate(5, 'el_detail_mapel'),
+            'pager' => $this->detailMapelModel->pager,
+            'currentPage' => $currentPage,
             'namamapel' => $namamapel,
             'namakelas' => $namakelas,
             'namaguru' => $namaguru
@@ -50,8 +62,7 @@ class DetailMapelController extends BaseController
             }
             $i++;
         }
-        $tambah = true;
-        $data = [
+        $this->detailMapelModel->save([
             'namamapel' => $this->request->getVar('namamapel'),
             'namakelas' => $this->request->getVar('namakelas'),
             'namaguru' => $this->request->getVar('namaguru'),
@@ -63,18 +74,9 @@ class DetailMapelController extends BaseController
             'tenggat' => $this->request->getVar('tenggat'),
             'tipe' => $this->request->getVar('tipe'),
             'status' => $this->request->getVar('status')
-        ];
-        $this->builder->insert($data);
-
-        $data2 = [
-            'title' => 'ELEARNING - Detail Mapel',
-            'tambah' => $tambah,
-            'detailmapel' => $this->builder->get(),
-            'namamapel' => $namamapel,
-            'namakelas' => $namakelas,
-            'namaguru' => $namaguru
-        ];
-        return view('datamaster/detailmapel/detailMapelview', $data2);
+        ]);
+        session()->setFlashData('pesan', 'Ditambah');
+        return redirect()->to(base_url() . 'detailmapel/' . $namamapel . '/' . $namakelas . '/' . $namaguru . '?page_el_detail_mapel=' . $_GET['page_el_detail_mapel']);
     }
 
     public function edit($id)
@@ -120,18 +122,9 @@ class DetailMapelController extends BaseController
             'tenggat' => (empty($this->request->getVar('tenggat'))) ? null : $this->request->getVar('tenggat'),
             'tipe' => $this->request->getVar('tipe')
         ];
-        $this->builder->where('id_detailmapel', $id);
-        $this->builder->update($data);
-        $edit = true;
-        $data = [
-            'title' => 'ELEARNING - Detail Mapel',
-            'edit' => $edit,
-            'detailmapel' => $this->builder->get(),
-            'namamapel' => $namamapel,
-            'namakelas' => $namakelas,
-            'namaguru' => $namaguru
-        ];
-        return view('datamaster/detailmapel/detailMapelview', $data);
+        $this->detailMapelModel->update($id, $data);
+        session()->setFlashData('pesan', 'Diedit');
+        return redirect()->to(base_url() . 'detailmapel/' . $namamapel . '/' . $namakelas . '/' . $namaguru . '?page_el_detail_mapel=' . $_GET['page_el_detail_mapel']);
     }
 
     public function delete($id)
@@ -151,54 +144,43 @@ class DetailMapelController extends BaseController
                 }
             }
 
-            $this->builder->delete(['id_detailmapel' => $id]);
-
-            $delete = true;
-            $data = [
-                'title' => 'ELEARNING - Detail Mapel',
-                'delete' => $delete,
-                'detailmapel' => $this->builder->get(),
-                'namamapel' => $_GET['namamapel'],
-                'namakelas' => $_GET['namakelas'],
-                'namaguru' => $_GET['namaguru']
-            ];
-            return view('datamaster/detailmapel/detailMapelview', $data);
+            $this->detailMapelModel->where('id_detailmapel', $id)->delete();
+            session()->setFlashData('pesan', 'Dihapus');
+            return redirect()->to(base_url() . 'detailmapel/' . $_GET['namamapel'] . '/' . $_GET['namakelas'] . '/' . $_GET['namaguru'] . '?page_el_detail_mapel=' . $_GET['page_el_detail_mapel']);
         }
 
         if ($_SESSION['status'] === 'siswa' && !empty($_GET['idtugassiswa'])) {
-            $file = $this->dataModel->getDataIdTugasSiswa($_GET['idtugassiswa']);
+            $file = $this->tugasSiswaModel->getDataIdTugasSiswa($_GET['idtugassiswa']);
 
             $str2 = explode('|', $file['filetugas']);
             for ($i = 0; $i < count($str2); $i++) {
                 if (file_exists('/xampp/htdocs/elearning/public/file/' . $str2[$i]) && $str2[$i] != null) {
                     unlink('/xampp/htdocs/elearning/public/file/' . $str2[$i]);
                 }
-                $this->dataModel->where('id_tugassiswa', $_GET['idtugassiswa'])->delete();
+                $this->tugasSiswaModel->where('id_tugassiswa', $_GET['idtugassiswa'])->delete();
             }
-            $delete = true;
-            $data = [
-                'title' => 'Detail Mapel Siswa',
-                'delete' => $delete,
-                'id' => $id,
-                'tugassiswa' => $this->dataModel->getdata(),
-                'tugassiswaid' => $this->dataModel->getdata($id),
-                'detailmapel' => $this->builder->get()
-            ];
-            return view('datamaster/detailmapel/detailMapelSiswaview', $data);
+            session()->setFlashData('pesan', 'Dihapus');
+            return redirect()->to(base_url() . 'detailmapel/siswa/' . $id . '?' . 'namamapel=' . $_GET['namamapel'] . '&' . 'namakelas=' . $_GET['namakelas'] . '&' . 'namaguru=' . $_GET['namaguru']);
         }
     }
 
     public function tugassiswa($id)
     {
+        $currentPage = $this->request->getVar('page_el_tugas_siswa') ? $this->request->getVar('page_el_tugas_siswa') : 1;
+        $keyword = $this->request->getVar('keyword');
+        if ($keyword) {
+            $eltugassiswa = $this->tugasSiswaModel->search($keyword);
+        } else {
+            $eltugassiswa = $this->tugasSiswaModel;
+        }
         $this->builder->where('id_detailmapel', $id);
+        $array = array('namamapel' => $_GET['namamapel'], 'namakelas' => $_GET['namakelas'], 'namaguru' => $_GET['namaguru'], 'id_detailmapel' => $id);
         $data = [
             'title' => 'ELEARNING - Tugas Siswa',
-            'id' => $id,
-            'namamapel' => $_GET['namamapel'],
-            'namakelas' => $_GET['namakelas'],
-            'namaguru' => $_GET['namaguru'],
             'detailmapel' => $this->builder->get(),
-            'tugassiswa' => $this->dataModel->getData()
+            'tugassiswa' => $eltugassiswa->where($array)->paginate(5, 'el_tugas_siswa'),
+            'pager' => $this->tugasSiswaModel->pager,
+            'currentPage' => $currentPage
         ];
         return view('datamaster/detailmapel/tugasSiswaView', $data);
     }
@@ -206,11 +188,12 @@ class DetailMapelController extends BaseController
     public function siswa($id)
     {
         $this->builder->where('id_detailmapel', $id);
+        $array = array('id_detailmapel' => $id, 'namamapel' => $_GET['namamapel'], 'namakelas' => $_GET['namakelas'], 'namaguru' => $_GET['namaguru'], 'nis' => $_SESSION['username']);
         $data = [
             'title' => 'Detail Mapel Siswa',
             'id' => $id,
-            'tugassiswa' => $this->dataModel->getdata(),
-            'tugassiswaid' => $this->dataModel->getdata($id),
+            'tugassiswa' => $this->tugasSiswaModel->getdata(),
+            'tugassiswaid' => $this->tugasSiswaModel->where($array)->first(),
             'detailmapel' => $this->builder->get()
         ];
         return view('datamaster/detailmapel/detailMapelSiswaview', $data);
@@ -241,7 +224,7 @@ class DetailMapelController extends BaseController
             }
             $i++;
         }
-        $this->dataModel->save([
+        $this->tugasSiswaModel->save([
             'id_detailmapel' => $this->request->getVar('id_detailmapel'),
             'namamapel' => $this->request->getVar('namamapel'),
             'namakelas' => $this->request->getVar('namakelas'),
@@ -250,17 +233,7 @@ class DetailMapelController extends BaseController
             'filetugas' => ($file->getError() === 4) ?  null : str_replace(' ', '', $namaFile),
             'linktugas' => (empty($this->request->getVar('link'))) ?  null : $this->request->getVar('link')
         ]);
-        $this->builder->where('id_detailmapel', $id);
-        $tambah = true;
-        $data = [
-            'title' => 'Detail Mapel Siswa',
-            'id' => $id,
-            'tambah' => $tambah,
-            'tugassiswa' => $this->dataModel->getdata(),
-            'tugassiswaid' => $this->dataModel->getdata($id),
-            'detailmapel' => $this->builder->get()
-        ];
-
-        return view('datamaster/detailmapel/detailmapelsiswaview', $data);
+        session()->setFlashData('pesan', 'Ditambah');
+        return redirect()->to(base_url() . 'detailmapel/siswa/' . $id . '?' . 'namamapel=' . $_GET['namamapel'] . '&' . 'namakelas=' . $_GET['namakelas'] . '&' . 'namaguru=' . $_GET['namaguru']);
     }
 }

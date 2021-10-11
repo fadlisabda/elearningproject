@@ -9,15 +9,22 @@ class Elusercontroller extends BaseController
     protected $dataModel;
     public function __construct()
     {
-        $this->db      = \Config\Database::connect();
-        $this->builder = $this->db->table('el_user');
         $this->dataModel = new EluserModel();
     }
     public function index()
     {
+        $currentPage = $this->request->getVar('page_data_el_user') ? $this->request->getVar('page_data_el_user') : 1;
+        $keyword = $this->request->getVar('keyword');
+        if ($keyword) {
+            $el_user = $this->dataModel->search($keyword);
+        } else {
+            $el_user = $this->dataModel;
+        }
         $data = [
             'title' => 'ELEARNING - ElUser',
-            'eluser' => $this->dataModel->getData()
+            'eluser' => $el_user->paginate(5, 'el_user'),
+            'pager' => $this->dataModel->pager,
+            'currentPage' => $currentPage
         ];
         return view('datamaster/eluser/eluserview', $data);
     }
@@ -40,13 +47,8 @@ class Elusercontroller extends BaseController
             'password' => $passwordHash,
             'status' => $this->request->getVar('status')
         ]);
-        $tambah = true;
-        $data = [
-            'title' => 'ELEARNING - ElUser',
-            'tambah' => $tambah,
-            'eluser' => $this->dataModel->getData()
-        ];
-        return view('datamaster/eluser/eluserview', $data);
+        session()->setFlashData('pesan', 'Ditambah');
+        return redirect()->to(base_url() . '/eluser?page_data_el_user=' . $_GET['page_data_el_user']);
     }
 
     public function edit($id)
@@ -69,15 +71,9 @@ class Elusercontroller extends BaseController
             'status' => $this->request->getVar('status')
         ];
 
-        $this->builder->where('id', $id);
-        $this->builder->update($data);
-        $edit = true;
-        $data = [
-            'title' => 'ELEARNING - ElUser',
-            'edit' => $edit,
-            'eluser' => $this->dataModel->getData()
-        ];
-        return view('datamaster/eluser/eluserview', $data);
+        $this->dataModel->update($id, $data);
+        session()->setFlashData('pesan', 'Diedit');
+        return redirect()->to(base_url() . '/eluser?page_data_el_user=' . $_GET['page_data_el_user']);
     }
 
     public function delete($id)
@@ -86,13 +82,8 @@ class Elusercontroller extends BaseController
             header("Location: " . base_url() . "/login");
             exit;
         }
-        $this->builder->delete(['id' => $id]);
-        $delete = true;
-        $data = [
-            'title' => 'ELEARNING - ElUser',
-            'delete' => $delete,
-            'eluser' => $this->dataModel->getData()
-        ];
-        return view('datamaster/eluser/eluserview', $data);
+        $this->dataModel->where('id_eluser', $id)->delete();
+        session()->setFlashData('pesan', 'Dihapus');
+        return redirect()->to(base_url() . '/eluser?page_data_el_user=' . $_GET['page_data_el_user']);
     }
 }

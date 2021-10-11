@@ -16,14 +16,19 @@ if (!isset($_SESSION["login"])) {
     <?php if ($_SESSION["status"] === 'admin') : ?>
         <a href="<?= base_url(); ?>/kelasmapel/create?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-primary float-right">Tambah Data Kelas Mapel</a>
         <a href="<?= base_url(); ?>/kelas" class="btn btn-danger">Kembali</a>
+        <form action="" method="post">
+            <div class="input-group mt-3">
+                <input type="text" class="form-control" placeholder="Cari Nip" name="keyword" autocomplete="off">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit" name="submit">Cari</button>
+                </div>
+            </div>
+        </form>
     <?php endif; ?>
-    <br><br>
+    <br>
     <?php if ($_SESSION["status"] === 'admin') : ?>
-        <?php if (isset($edit) || isset($tambah)) : ?>
-            <div class="flash-data" data-flashdata="<?= (isset($edit)) ? 'Diedit' : 'Ditambah' ?>"></div>
-        <?php endif; ?>
-        <?php if (isset($delete)) : ?>
-            <div class="flash-data" data-flashdata="Dihapus"></div>
+        <?php if (session()->getFlashdata('pesan')) : ?>
+            <div class="flash-data" data-flashdata="<?= session()->getFlashdata('pesan'); ?>"></div>
         <?php endif; ?>
     <?php endif; ?>
 
@@ -33,30 +38,37 @@ if (!isset($_SESSION["login"])) {
                 <tr>
                     <th scope="col">NO</th>
                     <th scope="col">ID MAPEL</th>
+                    <th scope="col">NAMA MATA PELAJARAN</th>
                     <th scope="col">ID KELAS</th>
+                    <th scope="col">NAMA KELAS</th>
                     <th scope="col">NIP</th>
+                    <th scope="col">NAMA GURU</th>
                     <th scope="col">ACTIONS</th>
                 </tr>
             </thead>
             <tbody>
-                <?php $i = 1; ?>
+                <?php $j = 0 + (5 * ($currentPage - 1)); ?>
+                <?php $i = 1 + (5 * ($currentPage - 1)); ?>
                 <?php foreach ($kelasMapelInsert as $kmi) : ?>
                     <tr>
-                        <?php if ($id === $kmi['id_kelas']) : ?>
-                            <th scope="row"><?= $i++; ?></th>
-                            <td><?= $kmi['id_mapel']; ?></td>
-                            <td><?= $kmi['id_kelas']; ?></td>
-                            <td><?= $kmi['nip']; ?></td>
-                            <td>
-                                <a href="<?= base_url(); ?>/kelasmapel/edit/<?= $kmi['id_kelas_mapel']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-warning">Edit</a>
+                        <th scope="row"><?= $i++; ?></th>
+                        <td><?= $kmi['id_mapel']; ?></td>
+                        <td><?= $mapelkelasguru[$j]->nama_mapel; ?></td>
+                        <td><?= $kmi['id_kelas']; ?></td>
+                        <td><?= $mapelkelasguru[$j]->nama_kelas; ?></td>
+                        <td><?= $kmi['nip']; ?></td>
+                        <td><?= $mapelkelasguru[$j]->nama_guru; ?></td>
+                        <td>
+                            <a href="<?= base_url(); ?>/kelasmapel/edit/<?= $kmi['id_kelas_mapel']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-warning">Edit</a>
 
-                                <a href="<?= base_url(); ?>/kelasmapel/delete/<?= $kmi['id_kelas_mapel']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-danger hapusdata">Delete</a>
-                            </td>
-                        <?php endif; ?>
+                            <a href="<?= base_url(); ?>/kelasmapel/delete/<?= $kmi['id_kelas_mapel']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-danger hapusdata">Delete</a>
+                        </td>
                     </tr>
+                    <?php $j++; ?>
                 <?php endforeach; ?>
             </tbody>
         </table>
+        <?= $pager->links('kelas_mapel', 'paginationview'); ?>
     <?php endif; ?>
 
     <?php if ($_SESSION["status"] === 'guru') : ?>

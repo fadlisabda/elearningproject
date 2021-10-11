@@ -6,11 +6,8 @@ if (!isset($_SESSION["login"])) {
     exit;
 }
 ?>
-<?php if (isset($_GET['tambah'])) : ?>
-    <div class="flash-data" data-flashdata="Ditambah"></div>
-<?php endif; ?>
-<?php if (isset($_GET['delete'])) : ?>
-    <div class="flash-data" data-flashdata="Dihapus"></div>
+<?php if (session()->getFlashdata('pesan')) : ?>
+    <div class="flash-data" data-flashdata="<?= session()->getFlashdata('pesan'); ?>"></div>
 <?php endif; ?>
 <div class="container">
     <?php if ($_SESSION['status'] == 'siswa') : ?>
@@ -22,6 +19,16 @@ if (!isset($_SESSION["login"])) {
     <?php endif; ?>
 
     <a href="<?= base_url(); ?>/detailmapel/siswa/<?= $_GET['detailmapelsiswa']; ?>?namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru'] ?>" class="btn btn-danger mb-2 mt-2">Kembali</a>
+
+    <form action="" method="post">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="cari username atau komentar" name="keyword" autocomplete="off">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit" name="submit">Cari</button>
+            </div>
+        </div>
+    </form>
+
     <div class="table-responsive">
         <table class="table">
             <thead>
@@ -34,78 +41,81 @@ if (!isset($_SESSION["login"])) {
             </thead>
             <tbody>
                 <?php $i = 1; ?>
-                <?php foreach ($komentar->getResult() as $k) : ?>
-                    <?php if ($_SESSION['status'] == 'siswa' && $k->username == $_SESSION['username'] && $k->id_detailmapel == $id && $k->status == 'pribadi' && $_GET['komentar'] == 'pribadi') : ?>
+                <?php foreach ($komentar as $k) : ?>
+                    <?php if ($_SESSION['status'] == 'siswa' && $k['username'] == $_SESSION['username'] && $k['id_detailmapel'] == $id && $k['status'] == 'pribadi' && $_GET['komentar'] == 'pribadi') : ?>
                         <tr>
                             <th scope="row"><?= $i++; ?></th>
-                            <?php if ($k->tipe == 'guru') : ?>
-                                <td><?= $k->tipe; ?></td>
+                            <?php if ($k['tipe'] == 'guru') : ?>
+                                <td><?= $k['tipe']; ?></td>
                             <?php endif; ?>
-                            <?php if ($k->tipe == 'siswa') : ?>
-                                <td><?= $k->username; ?></td>
+                            <?php if ($k['tipe'] == 'siswa') : ?>
+                                <td><?= $k['username']; ?></td>
                             <?php endif; ?>
                             <td>
                                 <?php
-                                $str = $k->komentar;
+                                $str = $k['komentar'];
                                 echo wordwrap($str, 91, "<br>", TRUE);
                                 ?>
                             </td>
-                            <?php if ($k->tipe == 'siswa') : ?>
+                            <?php if ($k['tipe'] == 'siswa') : ?>
                                 <td>
-                                    <a href="<?= base_url(); ?>/komentar/delete/<?= $k->id_komentar; ?>?detailmapelsiswa=<?= $_GET['detailmapelsiswa']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&status=<?= $_GET['komentar']; ?>" class="btn btn-danger hapusdata">Delete</a>
+                                    <a href="<?= base_url(); ?>/komentar/delete/<?= $k['id_komentar']; ?>?detailmapelsiswa=<?= $_GET['detailmapelsiswa']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&status=<?= $_GET['komentar']; ?>" class="btn btn-danger hapusdata">Delete</a>
                                 </td>
                             <?php endif; ?>
                         </tr>
                     <?php endif; ?>
-                    <?php if ($k->id_detailmapel == $id && $_GET['komentar'] == 'kelas' && $k->status == 'kelas') : ?>
+
+                    <?php if ($k['id_detailmapel'] == $id && $_GET['komentar'] == 'kelas' && $k['status'] == 'kelas') : ?>
                         <tr>
                             <th scope="row"><?= $i++; ?></th>
-                            <?php if ($k->tipe == 'guru') : ?>
-                                <td><?= $k->tipe; ?></td>
+                            <?php if ($k['tipe'] == 'guru') : ?>
+                                <td><?= $k['tipe']; ?></td>
                             <?php endif; ?>
-                            <?php if ($k->tipe == 'siswa') : ?>
-                                <td><?= $k->username; ?></td>
+                            <?php if ($k['tipe'] == 'siswa') : ?>
+                                <td><?= $k['username']; ?></td>
                             <?php endif; ?>
                             <td>
                                 <?php
-                                $str = $k->komentar;
+                                $str = $k['komentar'];
                                 echo wordwrap($str, 91, "<br>", TRUE);
                                 ?>
                             </td>
-                            <?php if ($k->username == $_SESSION['username'] && $_SESSION['status'] == 'siswa') : ?>
+                            <?php if ($k['username'] == $_SESSION['username'] && $_SESSION['status'] == 'siswa') : ?>
                                 <td>
-                                    <a href="<?= base_url(); ?>/komentar/delete/<?= $k->id_komentar; ?>?detailmapelsiswa=<?= $_GET['detailmapelsiswa']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&status=<?= $_GET['komentar']; ?>" class="btn btn-danger hapusdata">Delete</a>
+                                    <a href="<?= base_url(); ?>/komentar/delete/<?= $k['id_komentar']; ?>?detailmapelsiswa=<?= $_GET['detailmapelsiswa']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&status=<?= $_GET['komentar']; ?>" class="btn btn-danger hapusdata">Delete</a>
                                 </td>
                             <?php endif; ?>
                             <?php if ($_SESSION['status'] == 'guru') : ?>
                                 <td>
-                                    <a href="<?= base_url(); ?>/komentar/delete/<?= $k->id_komentar; ?>?detailmapelsiswa=<?= $_GET['detailmapelsiswa']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&status=<?= $_GET['komentar']; ?>" class="btn btn-danger hapusdata">Delete</a>
+                                    <a href="<?= base_url(); ?>/komentar/delete/<?= $k['id_komentar']; ?>?detailmapelsiswa=<?= $_GET['detailmapelsiswa']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&status=<?= $_GET['komentar']; ?>" class="btn btn-danger hapusdata">Delete</a>
                                 </td>
                             <?php endif; ?>
                         </tr>
                     <?php endif; ?>
-                    <?php if ($_SESSION['status'] == 'guru' &&  $k->id_detailmapel == $id && $k->status == 'pribadi' && $_GET['komentar'] == 'pribadi') : ?>
+
+                    <?php if ($_SESSION['status'] == 'guru' &&  $k['id_detailmapel'] == $id && $k['status'] == 'pribadi' && $_GET['komentar'] == 'pribadi') : ?>
                         <tr>
                             <th scope="row"><?= $i++; ?></th>
-                            <?php if ($k->tipe == 'guru') : ?>
-                                <td><?= $k->tipe; ?></td>
+                            <?php if ($k['tipe'] == 'guru') : ?>
+                                <td><?= $k['tipe']; ?></td>
                             <?php endif; ?>
-                            <?php if ($k->tipe == 'siswa') : ?>
-                                <td><?= $k->username; ?></td>
+                            <?php if ($k['tipe'] == 'siswa') : ?>
+                                <td><?= $k['username']; ?></td>
                             <?php endif; ?>
                             <td>
                                 <?php
-                                $str = $k->komentar;
+                                $str = $k['komentar'];
                                 echo wordwrap($str, 91, "<br>", TRUE);
                                 ?>
                             </td>
                             <td>
-                                <a href="<?= base_url() ?>/komentar/create?detailmapelsiswa=<?= $_GET['detailmapelsiswa']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&komentar=<?= $_GET['komentar']; ?>&username=<?= $k->username ?>" class="btn btn-primary mt-2 mb-2">Balas Komentar</a>
+                                <a href="<?= base_url() ?>/komentar/create?detailmapelsiswa=<?= $_GET['detailmapelsiswa']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&komentar=<?= $_GET['komentar']; ?>&username=<?= $k['username'] ?>" class="btn btn-primary mt-2 mb-2">Balas Komentar</a>
 
-                                <a href="<?= base_url(); ?>/komentar/delete/<?= $k->id_komentar; ?>?detailmapelsiswa=<?= $_GET['detailmapelsiswa']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&status=<?= $_GET['komentar']; ?>" class="btn btn-danger hapusdata">Delete</a>
+                                <a href="<?= base_url(); ?>/komentar/delete/<?= $k['id_komentar']; ?>?detailmapelsiswa=<?= $_GET['detailmapelsiswa']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&status=<?= $_GET['komentar']; ?>" class="btn btn-danger hapusdata">Delete</a>
                             </td>
                         </tr>
                     <?php endif; ?>
+
                 <?php endforeach; ?>
             </tbody>
         </table>

@@ -7,8 +7,13 @@ use CodeIgniter\Model;
 class KelasSiswaModel extends Model
 {
     protected $table = 'kelas_siswa';
+    protected $primaryKey = 'id_kelas_siswa';
     protected $useTimestamps = true;
     protected $allowedFields = ['nis', 'id_kelas'];
+    public function search($keyword)
+    {
+        return $this->table('kelas_siswa')->like('nis', $keyword);
+    }
     public function getData($id = false)
     {
         if ($id == false) {

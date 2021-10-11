@@ -15,13 +15,24 @@ class KelasJamPelajaranController extends BaseController
     }
     public function index($id, $namakelas)
     {
-        $this->builder->select('kelas_jam_pelajaran.id_mapel as kelas_jam_pelajaranid_mapel,id_kelas,hari,jam,nama_mapel');
+        $this->builder->select('id_jadwal,kelas_jam_pelajaran.id_mapel as kelas_jam_pelajaranid_mapel,kelas_jam_pelajaran.id_kelas as kelas_jam_pelajaranid_kelas,hari,jam,nama_mapel,nama_kelas');
         $this->builder->join('data_mata_pelajaran', 'data_mata_pelajaran.id_mapel = kelas_jam_pelajaran.id_mapel');
-        $query = $this->builder->get();
+        $this->builder->join('kelas', 'kelas.id_kelas = kelas_jam_pelajaran.id_kelas');
+        $query = $this->builder->getWhere(['kelas_jam_pelajaran.id_kelas' => $id]);
+
+        $currentPage = $this->request->getVar('page_kelas_jam_pelajaran') ? $this->request->getVar('page_kelas_jam_pelajaran') : 1;
+        $keyword = $this->request->getVar('keyword');
+        if ($keyword) {
+            $kelasjampelajaran = $this->dataModel->search($keyword);
+        } else {
+            $kelasjampelajaran = $this->dataModel;
+        }
         $data = [
             'title' => 'ELEARNING - Kelas Jam Pelajaran',
-            'kelasjampelajaran' => $query->getResult(),
-            'kelasJamPelajaranInsert' => $this->dataModel->getData(),
+            'mapelkelas' => $query->getResult(),
+            'kelasjampelajaran' => $kelasjampelajaran->where('id_kelas', $id)->paginate(5, 'kelas_jam_pelajaran'),
+            'pager' => $this->dataModel->pager,
+            'currentPage' => $currentPage,
             'id' => $id,
             'namakelas' => $namakelas
         ];
@@ -41,25 +52,14 @@ class KelasJamPelajaranController extends BaseController
 
     public function save()
     {
-        $this->builder->select('kelas_jam_pelajaran.id_mapel as kelas_jam_pelajaranid_mapel,id_kelas,hari,jam,nama_mapel');
-        $this->builder->join('data_mata_pelajaran', 'data_mata_pelajaran.id_mapel = kelas_jam_pelajaran.id_mapel');
-        $query = $this->builder->get();
         $this->dataModel->save([
             'id_mapel' => $this->request->getVar('id_mapel'),
             'id_kelas' => $this->request->getVar('id_kelas'),
             'hari' => $this->request->getVar('hari'),
             'jam' => $this->request->getVar('jam')
         ]);
-        $tambah = true;
-        $data = [
-            'title' => 'ELEARNING - Kelas Jam Pelajaran',
-            'tambah' => $tambah,
-            'kelasjampelajaran' => $query->getResult(),
-            'kelasJamPelajaranInsert' => $this->dataModel->getData(),
-            'id' => $_GET['id'],
-            'namakelas' => $_GET['namakelas']
-        ];
-        return view('datamaster/kelas/JamPelajaranview', $data);
+        session()->setFlashData('pesan', 'Ditambah');
+        return redirect()->to(base_url() . 'kelasjampelajaran/' . $_GET['id'] . '/' . $_GET['namakelas'] . '?page_kelas_jam_pelajaran=' . $_GET['page_kelas_jam_pelajaran']);
     }
 
     public function delete($id)
@@ -68,20 +68,9 @@ class KelasJamPelajaranController extends BaseController
             header("Location: " . base_url() . "/login");
             exit;
         }
-        $this->builder->select('kelas_jam_pelajaran.id_mapel as kelas_jam_pelajaranid_mapel,id_kelas,hari,jam,nama_mapel');
-        $this->builder->join('data_mata_pelajaran', 'data_mata_pelajaran.id_mapel = kelas_jam_pelajaran.id_mapel');
-        $query = $this->builder->get();
-        $this->builder->delete(['id_jadwal' => $id]);
-        $delete = true;
-        $data = [
-            'title' => 'ELEARNING - Kelas Jam Pelajaran',
-            'delete' => $delete,
-            'kelasjampelajaran' => $query->getResult(),
-            'kelasJamPelajaranInsert' => $this->dataModel->getData(),
-            'id' => $_GET['id'],
-            'namakelas' => $_GET['namakelas']
-        ];
-        return view('datamaster/kelas/JamPelajaranview', $data);
+        $this->dataModel->where('id_jadwal', $id)->delete();
+        session()->setFlashData('pesan', 'Dihapus');
+        return redirect()->to(base_url() . 'kelasjampelajaran/' . $_GET['id'] . '/' . $_GET['namakelas'] . '?page_kelas_jam_pelajaran=' . $_GET['page_kelas_jam_pelajaran']);
     }
 
     public function edit($id)
@@ -98,26 +87,14 @@ class KelasJamPelajaranController extends BaseController
 
     public function update($id)
     {
-        $this->builder->select('kelas_jam_pelajaran.id_mapel as kelas_jam_pelajaranid_mapel,id_kelas,hari,jam,nama_mapel');
-        $this->builder->join('data_mata_pelajaran', 'data_mata_pelajaran.id_mapel = kelas_jam_pelajaran.id_mapel');
-        $query = $this->builder->get();
         $data = [
             'id_mapel' => $this->request->getVar('id_mapel'),
             'id_kelas' => $this->request->getVar('id_kelas'),
             'hari' => $this->request->getVar('hari'),
             'jam' => $this->request->getVar('jam')
         ];
-        $this->builder->where('id_jadwal', $id);
-        $this->builder->update($data);
-        $edit = true;
-        $data = [
-            'title' => 'ELEARNING - Kelas Jam Pelajaran',
-            'edit' => $edit,
-            'kelasjampelajaran' => $query->getResult(),
-            'kelasJamPelajaranInsert' => $this->dataModel->getData(),
-            'id' => $_GET['id'],
-            'namakelas' => $_GET['namakelas']
-        ];
-        return view('datamaster/kelas/JamPelajaranview', $data);
+        $this->dataModel->update($id, $data);
+        session()->setFlashData('pesan', 'Diedit');
+        return redirect()->to(base_url() . 'kelasjampelajaran/' . $_GET['id'] . '/' . $_GET['namakelas'] . '?page_kelas_jam_pelajaran=' . $_GET['page_kelas_jam_pelajaran']);
     }
 }

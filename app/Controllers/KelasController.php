@@ -2,23 +2,37 @@
 
 namespace App\Controllers;
 
+use App\Models\KelasModel;
+
 class KelasController extends BaseController
 {
-    protected $db, $builder;
+    protected $dataModel, $db, $builder;
     public function __construct()
     {
+        $this->dataModel = new KelasModel();
         $this->db      = \Config\Database::connect();
         $this->builder = $this->db->table('kelas');
     }
 
     public function index()
     {
-        $this->builder->select('kelas.nip as kelasnip,id_kelas,nama_kelas,nama_guru');
+        $this->builder->select('kelas.nip as kelasnip,nama_guru');
         $this->builder->join('data_guru', 'data_guru.nip = kelas.nip');
         $query = $this->builder->get();
+
+        $currentPage = $this->request->getVar('page_kelas') ? $this->request->getVar('page_kelas') : 1;
+        $keyword = $this->request->getVar('keyword');
+        if ($keyword) {
+            $kelas = $this->dataModel->search($keyword);
+        } else {
+            $kelas = $this->dataModel;
+        }
         $data = [
             'title' => 'ELEARNING - Kelas',
-            'kelas' => $query->getResult()
+            'namaguru' => $query->getResult(),
+            'kelas' => $kelas->paginate(5, 'kelas'),
+            'pager' => $this->dataModel->pager,
+            'currentPage' => $currentPage
         ];
         return view('datamaster/kelas/kelasview', $data);
     }
@@ -26,7 +40,8 @@ class KelasController extends BaseController
     public function create()
     {
         $data = [
-            'title' => 'Form Tambah Data Kelas'
+            'title' => 'Form Tambah Data Kelas',
+            'validation' => \Config\Services::validation()
         ];
 
         return view('datamaster/kelas/kelasCreate', $data);
@@ -34,21 +49,22 @@ class KelasController extends BaseController
 
     public function save()
     {
-        $data = [
+        if (!$this->validate([
+            'nip' => [
+                'rules' => 'is_unique[kelas.nip]',
+                'errors' => [
+                    'is_unique' => '{field} sudah terdaftar'
+                ]
+            ]
+        ])) {
+            return redirect()->to('/kelas/create?page_kelas=' . $_GET['page_kelas'])->withInput();
+        }
+        $this->dataModel->save([
             'nama_kelas' => $this->request->getVar('nama_kelas'),
             'nip'  => $this->request->getVar('nip')
-        ];
-        $this->builder->insert($data);
-        $this->builder->select('kelas.nip as kelasnip,id_kelas,nama_kelas,nama_guru');
-        $this->builder->join('data_guru', 'data_guru.nip = kelas.nip');
-        $query = $this->builder->get();
-        $tambah = true;
-        $data = [
-            'title' => 'ELEARNING - Kelas',
-            'tambah' => $tambah,
-            'kelas' => $query->getResult()
-        ];
-        return view('datamaster/kelas/kelasview', $data);
+        ]);
+        session()->setFlashData('pesan', 'Ditambah');
+        return redirect()->to(base_url() . '/kelas?page_kelas=' . $_GET['page_kelas']);
     }
 
     public function edit($id)
@@ -57,7 +73,8 @@ class KelasController extends BaseController
         $query = $this->builder->get();
         $data = [
             'title' => 'Ubah Data Kelas',
-            'kelas' => $query->getResult()
+            'kelas' => $query->getResult(),
+            'validation' => \Config\Services::validation()
         ];
 
         return view('datamaster/kelas/kelasEdit', $data);
@@ -70,18 +87,9 @@ class KelasController extends BaseController
             'nip' => $this->request->getVar('nip')
         ];
 
-        $this->builder->where('id_kelas', $id);
-        $this->builder->update($data);
-        $this->builder->select('kelas.nip as kelasnip,id_kelas,nama_kelas,nama_guru');
-        $this->builder->join('data_guru', 'data_guru.nip = kelas.nip');
-        $query = $this->builder->get();
-        $edit = true;
-        $data = [
-            'title' => 'ELEARNING - Kelas',
-            'edit' => $edit,
-            'kelas' => $query->getResult()
-        ];
-        return view('datamaster/kelas/kelasview', $data);
+        $this->dataModel->update($id, $data);
+        session()->setFlashData('pesan', 'Diedit');
+        return redirect()->to(base_url() . '/kelas?page_kelas=' . $_GET['page_kelas']);
     }
 
     public function delete($id)
@@ -90,16 +98,8 @@ class KelasController extends BaseController
             header("Location: " . base_url() . "/login");
             exit;
         }
-        $this->builder->delete(['id_kelas' => $id]);
-        $this->builder->select('kelas.nip as kelasnip,id_kelas,nama_kelas,nama_guru');
-        $this->builder->join('data_guru', 'data_guru.nip = kelas.nip');
-        $query = $this->builder->get();
-        $delete = true;
-        $data = [
-            'title' => 'ELEARNING - Kelas',
-            'delete' => $delete,
-            'kelas' => $query->getResult()
-        ];
-        return view('datamaster/kelas/kelasview', $data);
+        $this->dataModel->where('id_kelas', $id)->delete();
+        session()->setFlashData('pesan', 'Dihapus');
+        return redirect()->to(base_url() . '/kelas?page_kelas=' . $_GET['page_kelas']);
     }
 }

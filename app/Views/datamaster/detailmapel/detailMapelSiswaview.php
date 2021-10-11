@@ -7,11 +7,8 @@ if (!isset($_SESSION["login"])) {
     exit;
 }
 ?>
-<?php if (isset($tambah)) : ?>
-    <div class="flash-data" data-flashdata="Ditambah"></div>
-<?php endif; ?>
-<?php if (isset($delete)) : ?>
-    <div class="flash-data" data-flashdata="Dihapus"></div>
+<?php if (session()->getFlashdata('pesan')) : ?>
+    <div class="flash-data" data-flashdata="<?= session()->getFlashdata('pesan'); ?>"></div>
 <?php endif; ?>
 <div class="container mt-3">
 
@@ -30,9 +27,12 @@ if (!isset($_SESSION["login"])) {
 
 
                     <?php
-                    $str = explode('|', $detailmapel->getResult()[0]->file);
-                    for ($i = 0; $i < count($str); $i++) {
-                        echo '<i class="bi bi-cursor btn-outline-info"></i>' . '<a href=' . base_url() . '/public/file/' .  $str[$i]  . ' target=_blank>' . wordwrap($str[$i], 25, "<br>", TRUE) . '</a><br>';
+                    if (!empty($detailmapel->getResult()[0]->file)) {
+                        $str = explode('|', $detailmapel->getResult()[0]->file);
+                        for ($i = 0; $i < count($str); $i++) {
+
+                            echo '<i class="bi bi-cursor btn-outline-info"></i>' . '<a href=' . base_url() . '/public/file/' .  $str[$i]  . ' target=_blank>' . wordwrap($str[$i], 25, "<br>", TRUE) . '</a><br>';
+                        }
                     }
                     ?>
                     <br>
@@ -99,13 +99,11 @@ if (!isset($_SESSION["login"])) {
                     <a href="<?= base_url(); ?>/detailmapel/delete/<?= $detailmapel->getResult()[0]->id_detailmapel; ?>?idtugassiswa=<?= $ts['id_tugassiswa']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru'] ?>" class="btn btn-danger mt-2 hapusdata">Batal</a>
                 <?php endif; ?>
             <?php endforeach; ?>
-            <?php if ($tugassiswaid == null && $_SESSION['status'] == 'siswa') : ?>
+            <?php if (!empty($tugassiswaid) && $_SESSION['status'] == 'siswa') : ?>
+                <a href=""></a>
+            <?php elseif (empty($tugassiswaid) && $_SESSION['status'] == 'siswa') : ?>
                 <a href="<?= base_url() ?>/detailmapel/createsiswa?detailmapelsiswa=<?= $detailmapel->getResult()[0]->id_detailmapel; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>" class="btn btn-dark mt-2">Kumpul Tugas</a>
             <?php endif; ?>
-            <?php if ($tugassiswaid != null) : ?>
-                <a href="<?= base_url() ?>/detailmapel/createsiswa/?detailmapelsiswa=<?= $detailmapel->getResult()[0]->id_detailmapel; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>"></a>
-            <?php endif; ?>
-
             <a href="<?= base_url() ?>/komentar?detailmapelsiswa=<?= $detailmapel->getResult()[0]->id_detailmapel; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&komentar=pribadi" class="btn btn-info mt-2">Komentar Pribadi</a>
                 </div>
             </div>

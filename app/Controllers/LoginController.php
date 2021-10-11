@@ -20,6 +20,22 @@ class LoginController extends BaseController
         return view('login/loginview', $data);
     }
 
+    public function home()
+    {
+        $data = [
+            'title' => 'ELEARNING - Home'
+        ];
+        return view('home/homeview', $data);
+    }
+
+    public function logout()
+    {
+        $_SESSION = [];
+        session_unset();
+        session_destroy();
+        return redirect()->to(base_url() . '/login');
+    }
+
     public function save()
     {
         if (isset($_POST["login"])) {
@@ -28,12 +44,8 @@ class LoginController extends BaseController
             $result = $this->loginModel->getData($username);
             // cek username
             if (empty($result["username"])) {
-                $error = true;
-                $data = [
-                    'title' => 'ELEARNING - Login',
-                    'error' => $error
-                ];
-                return view('login/loginview', $data);
+                session()->setFlashData('error', 'username / password salah');
+                return redirect()->to(base_url() . '/login');
             }
             if ($username === $result["username"]) {
                 // cek password
@@ -42,17 +54,10 @@ class LoginController extends BaseController
                     $_SESSION["login"] = true;
                     $_SESSION["status"] = $result["status"];
                     $_SESSION["username"] = $result["username"];
-                    $data = [
-                        'title' => 'ELEARNING'
-                    ];
-                    return view('home/homeview', $data);
+                    return redirect()->to(base_url() . '/home');
                 } else {
-                    $error = true;
-                    $data = [
-                        'title' => 'ELEARNING - Login',
-                        'error' => $error
-                    ];
-                    return view('login/loginview', $data);
+                    session()->setFlashData('error', 'username / password salah');
+                    return redirect()->to(base_url() . '/login');
                 }
             }
         }

@@ -6,19 +6,26 @@ use App\Models\UserModel;
 
 class UserController extends BaseController
 {
-    protected $dataModel, $builder;
+    protected $dataModel;
     public function __construct()
     {
         $this->dataModel = new UserModel();
-        $db      = \Config\Database::connect();
-        $this->builder = $db->table('user');
     }
 
     public function index()
     {
+        $currentPage = $this->request->getVar('page_user') ? $this->request->getVar('page_user') : 1;
+        $keyword = $this->request->getVar('keyword');
+        if ($keyword) {
+            $user = $this->dataModel->search($keyword);
+        } else {
+            $user = $this->dataModel;
+        }
         $data = [
             'title' => 'ELEARNING - User',
-            'user' => $this->dataModel->getData()
+            'user' => $user->paginate(5, 'user'),
+            'pager' => $this->dataModel->pager,
+            'currentPage' => $currentPage
         ];
         return view('datamaster/user/userview', $data);
     }
@@ -43,13 +50,8 @@ class UserController extends BaseController
             'level_user' => $this->request->getVar('level_user'),
             'status_user' => $this->request->getVar('flexRadioDefault')
         ]);
-        $tambah = true;
-        $data = [
-            'title' => 'ELEARNING - User',
-            'tambah' => $tambah,
-            'user' => $this->dataModel->getData()
-        ];
-        return view('datamaster/user/userview', $data);
+        session()->setFlashData('pesan', 'Ditambah');
+        return redirect()->to(base_url() . '/user?page_user=' . $_GET['page_user']);
     }
 
     public function edit($id)
@@ -73,16 +75,9 @@ class UserController extends BaseController
             'level_user' => $this->request->getVar('level_user'),
             'status_user' => $this->request->getVar('flexRadioDefault')
         ];
-
-        $this->builder->where('id_user', $id);
-        $this->builder->update($data);
-        $edit = true;
-        $data = [
-            'title' => 'ELEARNING - User',
-            'edit' => $edit,
-            'user' => $this->dataModel->getData()
-        ];
-        return view('datamaster/user/userview', $data);
+        $this->dataModel->update($id, $data);
+        session()->setFlashData('pesan', 'Diedit');
+        return redirect()->to(base_url() . '/user?page_user=' . $_GET['page_user']);
     }
 
     public function delete($id)
@@ -91,13 +86,8 @@ class UserController extends BaseController
             header("Location: " . base_url() . "/login");
             exit;
         }
-        $this->builder->delete(['id_user' => $id]);
-        $delete = true;
-        $data = [
-            'title' => 'ELEARNING - User',
-            'delete' => $delete,
-            'user' => $this->dataModel->getData()
-        ];
-        return view('datamaster/user/userview', $data);
+        $this->dataModel->where('id_user', $id)->delete();
+        session()->setFlashData('pesan', 'Dihapus');
+        return redirect()->to(base_url() . '/user?page_user=' . $_GET['page_user']);
     }
 }

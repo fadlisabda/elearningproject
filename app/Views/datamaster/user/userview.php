@@ -7,12 +7,17 @@ if (!isset($_SESSION["login"])) {
 }
 ?>
 <div class="container">
-    <a href="<?= base_url(); ?>/user/create" class="btn btn-primary mt-3 mb-3">Tambah Data User</a>
-    <?php if (isset($edit) || isset($tambah)) : ?>
-        <div class="flash-data" data-flashdata="<?= (isset($edit)) ? 'Diedit' : 'Ditambah' ?>"></div>
-    <?php endif; ?>
-    <?php if (isset($delete)) : ?>
-        <div class="flash-data" data-flashdata="Dihapus"></div>
+    <a href="<?= base_url(); ?>/user/create?page_user=<?= (empty($_GET['page_user'])) ? 1 : $_GET['page_user'] ?>" class="btn btn-primary mt-3 mb-3">Tambah Data User</a>
+    <form action="" method="post">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="cari username" name="keyword" autocomplete="off">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit" name="submit">Cari</button>
+            </div>
+        </div>
+    </form>
+    <?php if (session()->getFlashdata('pesan')) : ?>
+        <div class="flash-data" data-flashdata="<?= session()->getFlashdata('pesan'); ?>"></div>
     <?php endif; ?>
     <div class="table-responsive">
         <table class="table">
@@ -24,19 +29,21 @@ if (!isset($_SESSION["login"])) {
                 </tr>
             </thead>
             <tbody>
-                <?php $i = 1; ?>
+                <?php $i = 1 + (5 * ($currentPage - 1)); ?>
                 <?php foreach ($user as $u) : ?>
                     <tr>
                         <th scope="row"><?= $i++; ?></th>
                         <td><?= $u['username'] ?></td>
                         <td>
-                            <a href="<?= base_url(); ?>/user/edit/<?= $u['id_user']; ?>" class="btn btn-warning">Edit</a>
-                            <a href="<?= base_url(); ?>/user/delete/<?= $u['id_user']; ?>" class="btn btn-danger hapusdata">Delete</a>
+                            <a href="<?= base_url(); ?>/user/edit/<?= $u['id_user']; ?>?page_user=<?= (empty($_GET['page_user'])) ? 1 : $_GET['page_user'] ?>" class="btn btn-warning">Edit</a>
+
+                            <a href="<?= base_url(); ?>/user/delete/<?= $u['id_user']; ?>?page_user=<?= (empty($_GET['page_user'])) ? 1 : $_GET['page_user'] ?>" class="btn btn-danger hapusdata">Delete</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
+        <?= $pager->links('user', 'paginationview'); ?>
     </div>
 </div>
 <?= $this->endSection(); ?>

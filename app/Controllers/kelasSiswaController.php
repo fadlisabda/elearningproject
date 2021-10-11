@@ -15,13 +15,23 @@ class KelasSiswaController extends BaseController
     }
     public function index($id, $namakelas)
     {
-        $this->builder->select('kelas_siswa.nis as kelas_siswanis,id_kelas,nama_siswa,id_kelas_siswa');
+        $this->builder->select('kelas_siswa.nis as kelas_siswanis,nama_siswa');
         $this->builder->join('siswa', 'siswa.nis = kelas_siswa.nis');
-        $query = $this->builder->get();
+        $query = $this->builder->getWhere(['id_kelas' => $id]);
+
+        $currentPage = $this->request->getVar('page_kelas_siswa') ? $this->request->getVar('page_kelas_siswa') : 1;
+        $keyword = $this->request->getVar('keyword');
+        if ($keyword) {
+            $kelassiswa = $this->dataModel->search($keyword);
+        } else {
+            $kelassiswa = $this->dataModel;
+        }
         $data = [
             'title' => 'ELEARNING - Kelas Siswa',
-            'kelassiswa' => $query->getResult(),
-            'kelasSiswaInsert' => $this->dataModel->getData(),
+            'namasiswa' => $query->getResult(),
+            'kelassiswa' => $kelassiswa->where('id_kelas', $id)->paginate(5, 'kelas_siswa'),
+            'pager' => $this->dataModel->pager,
+            'currentPage' => $currentPage,
             'id' => $id,
             'namakelas' => $namakelas
         ];
@@ -33,7 +43,8 @@ class KelasSiswaController extends BaseController
         $data = [
             'title' => 'Form Tambah Data Kelas Siswa',
             'id' => $_GET['id'],
-            'namakelas' => $_GET['namakelas']
+            'namakelas' => $_GET['namakelas'],
+            'validation' => \Config\Services::validation()
         ];
 
         return view('datamaster/kelas/SiswaCreate', $data);
@@ -41,23 +52,22 @@ class KelasSiswaController extends BaseController
 
     public function save()
     {
-        $this->builder->select('kelas_siswa.nis as kelas_siswanis,id_kelas,nama_siswa,id_kelas_siswa');
-        $this->builder->join('siswa', 'siswa.nis = kelas_siswa.nis');
-        $query = $this->builder->get();
+        if (!$this->validate([
+            'nis' => [
+                'rules' => 'is_unique[kelas_siswa.nis]',
+                'errors' => [
+                    'is_unique' => '{field} siswa sudah terdaftar'
+                ]
+            ]
+        ])) {
+            return redirect()->to('/kelassiswa/create?page_kelas_siswa=' . $_GET['page_kelas_siswa'])->withInput();
+        }
         $this->dataModel->save([
             'nis' => $this->request->getVar('nis'),
             'id_kelas' => $this->request->getVar('id_kelas')
         ]);
-        $tambah = true;
-        $data = [
-            'title' => 'ELEARNING - Kelas Siswa',
-            'tambah' => $tambah,
-            'kelassiswa' => $query->getResult(),
-            'kelasSiswaInsert' => $this->dataModel->getData(),
-            'id' => $_GET['id'],
-            'namakelas' => $_GET['namakelas']
-        ];
-        return view('datamaster/kelas/Siswaview', $data);
+        session()->setFlashData('pesan', 'Ditambah');
+        return redirect()->to(base_url() . 'kelassiswa/' . $_GET['id'] . '/' . $_GET['namakelas'] . '?page_kelas_siswa=' . $_GET['page_kelas_siswa']);
     }
 
     public function delete($id)
@@ -66,20 +76,9 @@ class KelasSiswaController extends BaseController
             header("Location: " . base_url() . "/login");
             exit;
         }
-        $this->builder->delete(['id_kelas_siswa' => $id]);
-        $this->builder->select('kelas_siswa.nis as kelas_siswanis,id_kelas,nama_siswa,id_kelas_siswa');
-        $this->builder->join('siswa', 'siswa.nis = kelas_siswa.nis');
-        $query = $this->builder->get();
-        $delete = true;
-        $data = [
-            'title' => 'ELEARNING - Kelas Siswa',
-            'delete' => $delete,
-            'kelassiswa' => $query->getResult(),
-            'kelasSiswaInsert' => $this->dataModel->getData(),
-            'id' => $_GET['id'],
-            'namakelas' => $_GET['namakelas']
-        ];
-        return view('datamaster/kelas/Siswaview', $data);
+        $this->dataModel->where('id_kelas_siswa', $id)->delete();
+        session()->setFlashData('pesan', 'Dihapus');
+        return redirect()->to(base_url() . 'kelassiswa/' . $_GET['id'] . '/' . $_GET['namakelas'] . '?page_kelas_siswa=' . $_GET['page_kelas_siswa']);
     }
 
     public function edit($id)
@@ -88,7 +87,8 @@ class KelasSiswaController extends BaseController
             'title' => 'Ubah Data Kelas Siswa',
             'kelassiswa' => $this->dataModel->getData($id),
             'id' => $_GET['id'],
-            'namakelas' => $_GET['namakelas']
+            'namakelas' => $_GET['namakelas'],
+            'validation' => \Config\Services::validation()
         ];
 
         return view('datamaster/kelas/SiswaEdit', $data);
@@ -100,22 +100,8 @@ class KelasSiswaController extends BaseController
             'nis' => $this->request->getVar('nis'),
             'id_kelas' => $this->request->getVar('id_kelas')
         ];
-        $this->builder->where('id_kelas_siswa', $id);
-        $this->builder->update($data);
-
-        $this->builder->select('kelas_siswa.nis as kelas_siswanis,id_kelas,nama_siswa,id_kelas_siswa');
-        $this->builder->join('siswa', 'siswa.nis = kelas_siswa.nis');
-        $query = $this->builder->get();
-
-        $edit = true;
-        $data = [
-            'title' => 'ELEARNING - Kelas Siswa',
-            'edit' => $edit,
-            'kelassiswa' => $query->getResult(),
-            'kelasSiswaInsert' => $this->dataModel->getData(),
-            'id' => $_GET['id'],
-            'namakelas' => $_GET['namakelas']
-        ];
-        return view('datamaster/kelas/Siswaview', $data);
+        $this->dataModel->update($id, $data);
+        session()->setFlashData('pesan', 'Diedit');
+        return redirect()->to(base_url() . 'kelassiswa/' . $_GET['id'] . '/' . $_GET['namakelas'] . '?page_kelas_siswa=' . $_GET['page_kelas_siswa']);
     }
 }
