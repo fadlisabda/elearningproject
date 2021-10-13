@@ -75,7 +75,7 @@ class kelasMapelcontroller extends BaseController
             'nip' => $this->request->getVar('nip')
         ]);
         session()->setFlashData('pesan', 'Ditambah');
-        return redirect()->to(base_url() . 'kelasmapel/' . $_GET['id'] . '/' . $_GET['namakelas']);
+        return redirect()->to(base_url() . '/kelasmapel/' . $_GET['id'] . '/' . $_GET['namakelas'] . '?page_kelas_mapel=' . $_GET['page_kelas_mapel']);
     }
 
     public function delete($id)
@@ -86,7 +86,7 @@ class kelasMapelcontroller extends BaseController
         }
         $this->dataModel->where('id_kelas_mapel', $id)->delete();
         session()->setFlashData('pesan', 'Dihapus');
-        return redirect()->to(base_url() . 'kelasmapel/' . $_GET['id'] . '/' . $_GET['namakelas']);
+        return redirect()->to(base_url() . '/kelasmapel/' . $_GET['id'] . '/' . $_GET['namakelas'] . '?page_kelas_mapel=' . $_GET['page_kelas_mapel']);
     }
 
     public function edit($id)
@@ -110,7 +110,7 @@ class kelasMapelcontroller extends BaseController
         ];
         $this->dataModel->update($id, $data);
         session()->setFlashData('pesan', 'Diedit');
-        return redirect()->to(base_url() . 'kelasmapel/' . $_GET['id'] . '/' . $_GET['namakelas']);
+        return redirect()->to(base_url() . '/kelasmapel/' . $_GET['id'] . '/' . $_GET['namakelas'] . '?page_kelas_mapel=' . $_GET['page_kelas_mapel']);
     }
 
     public function siswa()

@@ -52,22 +52,12 @@ class KelasSiswaController extends BaseController
 
     public function save()
     {
-        if (!$this->validate([
-            'nis' => [
-                'rules' => 'is_unique[kelas_siswa.nis]',
-                'errors' => [
-                    'is_unique' => '{field} siswa sudah terdaftar'
-                ]
-            ]
-        ])) {
-            return redirect()->to('/kelassiswa/create?page_kelas_siswa=' . $_GET['page_kelas_siswa'])->withInput();
-        }
         $this->dataModel->save([
             'nis' => $this->request->getVar('nis'),
             'id_kelas' => $this->request->getVar('id_kelas')
         ]);
         session()->setFlashData('pesan', 'Ditambah');
-        return redirect()->to(base_url() . 'kelassiswa/' . $_GET['id'] . '/' . $_GET['namakelas'] . '?page_kelas_siswa=' . $_GET['page_kelas_siswa']);
+        return redirect()->to(base_url() . '/kelassiswa/' . $_GET['id'] . '/' . $_GET['namakelas'] . '?page_kelas_siswa=' . $_GET['page_kelas_siswa']);
     }
 
     public function delete($id)
@@ -78,7 +68,7 @@ class KelasSiswaController extends BaseController
         }
         $this->dataModel->where('id_kelas_siswa', $id)->delete();
         session()->setFlashData('pesan', 'Dihapus');
-        return redirect()->to(base_url() . 'kelassiswa/' . $_GET['id'] . '/' . $_GET['namakelas'] . '?page_kelas_siswa=' . $_GET['page_kelas_siswa']);
+        return redirect()->to(base_url() . '/kelassiswa/' . $_GET['id'] . '/' . $_GET['namakelas'] . '?page_kelas_siswa=' . $_GET['page_kelas_siswa']);
     }
 
     public function edit($id)
@@ -102,6 +92,6 @@ class KelasSiswaController extends BaseController
         ];
         $this->dataModel->update($id, $data);
         session()->setFlashData('pesan', 'Diedit');
-        return redirect()->to(base_url() . 'kelassiswa/' . $_GET['id'] . '/' . $_GET['namakelas'] . '?page_kelas_siswa=' . $_GET['page_kelas_siswa']);
+        return redirect()->to(base_url() . '/kelassiswa/' . $_GET['id'] . '/' . $_GET['namakelas'] . '?page_kelas_siswa=' . $_GET['page_kelas_siswa']);
     }
 }

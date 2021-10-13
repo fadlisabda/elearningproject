@@ -9,6 +9,7 @@ class GuruModel extends Model
     protected $table = 'data_guru';
     protected $primaryKey = 'id_guru';
     protected $useTimestamps = true;
+    protected $useSoftDeletes = true;
     protected $allowedFields = ['nip', 'nama_guru', 'tempat_lahir', 'tgl_lahir', 'no_telp', 'alamat', 'foto_guru'];
     public function search($keyword)
     {

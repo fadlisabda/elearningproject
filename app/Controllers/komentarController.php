@@ -25,7 +25,7 @@ class KomentarController extends BaseController
             'namamapel' => $_GET['namamapel'],
             'namakelas' => $_GET['namakelas'],
             'namaguru' => $_GET['namaguru'],
-            'komentar' => $this->dataModel->getData(),
+            'komentar' => $elkomentar->getData(),
         ];
         return view('datamaster/detailmapel/komentarview', $data);
     }

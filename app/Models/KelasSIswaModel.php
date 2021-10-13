@@ -9,6 +9,7 @@ class KelasSiswaModel extends Model
     protected $table = 'kelas_siswa';
     protected $primaryKey = 'id_kelas_siswa';
     protected $useTimestamps = true;
+    protected $useSoftDeletes = true;
     protected $allowedFields = ['nis', 'id_kelas'];
     public function search($keyword)
     {

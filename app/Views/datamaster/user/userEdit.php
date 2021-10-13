@@ -26,7 +26,7 @@ if (!isset($_SESSION["login"])) {
                 </div>
                 <div class="mb-3">
                     <label for="level_user">Level Akses</label>
-                    <input type="text" class="form-control" id="level_user" name="level_user" value="<?= $user['level_user']; ?>" required>
+                    <input type="number" class="form-control" id="level_user" name="level_user" value="<?= $user['level_user']; ?>" required>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="1" <?= ($user['status_user'] == "1") ? "checked" : "" ?>>

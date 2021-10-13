@@ -25,6 +25,9 @@ if (!isset($_SESSION["login"])) {
                 <tr>
                     <th scope="col">NO</th>
                     <th scope="col">USERNAME</th>
+                    <th scope="col">NAMA USER</th>
+                    <th scope="col">LEVEL USER</th>
+                    <th scope="col">STATUS USER</th>
                     <th scope="col">AKSI</th>
                 </tr>
             </thead>
@@ -34,6 +37,9 @@ if (!isset($_SESSION["login"])) {
                     <tr>
                         <th scope="row"><?= $i++; ?></th>
                         <td><?= $u['username'] ?></td>
+                        <td><?= $u['nama_user'] ?></td>
+                        <td><?= $u['level_user'] ?></td>
+                        <td><?= $u['status_user'] ?></td>
                         <td>
                             <a href="<?= base_url(); ?>/user/edit/<?= $u['id_user']; ?>?page_user=<?= (empty($_GET['page_user'])) ? 1 : $_GET['page_user'] ?>" class="btn btn-warning">Edit</a>
 

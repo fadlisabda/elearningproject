@@ -12,6 +12,7 @@ if (!isset($_SESSION["login"])) {
             <h2>Ubah Data Kelas</h2>
             <form action="<?= base_url(); ?>/kelas/update/<?= $kelas[0]->id_kelas; ?>?page_kelas=<?= $_GET['page_kelas']; ?>" method="post">
                 <?= csrf_field(); ?>
+                <input type="hidden" name="id" value="<?= $kelas[0]->id_kelas; ?>">
                 <div class="mb-3">
                     <label for="nama_kelas">Nama Kelas</label>
                     <input type="text" class="form-control" id="nama_kelas" name="nama_kelas" value="<?= $kelas[0]->nama_kelas; ?>" required>

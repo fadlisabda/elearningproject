@@ -44,6 +44,22 @@ if (!isset($_SESSION["login"])) {
                     <label for="no_telp">No Telepon</label>
                     <input type="text" class="form-control" id="no_telp" name="no_telp" value="<?= $siswa['no_telp']; ?>" required>
                 </div>
+                <div class="mb-3">
+                    <label for="alamat" class="form-label">Alamat</label>
+                    <input type="text" class="form-control" id="alamat" name="alamat" value="<?= $siswa['alamat']; ?>" required>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="pria" <?= ($siswa['jenis_kelamin'] == "pria") ? "checked" : "" ?>>
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Pria
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="wanita" <?= ($siswa['jenis_kelamin'] == "wanita") ? "checked" : "" ?>>
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        Wanita
+                    </label>
+                </div>
                 <label for="foto">Foto Siswa</label>
                 <div>
                     <img src="<?= base_url(); ?>/public/file/<?= $siswa['foto_siswa']; ?>" class="img-thumbnail img-preview mb-2" width="200">

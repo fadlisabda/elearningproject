@@ -13,7 +13,7 @@ class Elusercontroller extends BaseController
     }
     public function index()
     {
-        $currentPage = $this->request->getVar('page_data_el_user') ? $this->request->getVar('page_data_el_user') : 1;
+        $currentPage = $this->request->getVar('page_el_user') ? $this->request->getVar('page_el_user') : 1;
         $keyword = $this->request->getVar('keyword');
         if ($keyword) {
             $el_user = $this->dataModel->search($keyword);
@@ -48,7 +48,7 @@ class Elusercontroller extends BaseController
             'status' => $this->request->getVar('status')
         ]);
         session()->setFlashData('pesan', 'Ditambah');
-        return redirect()->to(base_url() . '/eluser?page_data_el_user=' . $_GET['page_data_el_user']);
+        return redirect()->to(base_url() . '/eluser?page_data_el_user=' . $_GET['page_el_user']);
     }
 
     public function edit($id)
@@ -73,7 +73,7 @@ class Elusercontroller extends BaseController
 
         $this->dataModel->update($id, $data);
         session()->setFlashData('pesan', 'Diedit');
-        return redirect()->to(base_url() . '/eluser?page_data_el_user=' . $_GET['page_data_el_user']);
+        return redirect()->to(base_url() . '/eluser?page_el_user=' . $_GET['page_el_user']);
     }
 
     public function delete($id)
@@ -84,6 +84,6 @@ class Elusercontroller extends BaseController
         }
         $this->dataModel->where('id_eluser', $id)->delete();
         session()->setFlashData('pesan', 'Dihapus');
-        return redirect()->to(base_url() . '/eluser?page_data_el_user=' . $_GET['page_data_el_user']);
+        return redirect()->to(base_url() . '/eluser?page_el_user=' . $_GET['page_el_user']);
     }
 }

@@ -59,7 +59,7 @@ class KelasJamPelajaranController extends BaseController
             'jam' => $this->request->getVar('jam')
         ]);
         session()->setFlashData('pesan', 'Ditambah');
-        return redirect()->to(base_url() . 'kelasjampelajaran/' . $_GET['id'] . '/' . $_GET['namakelas'] . '?page_kelas_jam_pelajaran=' . $_GET['page_kelas_jam_pelajaran']);
+        return redirect()->to(base_url() . '/kelasjampelajaran/' . $_GET['id'] . '/' . $_GET['namakelas'] . '?page_kelas_jam_pelajaran=' . $_GET['page_kelas_jam_pelajaran']);
     }
 
     public function delete($id)
@@ -70,7 +70,7 @@ class KelasJamPelajaranController extends BaseController
         }
         $this->dataModel->where('id_jadwal', $id)->delete();
         session()->setFlashData('pesan', 'Dihapus');
-        return redirect()->to(base_url() . 'kelasjampelajaran/' . $_GET['id'] . '/' . $_GET['namakelas'] . '?page_kelas_jam_pelajaran=' . $_GET['page_kelas_jam_pelajaran']);
+        return redirect()->to(base_url() . '/kelasjampelajaran/' . $_GET['id'] . '/' . $_GET['namakelas'] . '?page_kelas_jam_pelajaran=' . $_GET['page_kelas_jam_pelajaran']);
     }
 
     public function edit($id)
@@ -95,6 +95,6 @@ class KelasJamPelajaranController extends BaseController
         ];
         $this->dataModel->update($id, $data);
         session()->setFlashData('pesan', 'Diedit');
-        return redirect()->to(base_url() . 'kelasjampelajaran/' . $_GET['id'] . '/' . $_GET['namakelas'] . '?page_kelas_jam_pelajaran=' . $_GET['page_kelas_jam_pelajaran']);
+        return redirect()->to(base_url() . '/kelasjampelajaran/' . $_GET['id'] . '/' . $_GET['namakelas'] . '?page_kelas_jam_pelajaran=' . $_GET['page_kelas_jam_pelajaran']);
     }
 }

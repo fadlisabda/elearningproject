@@ -81,6 +81,8 @@ class SiswaController extends BaseController
             'tempat_lahir' => $this->request->getVar('tempat_lahir'),
             'tanggal_lahir' => $this->request->getVar('tanggal_lahir'),
             'no_telp' => $this->request->getVar('no_telp'),
+            'alamat' => $this->request->getVar('alamat'),
+            'jenis_kelamin' => $this->request->getVar('flexRadioDefault'),
             'foto_siswa' => $namaFoto
         ]);
         session()->setFlashData('pesan', 'Ditambah');
@@ -153,6 +155,8 @@ class SiswaController extends BaseController
             'tempat_lahir' => $this->request->getVar('tempat_lahir'),
             'tanggal_lahir' => $this->request->getVar('tanggal_lahir'),
             'no_telp' => $this->request->getVar('no_telp'),
+            'alamat' => $this->request->getVar('alamat'),
+            'jenis_kelamin' => $this->request->getVar('flexRadioDefault'),
             'foto_siswa' => $namaFoto
         ];
 

@@ -20,15 +20,15 @@ class DetailMapelController extends BaseController
     {
         $currentPage = $this->request->getVar('page_el_detail_mapel') ? $this->request->getVar('page_el_detail_mapel') : 1;
         $keyword = $this->request->getVar('keyword');
-        if ($keyword) {
-            $eldetailmapel = $this->detailMapelModel->search($keyword);
-        } else {
-            $eldetailmapel = $this->detailMapelModel;
-        }
         $array = array('namamapel' => $namamapel, 'namakelas' => $namakelas, 'namaguru' => $namaguru);
+        if ($keyword) {
+            $eldetailmapel = $this->detailMapelModel->where($array)->search($keyword);
+        } else {
+            $eldetailmapel = $this->detailMapelModel->where($array);
+        }
         $data = [
             'title' => 'ELEARNING - Detail Mapel',
-            'detailmapel' => $eldetailmapel->where($array)->paginate(5, 'el_detail_mapel'),
+            'detailmapel' => $eldetailmapel->paginate(5, 'el_detail_mapel'),
             'pager' => $this->detailMapelModel->pager,
             'currentPage' => $currentPage,
             'namamapel' => $namamapel,
@@ -76,7 +76,7 @@ class DetailMapelController extends BaseController
             'status' => $this->request->getVar('status')
         ]);
         session()->setFlashData('pesan', 'Ditambah');
-        return redirect()->to(base_url() . 'detailmapel/' . $namamapel . '/' . $namakelas . '/' . $namaguru . '?page_el_detail_mapel=' . $_GET['page_el_detail_mapel']);
+        return redirect()->to(base_url() . '/detailmapel/' . $namamapel . '/' . $namakelas . '/' . $namaguru . '?page_el_detail_mapel=' . $_GET['page_el_detail_mapel']);
     }
 
     public function edit($id)
@@ -113,7 +113,12 @@ class DetailMapelController extends BaseController
             }
             $i++;
         }
-
+        if ($this->request->getVar('filelama') != null) {
+            $str = explode('|', $this->request->getVar('filelama'));
+            for ($j = 0; $j < count($str); $j++) {
+                unlink('/xampp/htdocs/elearning/public/file/' . $str[$j]);
+            }
+        }
         $data = [
             'judul' => $this->request->getVar('judul'),
             'keterangan' => $this->request->getVar('keterangan'),
@@ -124,7 +129,7 @@ class DetailMapelController extends BaseController
         ];
         $this->detailMapelModel->update($id, $data);
         session()->setFlashData('pesan', 'Diedit');
-        return redirect()->to(base_url() . 'detailmapel/' . $namamapel . '/' . $namakelas . '/' . $namaguru . '?page_el_detail_mapel=' . $_GET['page_el_detail_mapel']);
+        return redirect()->to(base_url() . '/detailmapel/' . $namamapel . '/' . $namakelas . '/' . $namaguru . '?page_el_detail_mapel=' . $_GET['page_el_detail_mapel']);
     }
 
     public function delete($id)
@@ -146,7 +151,7 @@ class DetailMapelController extends BaseController
 
             $this->detailMapelModel->where('id_detailmapel', $id)->delete();
             session()->setFlashData('pesan', 'Dihapus');
-            return redirect()->to(base_url() . 'detailmapel/' . $_GET['namamapel'] . '/' . $_GET['namakelas'] . '/' . $_GET['namaguru'] . '?page_el_detail_mapel=' . $_GET['page_el_detail_mapel']);
+            return redirect()->to(base_url() . '/detailmapel/' . $_GET['namamapel'] . '/' . $_GET['namakelas'] . '/' . $_GET['namaguru'] . '?page_el_detail_mapel=' . $_GET['page_el_detail_mapel']);
         }
 
         if ($_SESSION['status'] === 'siswa' && !empty($_GET['idtugassiswa'])) {
@@ -160,7 +165,7 @@ class DetailMapelController extends BaseController
                 $this->tugasSiswaModel->where('id_tugassiswa', $_GET['idtugassiswa'])->delete();
             }
             session()->setFlashData('pesan', 'Dihapus');
-            return redirect()->to(base_url() . 'detailmapel/siswa/' . $id . '?' . 'namamapel=' . $_GET['namamapel'] . '&' . 'namakelas=' . $_GET['namakelas'] . '&' . 'namaguru=' . $_GET['namaguru']);
+            return redirect()->to(base_url() . '/detailmapel/siswa/' . $id . '?' . 'namamapel=' . $_GET['namamapel'] . '&' . 'namakelas=' . $_GET['namakelas'] . '&' . 'namaguru=' . $_GET['namaguru']);
         }
     }
 
@@ -234,6 +239,6 @@ class DetailMapelController extends BaseController
             'linktugas' => (empty($this->request->getVar('link'))) ?  null : $this->request->getVar('link')
         ]);
         session()->setFlashData('pesan', 'Ditambah');
-        return redirect()->to(base_url() . 'detailmapel/siswa/' . $id . '?' . 'namamapel=' . $_GET['namamapel'] . '&' . 'namakelas=' . $_GET['namakelas'] . '&' . 'namaguru=' . $_GET['namaguru']);
+        return redirect()->to(base_url() . '/detailmapel/siswa/' . $id . '?' . 'namamapel=' . $_GET['namamapel'] . '&' . 'namakelas=' . $_GET['namakelas'] . '&' . 'namaguru=' . $_GET['namaguru']);
     }
 }

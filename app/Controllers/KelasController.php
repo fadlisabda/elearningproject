@@ -82,6 +82,22 @@ class KelasController extends BaseController
 
     public function update($id)
     {
+        $kelasLama = $this->dataModel->getData($this->request->getVar('id'));
+        if ($kelasLama['nip'] == $this->request->getVar('nip')) {
+            $rule_nip = 'required';
+        } else {
+            $rule_nip = 'required|is_unique[kelas.nip]';
+        }
+        if (!$this->validate([
+            'nip' => [
+                'rules' => $rule_nip,
+                'errors' => [
+                    'is_unique' => '{field} sudah terdaftar'
+                ]
+            ]
+        ])) {
+            return redirect()->to('/kelas/edit/' . $id . '?page_kelas=' . $_GET['page_kelas'])->withInput();
+        }
         $data = [
             'nama_kelas' => $this->request->getVar('nama_kelas'),
             'nip' => $this->request->getVar('nip')

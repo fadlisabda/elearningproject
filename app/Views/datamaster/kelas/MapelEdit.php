@@ -10,7 +10,7 @@ if (!isset($_SESSION["login"])) {
     <div class="row">
         <div class="col">
             <h2>Edit Data Kelas Mapel</h2>
-            <form action="<?= base_url(); ?>/kelasmapel/update/<?= $kelasmapel['id_kelas_mapel']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" method="post">
+            <form action="<?= base_url(); ?>/kelasmapel/update/<?= $kelasmapel['id_kelas_mapel']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>&page_kelas_mapel=<?= $_GET['page_kelas_mapel']; ?>" method="post">
                 <?= csrf_field(); ?>
                 <div class="mb-3">
                     <label for="id_mapel">Id Mapel</label>
@@ -25,7 +25,7 @@ if (!isset($_SESSION["login"])) {
                     <input type="number" class="form-control" id="nip" name="nip" value="<?= $kelasmapel['nip']; ?>" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Edit</button>
-                <a href="<?= base_url(); ?>/kelasmapel/<?= $id; ?>/<?= $namakelas; ?>" class="btn btn-danger">Kembali</a>
+                <a href="<?= base_url(); ?>/kelasmapel/<?= $id; ?>/<?= $namakelas; ?>?page_kelas_mapel=<?= $_GET['page_kelas_mapel']; ?>" class="btn btn-danger">Kembali</a>
             </form>
         </div>
     </div>

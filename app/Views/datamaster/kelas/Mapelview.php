@@ -14,7 +14,8 @@ if (!isset($_SESSION["login"])) {
 <?php endif; ?>
 <div class="container">
     <?php if ($_SESSION["status"] === 'admin') : ?>
-        <a href="<?= base_url(); ?>/kelasmapel/create?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-primary float-right">Tambah Data Kelas Mapel</a>
+        <a href="<?= base_url(); ?>/kelasmapel/create?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>&page_kelas_mapel=<?= (empty($_GET['page_kelas_mapel'])) ? 1 : $_GET['page_kelas_mapel'] ?>" class="btn btn-primary float-right">Tambah Data Kelas Mapel</a>
+
         <a href="<?= base_url(); ?>/kelas" class="btn btn-danger">Kembali</a>
         <form action="" method="post">
             <div class="input-group mt-3">
@@ -59,9 +60,9 @@ if (!isset($_SESSION["login"])) {
                         <td><?= $kmi['nip']; ?></td>
                         <td><?= $mapelkelasguru[$j]->nama_guru; ?></td>
                         <td>
-                            <a href="<?= base_url(); ?>/kelasmapel/edit/<?= $kmi['id_kelas_mapel']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-warning">Edit</a>
+                            <a href="<?= base_url(); ?>/kelasmapel/edit/<?= $kmi['id_kelas_mapel']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>&page_kelas_mapel=<?= (empty($_GET['page_kelas_mapel'])) ? 1 : $_GET['page_kelas_mapel'] ?>" class="btn btn-warning">Edit</a>
 
-                            <a href="<?= base_url(); ?>/kelasmapel/delete/<?= $kmi['id_kelas_mapel']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>" class="btn btn-danger hapusdata">Delete</a>
+                            <a href="<?= base_url(); ?>/kelasmapel/delete/<?= $kmi['id_kelas_mapel']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>&page_kelas_mapel=<?= (empty($_GET['page_kelas_mapel'])) ? 1 : $_GET['page_kelas_mapel'] ?>" class="btn btn-danger hapusdata">Delete</a>
                         </td>
                     </tr>
                     <?php $j++; ?>

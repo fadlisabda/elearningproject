@@ -7,7 +7,7 @@ if (!isset($_SESSION["login"])) {
 }
 ?>
 <div class="container">
-    <a href="<?= base_url(); ?>/eluser/create?page_data_el_user=<?= (empty($_GET['page_data_el_user'])) ? 1 : $_GET['page_data_el_user'] ?>" class="btn btn-primary mt-3 mb-3">Tambah Data ElUser</a>
+    <a href="<?= base_url(); ?>/eluser/create?page_el_user=<?= (empty($_GET['page_el_user'])) ? 1 : $_GET['page_el_user'] ?>" class="btn btn-primary mt-3 mb-3">Tambah Data ElUser</a>
     <form action="" method="post">
         <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="cari username" name="keyword" autocomplete="off">
@@ -25,6 +25,7 @@ if (!isset($_SESSION["login"])) {
                 <tr>
                     <th scope="col">NO</th>
                     <th scope="col">USERNAME</th>
+                    <th scope="col">STATUS</th>
                     <th scope="col">AKSI</th>
                 </tr>
             </thead>
@@ -34,10 +35,11 @@ if (!isset($_SESSION["login"])) {
                     <tr>
                         <th scope="row"><?= $i++; ?></th>
                         <td><?= $eu['username'] ?></td>
+                        <td><?= $eu['status'] ?></td>
                         <td>
-                            <a href="<?= base_url(); ?>/eluser/edit/<?= $eu['id_eluser']; ?>?page_data_el_user=<?= (empty($_GET['page_data_el_user'])) ? 1 : $_GET['page_data_el_user'] ?>" class="btn btn-warning m-1">Edit</a>
+                            <a href="<?= base_url(); ?>/eluser/edit/<?= $eu['id_eluser']; ?>?page_el_user=<?= (empty($_GET['page_el_user'])) ? 1 : $_GET['page_el_user'] ?>" class="btn btn-warning m-1">Edit</a>
 
-                            <a href="<?= base_url(); ?>/eluser/delete/<?= $eu['id_eluser']; ?>?page_data_el_user=<?= (empty($_GET['page_data_el_user'])) ? 1 : $_GET['page_data_el_user'] ?>" class="btn btn-danger hapusdata m-1">Delete</a>
+                            <a href="<?= base_url(); ?>/eluser/delete/<?= $eu['id_eluser']; ?>?page_el_user=<?= (empty($_GET['page_el_user'])) ? 1 : $_GET['page_el_user'] ?>" class="btn btn-danger hapusdata m-1">Delete</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

@@ -25,7 +25,13 @@ if (!isset($_SESSION["login"])) {
                 <tr>
                     <th scope="col">NO</th>
                     <th scope="col">NIS</th>
+                    <th scope="col">NISN</th>
                     <th scope="col">NAMA SISWA</th>
+                    <th scope="col">TEMPAT LAHIR</th>
+                    <th scope="col">TANGGAL LAHIR</th>
+                    <th scope="col">NOMOR TELEPON</th>
+                    <th scope="col">ALAMAT</th>
+                    <th scope="col">JENIS KELAMIN</th>
                     <th scope="col">FOTO SISWA</th>
                     <th scope="col">ACTIONS</th>
                 </tr>
@@ -36,9 +42,30 @@ if (!isset($_SESSION["login"])) {
                     <tr>
                         <th scope="row"><?= $i++; ?></th>
                         <td><?= $s['nis'] ?></td>
-                        <td><?= $s['nama_siswa'] ?></td>
+                        <td><?= $s['nisn'] ?></td>
                         <td>
-                            <img src="<?= base_url(); ?>/public/file/<?= $s['foto_siswa'] ?>" width="150">
+                            <?php
+                            $str = $s['nama_siswa'];
+                            echo wordwrap($str, 20, "<br>", TRUE);
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                            $str = $s['tempat_lahir'];
+                            echo wordwrap($str, 20, "<br>", TRUE);
+                            ?>
+                        </td>
+                        <td><?= $s['tanggal_lahir'] ?></td>
+                        <td><?= $s['no_telp'] ?></td>
+                        <td>
+                            <?php
+                            $str = $s['alamat'];
+                            echo wordwrap($str, 20, "<br>", TRUE);
+                            ?>
+                        </td>
+                        <td><?= $s['jenis_kelamin'] ?></td>
+                        <td>
+                            <img src="<?= base_url(); ?>/public/file/<?= $s['foto_siswa'] ?>" width="110">
                         </td>
                         <td>
                             <a href="<?= base_url(); ?>/siswa/edit/<?= $s['id_siswa']; ?>?page_siswa=<?= (empty($_GET['page_siswa'])) ? 1 : $_GET['page_siswa'] ?>" class="btn btn-warning m-1">Edit</a>
