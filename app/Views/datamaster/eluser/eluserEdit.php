@@ -12,9 +12,13 @@ if (!isset($_SESSION["login"])) {
             <h2>Ubah Data ElUser</h2>
             <form action="<?= base_url(); ?>/eluser/update/<?= $eluser['id_eluser']; ?>?page_el_user=<?= $_GET['page_el_user']; ?>" method="post">
                 <?= csrf_field(); ?>
+                <input type="hidden" name="id" value="<?= $eluser['id_eluser']; ?>">
                 <div class="mb-3">
                     <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" value="<?= $eluser['username']; ?>" required>
+                    <input type="text" class="form-control <?= ($validation->hasError('username')) ? 'is-invalid' : ''; ?>" id="username" name="username" value="<?= ($validation->hasError('username')) ? old('username') : $eluser['username'] ?>" required>
+                    <div class="invalid-feedback">
+                        <?= $validation->getError('username'); ?>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="status">Status</label>

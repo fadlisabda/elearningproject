@@ -12,9 +12,13 @@ if (!isset($_SESSION["login"])) {
             <h2>Edit Data Kelas Siswa</h2>
             <form action="<?= base_url(); ?>/kelassiswa/update/<?= $kelassiswa['id_kelas_siswa']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>&page_kelas_siswa=<?= $_GET['page_kelas_siswa']; ?>" method="post">
                 <?= csrf_field(); ?>
+                <input type="hidden" name="id" value="<?= $kelassiswa['id_kelas_siswa']; ?>">
                 <div class="mb-3">
                     <label for="nis">Nis</label>
-                    <input type="number" class="form-control" id="nis" name="nis" required>
+                    <input type="number" class="form-control  <?= ($validation->hasError('nis')) ? 'is-invalid' : ''; ?>" id="nis" name="nis" required value="<?= ($validation->hasError('nis')) ? old('nis') : $kelassiswa['nis'] ?>">
+                    <div class="invalid-feedback">
+                        <?= $validation->getError('nis'); ?>
+                    </div>
                 </div>
                 <div class=" mb-3">
                     <label for="id_kelas">Id Kelas</label>

@@ -48,7 +48,9 @@ if (!isset($_SESSION["login"])) {
                 <tr>
                     <th scope="row"><?= $i++; ?></th>
                     <td><?= $ks['nis']; ?></td>
-                    <td><?= $namasiswa[$j++]->nama_siswa; ?></td>
+                    <td>
+                        <?= $namasiswa[$j++]->nama_siswa; ?>
+                    </td>
                     <?php if ($_SESSION["status"] === 'admin') : ?>
                         <td>
                             <a href="<?= base_url(); ?>/kelassiswa/edit/<?= $ks['id_kelas_siswa']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>&page_kelas_siswa=<?= (empty($_GET['page_kelas_siswa'])) ? 1 : $_GET['page_kelas_siswa'] ?>" class="btn btn-warning">Edit</a>

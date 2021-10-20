@@ -11,10 +11,6 @@ class DetailMapelModel extends Model
     protected $useTimestamps = true;
     protected $useSoftDeletes = true;
     protected $allowedFields = ['namamapel', 'namakelas', 'namaguru', 'username', 'judul', 'keterangan', 'file', 'link', 'tenggat', 'tipe', 'status'];
-    public function search($keyword)
-    {
-        return $this->table('el_detail_mapel')->like('judul', $keyword)->orLike('tipe', $keyword);
-    }
     public function getData($id = false)
     {
         if ($id == false) {

@@ -52,6 +52,16 @@ class KelasSiswaController extends BaseController
 
     public function save()
     {
+        if (!$this->validate([
+            'nis' => [
+                'rules' => 'is_unique[kelas_siswa.nis]',
+                'errors' => [
+                    'is_unique' => '{field} siswa sudah terdaftar'
+                ]
+            ]
+        ])) {
+            return redirect()->to(base_url() . '/kelassiswa/create?id=' . $_GET['id'] . '&namakelas=' . $_GET['namakelas'] . '&page_kelas_siswa=' . $_GET['page_kelas_siswa'])->withInput();
+        }
         $this->dataModel->save([
             'nis' => $this->request->getVar('nis'),
             'id_kelas' => $this->request->getVar('id_kelas')
@@ -86,6 +96,22 @@ class KelasSiswaController extends BaseController
 
     public function update($id)
     {
+        $kelasSiswaLama = $this->dataModel->getData($this->request->getVar('id'));
+        if ($kelasSiswaLama['nis'] == $this->request->getVar('nis')) {
+            $rule_nis = 'required';
+        } else {
+            $rule_nis = 'required|is_unique[kelas_siswa.nis]';
+        }
+        if (!$this->validate([
+            'nis' => [
+                'rules' => $rule_nis,
+                'errors' => [
+                    'is_unique' => '{field} siswa sudah terdaftar'
+                ]
+            ]
+        ])) {
+            return redirect()->to(base_url() . '/kelassiswa/edit/' . $id . '?id=' . $_GET['id'] . '&namakelas=' . $_GET['namakelas'] . '&page_kelas_siswa=' . $_GET['page_kelas_siswa'])->withInput();
+        }
         $data = [
             'nis' => $this->request->getVar('nis'),
             'id_kelas' => $this->request->getVar('id_kelas')

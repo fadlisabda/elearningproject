@@ -32,7 +32,8 @@ class Elusercontroller extends BaseController
     public function create()
     {
         $data = [
-            'title' => 'Form Tambah Data ELUser'
+            'title' => 'Form Tambah Data ELUser',
+            'validation' => \Config\Services::validation()
         ];
 
         return view('datamaster/eluser/eluserCreate', $data);
@@ -40,6 +41,16 @@ class Elusercontroller extends BaseController
 
     public function save()
     {
+        if (!$this->validate([
+            'username' => [
+                'rules' => 'is_unique[el_user.username]',
+                'errors' => [
+                    'is_unique' => '{field} sudah terdaftar'
+                ],
+            ]
+        ])) {
+            return redirect()->to(base_url() . '/eluser/create?page_el_user=' . $_GET['page_el_user'])->withInput();
+        }
         $password = $this->request->getVar('password');
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
         $this->dataModel->save([
@@ -48,14 +59,15 @@ class Elusercontroller extends BaseController
             'status' => $this->request->getVar('status')
         ]);
         session()->setFlashData('pesan', 'Ditambah');
-        return redirect()->to(base_url() . '/eluser?page_data_el_user=' . $_GET['page_el_user']);
+        return redirect()->to(base_url() . '/eluser?page_el_user=' . $_GET['page_el_user']);
     }
 
     public function edit($id)
     {
         $data = [
             'title' => 'Ubah Data ElUser',
-            'eluser' => $this->dataModel->getData($id)
+            'eluser' => $this->dataModel->getData($id),
+            'validation' => \Config\Services::validation()
         ];
 
         return view('datamaster/eluser/eluserEdit', $data);
@@ -63,6 +75,22 @@ class Elusercontroller extends BaseController
 
     public function update($id)
     {
+        $elUserLama = $this->dataModel->getData($this->request->getVar('id'));
+        if ($elUserLama['username'] == $this->request->getVar('username')) {
+            $rule_username = 'required';
+        } else {
+            $rule_username = 'required|is_unique[el_user.username]';
+        }
+        if (!$this->validate([
+            'username' => [
+                'rules' => $rule_username,
+                'errors' => [
+                    'is_unique' => '{field} sudah terdaftar'
+                ],
+            ]
+        ])) {
+            return redirect()->to(base_url() . '/eluser/edit/' . $id . '?page_el_user=' . $_GET['page_el_user'])->withInput();
+        }
         $password = $this->request->getVar('password');
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
         $data = [

@@ -6,7 +6,7 @@ use App\Models\GuruModel;
 
 class GuruController extends BaseController
 {
-    protected $dataModel, $db, $builder;
+    protected $dataModel;
     public function __construct()
     {
         $this->dataModel = new GuruModel();
@@ -57,7 +57,7 @@ class GuruController extends BaseController
                 ]
             ]
         ])) {
-            return redirect()->to('/guru/create?page_data_guru=' . $_GET['page_data_guru'])->withInput();
+            return redirect()->to(base_url() . '/guru/create?page_data_guru=' . $_GET['page_data_guru'])->withInput();
         }
         $fileFoto = $this->request->getFile('fotoguru');
         if ($fileFoto->getError() == 4) {
@@ -130,7 +130,7 @@ class GuruController extends BaseController
                 ]
             ]
         ])) {
-            return redirect()->to('/guru/edit/' . $this->request->getVar('id') . '?page_data_guru=' . $_GET['page_data_guru'])->withInput();
+            return redirect()->to(base_url() . '/guru/edit/' . $this->request->getVar('id') . '?page_data_guru=' . $_GET['page_data_guru'])->withInput();
         }
         $fileFoto = $this->request->getFile('fotoguru');
         if ($fileFoto->getError() == 4) {

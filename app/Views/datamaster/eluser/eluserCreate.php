@@ -14,11 +14,14 @@ if (!isset($_SESSION["login"])) {
                 <?= csrf_field(); ?>
                 <div class="mb-3">
                     <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" required>
+                    <input type="text" class="form-control <?= ($validation->hasError('username')) ? 'is-invalid' : ''; ?>" id="username" name="username" required value="<?= old('username'); ?>" autofocus>
+                    <div class="invalid-feedback">
+                        <?= $validation->getError('username'); ?>
+                    </div>
                 </div>
-                <div class="mb-3">
+                <div class=" mb-3">
                     <label for="status">Status</label>
-                    <input type="text" class="form-control" id="status" name="status" required>
+                    <input type="text" class="form-control" id="status" name="status" required value="<?= old('status'); ?>">
                 </div>
                 <div class="mb-3">
                     <label for="password">Password</label>
