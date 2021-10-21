@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 29, 2021 at 08:33 AM
+-- Generation Time: Oct 21, 2021 at 08:33 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -122,8 +122,7 @@ INSERT INTO `data_guru` (`id_guru`, `nip`, `nama_guru`, `tempat_lahir`, `tgl_lah
 (3, '2234555', 'Arini Fitria', 'pekanbaru', NULL, '08848466589', 'jl umban sari', '', NULL, NULL, NULL),
 (4, '12345346575', 'yuni hastuti', 'padang', NULL, '0823456786', 'pandau permai', 'GVT_5303.jpg', NULL, NULL, NULL),
 (5, '8840402728', 'ahmad dahlan', 'padang ', '1967-10-10', '882734778990', 'jl siak', 'GVT_5292.jpg', NULL, NULL, NULL),
-(132, '1234455', 'willy', 'pekanbaru', '1996-03-11', '08232143553', 'pandau', 'karyawan.jpg', NULL, NULL, NULL),
-(133, '12345667', 'maulida sari', 'padang sidempuan', NULL, '08127571706', 'Jl. KH Nasution No.990', '', NULL, NULL, NULL);
+(132, '1234455', 'willy', 'pekanbaru', '1996-03-11', '08232143553', 'pandau', 'karyawan.jpg', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -177,17 +176,11 @@ CREATE TABLE `el_detail_mapel` (
   `link` varchar(255) DEFAULT NULL,
   `tenggat` datetime NOT NULL,
   `tipe` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL
+  `status` varchar(255) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `el_detail_mapel`
---
-
-INSERT INTO `el_detail_mapel` (`id_detailmapel`, `namamapel`, `namakelas`, `namaguru`, `username`, `judul`, `keterangan`, `file`, `link`, `tenggat`, `tipe`, `status`) VALUES
-(2, 'Pendidikan Olahraga', 'I B', 'Arini Fitria', '2234555', 'qwe', '', NULL, NULL, '0000-00-00 00:00:00', 'materi', 'guru'),
-(9, 'Pendidikan Olahraga', 'I B', 'Arini Fitria', '123', 'tes', '', NULL, NULL, '0000-00-00 00:00:00', 'materi', 'siswa'),
-(11, 'Kimia', 'I A', 'Arini Fitria', '2234555', 'tes', '', NULL, NULL, '0000-00-00 00:00:00', 'materi', 'guru');
 
 -- --------------------------------------------------------
 
@@ -204,18 +197,11 @@ CREATE TABLE `el_komentar` (
   `username` varchar(100) NOT NULL,
   `komentar` longtext NOT NULL,
   `status` varchar(255) NOT NULL,
-  `tipe` varchar(255) NOT NULL
+  `tipe` varchar(255) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `el_komentar`
---
-
-INSERT INTO `el_komentar` (`id_komentar`, `id_detailmapel`, `namamapel`, `namakelas`, `namaguru`, `username`, `komentar`, `status`, `tipe`) VALUES
-(1, '4', '1', 'Kimia', 'I A', '2234555', '<p>tes</p>\r\n', 'kelas', 'guru'),
-(3, '4', '1', 'Kimia', 'I A', '3129164448', '<p>ya</p>\r\n', 'kelas', 'siswa'),
-(4, '4', '1', 'Kimia', 'I A', '3129164448', '<p>pak</p>\r\n', 'pribadi', 'siswa'),
-(5, '4', '1', 'Kimia', 'I A', '3129164448', '<p>goblok</p>\r\n', 'pribadi', 'guru');
 
 -- --------------------------------------------------------
 
@@ -231,15 +217,11 @@ CREATE TABLE `el_tugas_siswa` (
   `namaguru` varchar(255) NOT NULL,
   `nis` varchar(100) NOT NULL,
   `filetugas` varchar(255) DEFAULT NULL,
-  `linktugas` varchar(255) DEFAULT NULL
+  `linktugas` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `el_tugas_siswa`
---
-
-INSERT INTO `el_tugas_siswa` (`id_tugassiswa`, `id_detailmapel`, `namamapel`, `namakelas`, `namaguru`, `nis`, `filetugas`, `linktugas`) VALUES
-(20, '11', 'Kimia', 'I A', 'Arini Fitria', '3129164448', NULL, 'tes');
 
 -- --------------------------------------------------------
 
@@ -248,22 +230,25 @@ INSERT INTO `el_tugas_siswa` (`id_tugassiswa`, `id_detailmapel`, `namamapel`, `n
 --
 
 CREATE TABLE `el_user` (
-  `id` int(11) NOT NULL,
+  `id_eluser` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL
+  `status` varchar(255) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `el_user`
 --
 
-INSERT INTO `el_user` (`id`, `username`, `password`, `status`) VALUES
-(12, '123', '$2y$10$dSI6xy7zl0bmPoribl.IWOE7W1rYT.WhVRdySZ9XqT.it8vdIodKa', 'siswa'),
-(13, '882947749', '$2y$10$SprYigxHnvqBGMQY.wTCXuQXjMD2D/GqEoKbXEh0xdgVo4NJ9A7u.', 'guru'),
-(14, '3129164448', '$2y$10$RdopDwB28Q7.kXU9eqTNVOzjQ7ojzFfRFJF/XdhmwgT9EQ5v6FUiC', 'siswa'),
-(22, '1233', '$2y$10$PHjBJl.S0SNqILTtuPVAAOhc4sYO39UT1UVpae9igIUh6zRlz.J7i', 'admin'),
-(23, '2234555', '$2y$10$keShSBxpFw7hrkWK.U6nbenci6A/TOenrG9v3cFSqU52a98ZtO0Su', 'guru');
+INSERT INTO `el_user` (`id_eluser`, `username`, `password`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(12, '123', '$2y$10$Zd2Gnpg4kYo7ZnIIAKESAeu/q/Zzld4xoVe/KRtxxvIhxBlwBCgdi', 'admin', NULL, '2021-10-17 06:33:32', NULL),
+(13, '1234455', '$2y$10$SprYigxHnvqBGMQY.wTCXuQXjMD2D/GqEoKbXEh0xdgVo4NJ9A7u.', 'guru', NULL, NULL, NULL),
+(14, '3129164448', '$2y$10$RdopDwB28Q7.kXU9eqTNVOzjQ7ojzFfRFJF/XdhmwgT9EQ5v6FUiC', 'siswa', NULL, NULL, NULL),
+(23, '2234555', '$2y$10$keShSBxpFw7hrkWK.U6nbenci6A/TOenrG9v3cFSqU52a98ZtO0Su', 'guru', NULL, NULL, NULL),
+(26, '3115864953', '$2y$10$7iZhscBuws4VGOAiJJ7SnejMRfm0ACkXx6gYN1PQl0cbHpr.2bE5C', 'siswa', '2021-10-04 09:20:39', '2021-10-04 09:20:39', NULL);
 
 -- --------------------------------------------------------
 
@@ -312,7 +297,7 @@ CREATE TABLE `kelas` (
 --
 
 INSERT INTO `kelas` (`id_kelas`, `nama_kelas`, `nip`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'I A', '12345346575', '2021-02-24 04:48:09', '2021-02-24 04:48:09', NULL),
+(1, 'I A', '12345346575', '2021-02-24 04:48:09', '2021-10-11 07:36:58', NULL),
 (2, 'I B', '8840402728', '2021-03-02 00:33:39', '2021-03-02 00:33:39', NULL);
 
 -- --------------------------------------------------------
@@ -326,35 +311,38 @@ CREATE TABLE `kelas_jam_pelajaran` (
   `id_mapel` int(11) NOT NULL,
   `id_kelas` int(10) NOT NULL,
   `hari` varchar(10) NOT NULL,
-  `jam` varchar(10) NOT NULL
+  `jam` varchar(10) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `kelas_jam_pelajaran`
 --
 
-INSERT INTO `kelas_jam_pelajaran` (`id_jadwal`, `id_mapel`, `id_kelas`, `hari`, `jam`) VALUES
-(12, 4, 2, 'senin', '07.00 wib'),
-(13, 5, 2, 'senin', '09.00 wib'),
-(14, 9, 2, 'senin', '11.00 wib'),
-(16, 5, 1, 'senin', '07.00 wib'),
-(17, 4, 1, 'senin', '08.00 wib'),
-(18, 4, 1, 'senin', '10.00 wib'),
-(19, 14, 1, 'Senin', '10.00 Wib'),
-(20, 9, 1, 'senin', '12.00 wib'),
-(21, 7, 1, 'senin', '13.00 wib'),
-(22, 7, 1, 'senin', '13.00 wib'),
-(23, 7, 1, 'senin', '13.00 wib'),
-(24, 7, 1, 'senin', '13.00 wib'),
-(25, 7, 1, 'senin', '13.00 wib'),
-(26, 12, 1, 'senin', '14.00 wib'),
-(27, 6, 1, 'senin', '15.00 wib'),
-(28, 2, 7, 'Senin', '07.00 wib'),
-(29, 4, 7, 'senin', '08.00 wib'),
-(30, 4, 7, 'senin', '08.00 wib'),
-(31, 10, 7, 'senin', '10.00 wib'),
-(32, 9, 1, 'senin', '14.00 wib'),
-(33, 10, 1, 'selasa', '07.00');
+INSERT INTO `kelas_jam_pelajaran` (`id_jadwal`, `id_mapel`, `id_kelas`, `hari`, `jam`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(12, 4, 2, 'senin', '07.00 wib', NULL, NULL, NULL),
+(13, 5, 2, 'senin', '09.00 wib', NULL, NULL, NULL),
+(14, 9, 2, 'senin', '11.00 wib', NULL, NULL, NULL),
+(16, 5, 1, 'senin', '07.00 wib', NULL, NULL, NULL),
+(17, 4, 1, 'senin', '08.00 wib', NULL, NULL, NULL),
+(18, 4, 1, 'senin', '10.00 wib', NULL, NULL, NULL),
+(19, 14, 1, 'Senin', '10.00 Wib', NULL, NULL, NULL),
+(20, 9, 1, 'senin', '12.00 wib', NULL, NULL, NULL),
+(21, 7, 1, 'senin', '13.00 wib', NULL, NULL, NULL),
+(22, 7, 1, 'senin', '13.00 wib', NULL, NULL, NULL),
+(23, 7, 1, 'senin', '13.00 wib', NULL, NULL, NULL),
+(24, 7, 1, 'senin', '13.00 wib', NULL, NULL, NULL),
+(25, 7, 1, 'senin', '13.00 wib', NULL, NULL, NULL),
+(26, 12, 1, 'senin', '14.00 wib', NULL, NULL, NULL),
+(27, 6, 1, 'senin', '15.00 wib', NULL, NULL, NULL),
+(28, 2, 7, 'Senin', '07.00 wib', NULL, NULL, NULL),
+(29, 4, 7, 'senin', '08.00 wib', NULL, NULL, NULL),
+(30, 4, 7, 'senin', '08.00 wib', NULL, NULL, NULL),
+(31, 10, 7, 'senin', '10.00 wib', NULL, NULL, NULL),
+(32, 9, 1, 'senin', '14.00 wib', NULL, NULL, NULL),
+(33, 10, 2, 'selasa', '07.00', NULL, '2021-10-11 07:54:50', NULL);
 
 -- --------------------------------------------------------
 
@@ -383,7 +371,7 @@ INSERT INTO `kelas_mapel` (`id_kelas_mapel`, `id_mapel`, `id_kelas`, `nip`, `cre
 (8, 7, 0, '1234455', NULL, NULL, NULL),
 (9, 7, 0, '1234455', NULL, NULL, NULL),
 (11, 4, 1, '1234455', NULL, NULL, NULL),
-(12, 2, 2, '12345667', NULL, NULL, NULL),
+(12, 2, 2, '1234455', NULL, NULL, NULL),
 (15, 10, 4, '1234455', NULL, NULL, NULL),
 (16, 4, 1, '2234555', NULL, NULL, NULL),
 (17, 8, 4, '5793989802', NULL, NULL, NULL),
@@ -541,7 +529,7 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`id_siswa`, `nis`, `nisn`, `nama_siswa`, `tempat_lahir`, `tanggal_lahir`, `no_telp`, `alamat`, `jenis_kelamin`, `foto_siswa`, `spp`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, '3115864953', '3115864953', 'ADZKIA QONITA', 'Pekanbaru', '2011-07-25', '081261238121', NULL, NULL, NULL, 3, '2021-02-24 05:03:59', '2021-02-24 05:04:55', NULL),
+(1, '3115864953', '3115864953', 'ADZKIA QONITA', 'Pekanbaru', '2011-07-25', '081261238121', NULL, NULL, '', 3, '2021-02-24 05:03:59', '2021-10-07 00:12:05', NULL),
 (2, '3129164448', '3129164448', 'AISYAH AFIQAH', 'Pekanbaru', '2012-07-16', '081261238121', NULL, NULL, NULL, 1, '2021-02-24 05:07:49', '2021-02-24 05:07:49', NULL),
 (3, '123', '12345', 'Budi', 'Pekanbaru', '2000-01-01', '081261238121', NULL, NULL, NULL, 1, '2021-03-02 00:34:46', '2021-03-02 00:34:46', NULL),
 (4, '3129164449', '3129164449', 'Ali', 'Pekanbaru', '2000-01-01', '081261238121', NULL, NULL, NULL, 6, '2021-03-03 04:04:30', '2021-03-03 04:05:08', NULL);
@@ -785,7 +773,7 @@ ALTER TABLE `el_tugas_siswa`
 -- Indexes for table `el_user`
 --
 ALTER TABLE `el_user`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id_eluser`);
 
 --
 -- Indexes for table `kategori`
@@ -909,37 +897,37 @@ ALTER TABLE `akreditas_standar`
 -- AUTO_INCREMENT for table `data_guru`
 --
 ALTER TABLE `data_guru`
-  MODIFY `id_guru` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
+  MODIFY `id_guru` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=184;
 
 --
 -- AUTO_INCREMENT for table `data_mata_pelajaran`
 --
 ALTER TABLE `data_mata_pelajaran`
-  MODIFY `id_mapel` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_mapel` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `el_detail_mapel`
 --
 ALTER TABLE `el_detail_mapel`
-  MODIFY `id_detailmapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_detailmapel` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `el_komentar`
 --
 ALTER TABLE `el_komentar`
-  MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `el_tugas_siswa`
 --
 ALTER TABLE `el_tugas_siswa`
-  MODIFY `id_tugassiswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_tugassiswa` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `el_user`
 --
 ALTER TABLE `el_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_eluser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `kategori`
@@ -951,25 +939,25 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id_kelas` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_kelas` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `kelas_jam_pelajaran`
 --
 ALTER TABLE `kelas_jam_pelajaran`
-  MODIFY `id_jadwal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id_jadwal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `kelas_mapel`
 --
 ALTER TABLE `kelas_mapel`
-  MODIFY `id_kelas_mapel` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_kelas_mapel` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `kelas_siswa`
 --
 ALTER TABLE `kelas_siswa`
-  MODIFY `id_kelas_siswa` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id_kelas_siswa` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `kontrak_kerja`
@@ -999,7 +987,7 @@ ALTER TABLE `semester`
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id_siswa` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_siswa` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `siswa_invoice`
@@ -1035,7 +1023,7 @@ ALTER TABLE `uang_sekolah`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
