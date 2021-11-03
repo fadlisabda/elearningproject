@@ -87,7 +87,7 @@ class GuruController extends BaseController
         }
 
         $fotoguru = $this->dataModel->find($id);
-        if ($fotoguru['foto_guru'] != 'default.jpg' || file_exists('/xampp/htdocs/elearning/public/file/' . $fotoguru['foto_guru'] != null)) {
+        if ($fotoguru['foto_guru'] != 'default.jpg' && file_exists('/xampp/htdocs/elearning/public/file/' . $fotoguru['foto_guru'] != null)) {
             unlink('/xampp/htdocs/elearning/public/file/' . $fotoguru['foto_guru']);
         }
         $this->dataModel->where('id_guru', $id)->delete();
