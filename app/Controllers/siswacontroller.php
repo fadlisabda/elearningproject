@@ -172,7 +172,7 @@ class SiswaController extends BaseController
             exit;
         }
         $fotosiswa = $this->dataModel->find($id);
-        if ($fotosiswa['foto_siswa'] != 'default.jpg' && file_exists('/xampp/htdocs/elearning/public/file/' . $fotosiswa['foto_siswa'] != null)) {
+        if ($fotosiswa['foto_siswa'] != 'default.jpg' && file_exists('/xampp/htdocs/elearning/public/file/' . $fotosiswa['foto_siswa'])) {
             unlink('/xampp/htdocs/elearning/public/file/' . $fotosiswa['foto_siswa']);
         }
         $this->dataModel->where('id_siswa', $id)->delete();
