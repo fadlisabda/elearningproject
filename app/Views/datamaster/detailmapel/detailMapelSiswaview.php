@@ -59,11 +59,11 @@ if (!isset($_SESSION["login"])) {
                     <h6 class="card-subtitle mb-2 text-muted">
                         <?php foreach ($tugassiswa as $ts) : ?>
                             <?php if ($ts['nis'] == $_SESSION['username'] && $ts['id_detailmapel'] == $id) : ?>
-                                <?php if ($detailmapel->getResult()[0]->tenggat === '0000-00-00 00:00:00' && !empty($ts['filetugas'])) : ?>
+                                <?php if ($detailmapel->getResult()[0]->tenggat === null && !empty($ts['filetugas'])) : ?>
                                     <?php
                                     echo "<b>Diserahkan</b>";
                                     ?>
-                                <?php elseif ($detailmapel->getResult()[0]->tenggat === '0000-00-00 00:00:00' && !empty($ts['linktugas'])) : ?>
+                                <?php elseif ($detailmapel->getResult()[0]->tenggat === null && !empty($ts['linktugas'])) : ?>
                                     <?php
                                     echo "<b>Diserahkan</b>";
                                     ?>

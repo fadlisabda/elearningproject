@@ -59,14 +59,14 @@ if (!isset($_SESSION["login"])) {
                             date_default_timezone_set('Asia/Jakarta');
                             $sekarang = date("Y-m-d H:i:sa");
                             $exp = date($detailmapel->getResult()[0]->tenggat);
-                            if ($detailmapel->getResult()[0]->tenggat != '0000-00-00 00:00:00') {
+                            if ($detailmapel->getResult()[0]->tenggat != null) {
                                 if ($sekarang >= $exp && !empty($t['filetugas'])) {
                                     echo "<b>Diserahkan terlambat
                                     </b>";
                                 } else {
                                     echo "<b>Diserahkan</b>";
                                 }
-                            } elseif ($detailmapel->getResult()[0]->tenggat === '0000-00-00 00:00:00' && !empty($t['filetugas'])) {
+                            } elseif ($detailmapel->getResult()[0]->tenggat === null && !empty($t['filetugas'])) {
                                 echo "<b>Diserahkan</b>";
                             }
                             ?>
