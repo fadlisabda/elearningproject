@@ -32,7 +32,7 @@ if (!isset($_SESSION["login"])) {
                 <?php $date = date("Y-m-d\TH:i:s", strtotime($detailmapel->getResult()[0]->tenggat)); ?>
                 <div class="mb-3">
                     <label for="tenggat">Tenggat</label>
-                    <input type="datetime-local" class="form-control" id="tenggat" name="tenggat" value="<?= $date; ?>">
+                    <input type="datetime-local" class="form-control" id="tenggat" name="tenggat" value="<?= (empty($detailmapel->getResult()[0]->tenggat)) ?  null : $date; ?>">
                 </div>
                 <label for="tipe">Tipe</label>
                 <select class="custom-select mb-3" id="tipe" name="tipe">

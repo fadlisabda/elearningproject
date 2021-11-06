@@ -59,10 +59,10 @@ class DetailMapelController extends BaseController
             'namaguru' => $this->request->getVar('namaguru'),
             'username' => $this->request->getVar('username'),
             'judul' => $this->request->getVar('judul'),
-            'keterangan' => $this->request->getVar('keterangan'),
+            'keterangan' => (empty($this->request->getVar('keterangan'))) ?  null : $this->request->getVar('keterangan'),
             'file' => ($file->getError() === 4) ?  null : str_replace(' ', '', $namaFile),
             'link' => (empty($this->request->getVar('link'))) ?  null : $this->request->getVar('link'),
-            'tenggat' => $this->request->getVar('tenggat'),
+            'tenggat' => (empty($this->request->getVar('tenggat'))) ?  null : $this->request->getVar('tenggat'),
             'tipe' => $this->request->getVar('tipe'),
             'status' => $this->request->getVar('status')
         ]);
@@ -104,7 +104,7 @@ class DetailMapelController extends BaseController
             }
             $i++;
         }
-        if ($this->request->getVar('filelama') != null) {
+        if ($this->request->getVar('filelama') != null && $file->getError() != 4) {
             $str = explode('|', $this->request->getVar('filelama'));
             for ($j = 0; $j < count($str); $j++) {
                 unlink('/xampp/htdocs/elearning/public/file/' . $str[$j]);
@@ -112,10 +112,10 @@ class DetailMapelController extends BaseController
         }
         $data = [
             'judul' => $this->request->getVar('judul'),
-            'keterangan' => $this->request->getVar('keterangan'),
+            'keterangan' => (empty($this->request->getVar('keterangan'))) ?  null : $this->request->getVar('keterangan'),
             'file' => ($files['file_upload'][0]->getError() == 4) ? $namaFile : str_replace(' ', '', $namaFile),
-            'link' => $this->request->getVar('link'),
-            'tenggat' => (empty($this->request->getVar('tenggat'))) ? null : $this->request->getVar('tenggat'),
+            'link' => (empty($this->request->getVar('link'))) ? null : $this->request->getVar('link'),
+            'tenggat' => (empty($this->request->getVar('tenggat'))) ?  null : $this->request->getVar('tenggat'),
             'tipe' => $this->request->getVar('tipe')
         ];
         $this->detailMapelModel->update($id, $data);

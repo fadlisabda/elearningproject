@@ -57,7 +57,7 @@ if (!isset($_SESSION["login"])) {
                             ?>
                         </td>
                         <td>
-                            <?= character_limiter($dm['keterangan'], 20); ?>
+                            <?= (empty($dm['keterangan'])) ?  null : character_limiter($dm['keterangan'], 20); ?>
                         </td>
                         <td>
                             <?php
