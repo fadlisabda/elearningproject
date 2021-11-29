@@ -19,8 +19,8 @@ if (!isset($_SESSION["login"])) {
     <?php if (session()->getFlashdata('pesan')) : ?>
         <div class="flash-data" data-flashdata="<?= session()->getFlashdata('pesan'); ?>"></div>
     <?php endif; ?>
-    <table class="table">
-        <div class="table-responsive">
+    <div class="table-responsive">
+        <table class="table">
             <thead>
                 <tr>
                     <th scope="col">NO</th>
@@ -40,28 +40,13 @@ if (!isset($_SESSION["login"])) {
                     <tr>
                         <th scope="row"><?= $i++; ?></th>
                         <td><?= $g['nip'] ?></td>
-                        <td>
-                            <?php
-                            $str = $g['nama_guru'];
-                            echo wordwrap($str, 20, "<br>", TRUE);
-                            ?>
-                        </td>
-                        <td>
-                            <?php
-                            $str = $g['tempat_lahir'];
-                            echo wordwrap($str, 20, "<br>", TRUE);
-                            ?>
-                        </td>
+                        <td><?= $g['nama_guru']; ?></td>
+                        <td><?= $g['tempat_lahir']; ?></td>
                         <td><?= $g['tgl_lahir'] ?></td>
                         <td><?= $g['no_telp'] ?></td>
+                        <td><?= $g['alamat']; ?></td>
                         <td>
-                            <?php
-                            $str = $g['alamat'];
-                            echo wordwrap($str, 20, "<br>", TRUE);
-                            ?>
-                        </td>
-                        <td>
-                            <img src="<?= base_url(); ?>/public/file/<?= $g['foto_guru'] ?>" width="110">
+                            <img src="<?= base_url(); ?>/public/file/<?= $g['foto_guru'] ?>" width="100">
                         </td>
                         <td>
                             <a href="<?= base_url(); ?>/guru/edit/<?= $g['id_guru']; ?>?page_data_guru=<?= (empty($_GET['page_data_guru'])) ? 1 : $_GET['page_data_guru'] ?>" class="btn btn-warning m-1">Edit</a>
@@ -71,8 +56,8 @@ if (!isset($_SESSION["login"])) {
                     </tr>
                 <?php endforeach; ?>
             </tbody>
-    </table>
-    <?= $pager->links('data_guru', 'paginationview'); ?>
-</div>
+        </table>
+        <?= $pager->links('data_guru', 'paginationview'); ?>
+    </div>
 </div>
 <?= $this->endSection(); ?>

@@ -174,7 +174,7 @@ class DetailMapelController extends BaseController
         $data = [
             'title' => 'ELEARNING - Tugas Siswa',
             'detailmapel' => $this->builder->get(),
-            'tugassiswa' => $eltugassiswa->where($array)->paginate(5, 'el_tugas_siswa'),
+            'tugassiswa' => $eltugassiswa->where($array)->paginate(1, 'el_tugas_siswa'),
             'pager' => $this->tugasSiswaModel->pager,
             'currentPage' => $currentPage
         ];
@@ -227,7 +227,8 @@ class DetailMapelController extends BaseController
             'namaguru' => $this->request->getVar('namaguru'),
             'nis' => $this->request->getVar('nis'),
             'filetugas' => ($file->getError() === 4) ?  null : str_replace(' ', '', $namaFile),
-            'linktugas' => (empty($this->request->getVar('link'))) ?  null : $this->request->getVar('link')
+            'linktugas' => (empty($this->request->getVar('link'))) ?  null : $this->request->getVar('link'),
+            'dikirim' => $this->request->getVar('dikirim')
         ]);
         session()->setFlashData('pesan', 'Ditambah');
         return redirect()->to(base_url() . '/detailmapel/siswa/' . $id . '?' . 'namamapel=' . $_GET['namamapel'] . '&' . 'namakelas=' . $_GET['namakelas'] . '&' . 'namaguru=' . $_GET['namaguru']);

@@ -31,7 +31,7 @@ if (!isset($_SESSION["login"])) {
                         $str = explode('|', $detailmapel->getResult()[0]->file);
                         for ($i = 0; $i < count($str); $i++) {
 
-                            echo '<i class="bi bi-cursor btn-outline-info"></i>' . '<a href=' . base_url() . '/public/file/' .  $str[$i]  . ' target=_blank>' . wordwrap($str[$i], 25, "<br>", TRUE) . '</a><br>';
+                            echo '<i class="bi bi-cursor btn-outline-info"></i>' . '<a href=' . base_url() . '/public/file/' .  $str[$i]  . ' target=_blank>' . $str[$i] . '</a><br>';
                         }
                     }
                     ?>
@@ -40,7 +40,7 @@ if (!isset($_SESSION["login"])) {
                     if (!empty($detailmapel->getResult()[0]->link)) {
                         $str = explode(' ', $detailmapel->getResult()[0]->link);
                         for ($j = 0; $j < count($str); $j++) {
-                            echo '<i class="bi bi-cursor btn-outline-info"></i>' . '<a href=' . $str[$j] . ' target=_blank>' . wordwrap($str[$j], 25, "<br>", TRUE) . '</a><br>';
+                            echo '<i class="bi bi-cursor btn-outline-info"></i>' . '<a href=' . $str[$j] . ' target=_blank>' . $str[$j] . '</a><br>';
                         }
                     }
                     ?>
@@ -69,8 +69,7 @@ if (!isset($_SESSION["login"])) {
                                     ?>
                                 <?php elseif (!empty($ts['filetugas']) || !empty($ts['linktugas'])) : ?>
                                     <?php
-                                    date_default_timezone_set('Asia/Jakarta');
-                                    $sekarang = date("Y-m-d H:i:sa");
+                                    $sekarang = $ts['dikirim'];
                                     $exp = date($detailmapel->getResult()[0]->tenggat);
                                     if ($sekarang >= $exp) {
                                         echo "<b>Diserahkan terlambat</b>";
@@ -84,7 +83,7 @@ if (!isset($_SESSION["login"])) {
                                 if (!empty($ts['filetugas'])) {
                                     $str = explode('|', $ts['filetugas']);
                                     for ($i = 0; $i < count($str); $i++) {
-                                        echo '<i class="bi bi-cursor btn-outline-info"></i>' . '<a href=' . base_url() . '/public/file/' .  $str[$i]  . ' target=_blank class=card-link>' . wordwrap($str[$i], 25, "<br>", TRUE) . '</a><br>';
+                                        echo '<i class="bi bi-cursor btn-outline-info"></i>' . '<a href=' . base_url() . '/public/file/' .  $str[$i]  . ' target=_blank class=card-link>' . $str[$i] . '</a><br>';
                                     }
                                 }
                     ?>
@@ -92,7 +91,7 @@ if (!isset($_SESSION["login"])) {
                                 if (!empty($ts['linktugas'])) {
                                     $str = explode(' ', $ts['linktugas']);
                                     for ($j = 0; $j < count($str); $j++) {
-                                        echo '<i class="bi bi-cursor btn-outline-info"></i>' . '<a href=' . $str[$j] . ' target=_blank class=card-link>' . wordwrap($str[$j], 25, "<br>", TRUE) . '</a><br>';
+                                        echo '<i class="bi bi-cursor btn-outline-info"></i>' . '<a href=' . $str[$j] . ' target=_blank class=card-link>' . $str[$j] . '</a><br>';
                                     }
                                 }
                     ?>

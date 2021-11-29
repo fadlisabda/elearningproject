@@ -23,7 +23,7 @@ class UserController extends BaseController
         }
         $data = [
             'title' => 'ELEARNING - User',
-            'user' => $user->paginate(5, 'user'),
+            'user' => $user->paginate(1, 'user'),
             'pager' => $this->dataModel->pager,
             'currentPage' => $currentPage
         ];

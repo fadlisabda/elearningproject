@@ -118,6 +118,7 @@ class GuruController extends BaseController
             'nip' => [
                 'rules' => $rule_nip,
                 'errors' => [
+                    'required' => '{field} harus di isi.',
                     'is_unique' => '{field} guru sudah terdaftar'
                 ]
             ],

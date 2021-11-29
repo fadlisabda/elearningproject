@@ -30,38 +30,40 @@ if (!isset($_SESSION["login"])) {
             <div class="flash-data" data-flashdata="<?= session()->getFlashdata('pesan'); ?>"></div>
         <?php endif; ?>
     <?php endif; ?>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">NO</th>
-                <th scope="col">NIS</th>
-                <th scope="col">NAMA SISWA</th>
-                <?php if ($_SESSION["status"] === 'admin') : ?>
-                    <th scope="col">ACTIONS</th>
-                <?php endif; ?>
-            </tr>
-        </thead>
-        <tbody>
-            <?php $j = 0 + (5 * ($currentPage - 1)); ?>
-            <?php $i = 1 + (5 * ($currentPage - 1)); ?>
-            <?php foreach ($kelassiswa as $ks) : ?>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
                 <tr>
-                    <th scope="row"><?= $i++; ?></th>
-                    <td><?= $ks['nis']; ?></td>
-                    <td>
-                        <?= $namasiswa[$j++]->nama_siswa; ?>
-                    </td>
+                    <th scope="col">NO</th>
+                    <th scope="col">NIS</th>
+                    <th scope="col">NAMA SISWA</th>
                     <?php if ($_SESSION["status"] === 'admin') : ?>
-                        <td>
-                            <a href="<?= base_url(); ?>/kelassiswa/edit/<?= $ks['id_kelas_siswa']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>&page_kelas_siswa=<?= (empty($_GET['page_kelas_siswa'])) ? 1 : $_GET['page_kelas_siswa'] ?>" class="btn btn-warning">Edit</a>
-
-                            <a href="<?= base_url(); ?>/kelassiswa/delete/<?= $ks['id_kelas_siswa']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>&page_kelas_siswa=<?= (empty($_GET['page_kelas_siswa'])) ? 1 : $_GET['page_kelas_siswa'] ?>" class="btn btn-danger hapusdata">Delete</a>
-                        </td>
+                        <th scope="col">ACTIONS</th>
                     <?php endif; ?>
                 </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-    <?= $pager->links('kelas_siswa', 'paginationview'); ?>
+            </thead>
+            <tbody>
+                <?php $j = 0 + (1 * ($currentPage - 1)); ?>
+                <?php $i = 1 + (1 * ($currentPage - 1)); ?>
+                <?php foreach ($kelassiswa as $ks) : ?>
+                    <tr>
+                        <th scope="row"><?= $i++; ?></th>
+                        <td><?= $ks['nis']; ?></td>
+                        <td>
+                            <?= $namasiswa[$j++]->nama_siswa; ?>
+                        </td>
+                        <?php if ($_SESSION["status"] === 'admin') : ?>
+                            <td>
+                                <a href="<?= base_url(); ?>/kelassiswa/edit/<?= $ks['id_kelas_siswa']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>&page_kelas_siswa=<?= (empty($_GET['page_kelas_siswa'])) ? 1 : $_GET['page_kelas_siswa'] ?>" class="btn btn-warning">Edit</a>
+
+                                <a href="<?= base_url(); ?>/kelassiswa/delete/<?= $ks['id_kelas_siswa']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>&page_kelas_siswa=<?= (empty($_GET['page_kelas_siswa'])) ? 1 : $_GET['page_kelas_siswa'] ?>" class="btn btn-danger hapusdata">Delete</a>
+                            </td>
+                        <?php endif; ?>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <?= $pager->links('kelas_siswa', 'paginationview'); ?>
+    </div>
 </div>
 <?= $this->endSection(); ?>

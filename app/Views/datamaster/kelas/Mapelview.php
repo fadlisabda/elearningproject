@@ -34,42 +34,44 @@ if (!isset($_SESSION["login"])) {
     <?php endif; ?>
 
     <?php if ($_SESSION["status"] === 'admin') : ?>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">NO</th>
-                    <th scope="col">ID MAPEL</th>
-                    <th scope="col">NAMA MATA PELAJARAN</th>
-                    <th scope="col">ID KELAS</th>
-                    <th scope="col">NAMA KELAS</th>
-                    <th scope="col">NIP</th>
-                    <th scope="col">NAMA GURU</th>
-                    <th scope="col">ACTIONS</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $j = 0 + (5 * ($currentPage - 1)); ?>
-                <?php $i = 1 + (5 * ($currentPage - 1)); ?>
-                <?php foreach ($kelasMapelInsert as $kmi) : ?>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
                     <tr>
-                        <th scope="row"><?= $i++; ?></th>
-                        <td><?= $kmi['id_mapel']; ?></td>
-                        <td><?= $mapelkelasguru[$j]->nama_mapel; ?></td>
-                        <td><?= $kmi['id_kelas']; ?></td>
-                        <td><?= $mapelkelasguru[$j]->nama_kelas; ?></td>
-                        <td><?= $kmi['nip']; ?></td>
-                        <td><?= $mapelkelasguru[$j]->nama_guru; ?></td>
-                        <td>
-                            <a href="<?= base_url(); ?>/kelasmapel/edit/<?= $kmi['id_kelas_mapel']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>&page_kelas_mapel=<?= (empty($_GET['page_kelas_mapel'])) ? 1 : $_GET['page_kelas_mapel'] ?>" class="btn btn-warning">Edit</a>
-
-                            <a href="<?= base_url(); ?>/kelasmapel/delete/<?= $kmi['id_kelas_mapel']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>&page_kelas_mapel=<?= (empty($_GET['page_kelas_mapel'])) ? 1 : $_GET['page_kelas_mapel'] ?>" class="btn btn-danger hapusdata">Delete</a>
-                        </td>
+                        <th scope="col">NO</th>
+                        <th scope="col">ID MAPEL</th>
+                        <th scope="col">NAMA MATA PELAJARAN</th>
+                        <th scope="col">ID KELAS</th>
+                        <th scope="col">NAMA KELAS</th>
+                        <th scope="col">NIP</th>
+                        <th scope="col">NAMA GURU</th>
+                        <th scope="col">ACTIONS</th>
                     </tr>
-                    <?php $j++; ?>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-        <?= $pager->links('kelas_mapel', 'paginationview'); ?>
+                </thead>
+                <tbody>
+                    <?php $j = 0 + (5 * ($currentPage - 1)); ?>
+                    <?php $i = 1 + (5 * ($currentPage - 1)); ?>
+                    <?php foreach ($kelasMapelInsert as $kmi) : ?>
+                        <tr>
+                            <th scope="row"><?= $i++; ?></th>
+                            <td><?= $kmi['id_mapel']; ?></td>
+                            <td><?= $mapelkelasguru[$j]->nama_mapel; ?></td>
+                            <td><?= $kmi['id_kelas']; ?></td>
+                            <td><?= $mapelkelasguru[$j]->nama_kelas; ?></td>
+                            <td><?= $kmi['nip']; ?></td>
+                            <td><?= $mapelkelasguru[$j]->nama_guru; ?></td>
+                            <td>
+                                <a href="<?= base_url(); ?>/kelasmapel/edit/<?= $kmi['id_kelas_mapel']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>&page_kelas_mapel=<?= (empty($_GET['page_kelas_mapel'])) ? 1 : $_GET['page_kelas_mapel'] ?>" class="btn btn-warning">Edit</a>
+
+                                <a href="<?= base_url(); ?>/kelasmapel/delete/<?= $kmi['id_kelas_mapel']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>&page_kelas_mapel=<?= (empty($_GET['page_kelas_mapel'])) ? 1 : $_GET['page_kelas_mapel'] ?>" class="btn btn-danger hapusdata">Delete</a>
+                            </td>
+                        </tr>
+                        <?php $j++; ?>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+            <?= $pager->links('kelas_mapel', 'paginationview'); ?>
+        </div>
     <?php endif; ?>
 
     <?php if ($_SESSION["status"] === 'guru') : ?>

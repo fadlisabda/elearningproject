@@ -51,10 +51,7 @@ if (!isset($_SESSION["login"])) {
                             </td>
                         <?php endif; ?>
                         <td>
-                            <?php
-                            $str = $dm['judul'];
-                            echo wordwrap($str, 25, "<br>", TRUE);
-                            ?>
+                            <?= $dm['judul']; ?>
                         </td>
                         <td>
                             <?= (empty($dm['keterangan'])) ?  null : character_limiter($dm['keterangan'], 20); ?>
@@ -64,7 +61,7 @@ if (!isset($_SESSION["login"])) {
                             $str = explode('|', $dm['file']);
                             for ($j = 0; $j < count($str); $j++) {
                                 if (!empty($dm['file'])) {
-                                    echo '<i class="bi bi-cursor btn-outline-info"></i>' . '<a href=' . base_url() . '/public/file/' .  $str[$j]  . ' target=_blank>' . wordwrap($str[$j], 20, "<br>", TRUE) . '</a><br>';
+                                    echo '<i class="bi bi-cursor btn-outline-info"></i>' . '<a href=' . base_url() . '/public/file/' .  $str[$j]  . ' target=_blank>' . $str[$j] . '</a><br>';
                                 }
                             }
                             ?>
@@ -75,7 +72,7 @@ if (!isset($_SESSION["login"])) {
                                 $str = explode(' ', $dm['link']);
                                 for ($k = 0; $k < count($str); $k++) {
                                     if (!empty($dm['link'])) {
-                                        echo '<i class="bi bi-cursor btn-outline-info"></i>' . '<a href=' . $str[$k] . ' target=_blank>' . wordwrap($str[$k], 25, "<br>", TRUE) . '</a><br>';
+                                        echo '<i class="bi bi-cursor btn-outline-info"></i>' . '<a href=' . $str[$k] . ' target=_blank>' . $str[$k] . '</a><br>';
                                     }
                                 }
                             }

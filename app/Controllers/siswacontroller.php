@@ -24,7 +24,7 @@ class SiswaController extends BaseController
         }
         $data = [
             'title' => 'ELEARNING - Siswa',
-            'siswa' => $siswa->paginate(5, 'siswa'),
+            'siswa' => $siswa->paginate(3, 'siswa'),
             'pager' => $this->dataModel->pager,
             'currentPage' => $currentPage
         ];
@@ -117,12 +117,14 @@ class SiswaController extends BaseController
             'nis' => [
                 'rules' => $rule_nis,
                 'errors' => [
+                    'required' => '{field} harus di isi.',
                     'is_unique' => '{field} siswa sudah terdaftar'
                 ]
             ],
             'nisn' => [
                 'rules' => $rule_nisn,
                 'errors' => [
+                    'required' => '{field} harus di isi.',
                     'is_unique' => '{field} siswa sudah terdaftar'
                 ]
             ],

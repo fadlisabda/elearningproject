@@ -29,7 +29,7 @@ if (!isset($_SESSION["login"])) {
                 </tr>
             </thead>
             <tbody>
-                <?php $i = 1 + (5 * ($currentPage - 1)); ?>
+                <?php $i = 1 + (1 * ($currentPage - 1)); ?>
                 <?php foreach ($tugassiswa as $t) : ?>
                     <tr>
                         <th scope="row"><?= $i; ?></th>
@@ -39,7 +39,7 @@ if (!isset($_SESSION["login"])) {
                             $str = explode('|', $t['filetugas']);
                             for ($i = 0; $i < count($str); $i++) {
                                 if (!empty($t['filetugas'])) {
-                                    echo '<i class="bi bi-cursor btn-outline-info"></i>' . '<a href=' . base_url() . '/public/file/' .  $str[$i]  . ' target=_blank>' . wordwrap($str[$i], 25, "<br>", TRUE) . '</a><br>';
+                                    echo '<i class="bi bi-cursor btn-outline-info"></i>' . '<a href=' . base_url() . '/public/file/' .  $str[$i]  . ' target=_blank>' . $str[$i] . '</a><br>';
                                 }
                             }
                             ?>
@@ -49,24 +49,23 @@ if (!isset($_SESSION["login"])) {
                             $str = explode(' ', $t['linktugas']);
                             for ($j = 0; $j < count($str); $j++) {
                                 if (!empty($t['linktugas'])) {
-                                    echo '<i class="bi bi-cursor btn-outline-info"></i>' . '<a href=' .  $str[$j]  . ' target=_blank>' . wordwrap($str[$j], 25, "<br>", TRUE) . '</a><br>';
+                                    echo '<i class="bi bi-cursor btn-outline-info"></i>' . '<a href=' .  $str[$j]  . ' target=_blank>' . $str[$j] . '</a><br>';
                                 }
                             }
                             ?>
                         </td>
                         <td>
                             <?php
-                            date_default_timezone_set('Asia/Jakarta');
-                            $sekarang = date("Y-m-d H:i:sa");
+                            $sekarang = $t['dikirim'];
                             $exp = date($detailmapel->getResult()[0]->tenggat);
                             if ($detailmapel->getResult()[0]->tenggat != null) {
-                                if ($sekarang >= $exp && !empty($t['filetugas'])) {
+                                if ($sekarang >= $exp) {
                                     echo "<b>Diserahkan terlambat
                                     </b>";
                                 } else {
                                     echo "<b>Diserahkan</b>";
                                 }
-                            } elseif ($detailmapel->getResult()[0]->tenggat === null && !empty($t['filetugas'])) {
+                            } elseif ($detailmapel->getResult()[0]->tenggat === null) {
                                 echo "<b>Diserahkan</b>";
                             }
                             ?>

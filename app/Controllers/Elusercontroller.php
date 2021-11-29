@@ -22,7 +22,7 @@ class Elusercontroller extends BaseController
         }
         $data = [
             'title' => 'ELEARNING - ElUser',
-            'eluser' => $el_user->paginate(5, 'el_user'),
+            'eluser' => $el_user->paginate(2, 'el_user'),
             'pager' => $this->dataModel->pager,
             'currentPage' => $currentPage
         ];
@@ -85,6 +85,7 @@ class Elusercontroller extends BaseController
             'username' => [
                 'rules' => $rule_username,
                 'errors' => [
+                    'required' => '{field} harus di isi.',
                     'is_unique' => '{field} sudah terdaftar'
                 ],
             ]

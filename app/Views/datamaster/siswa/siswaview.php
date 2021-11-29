@@ -37,35 +37,24 @@ if (!isset($_SESSION["login"])) {
                 </tr>
             </thead>
             <tbody>
-                <?php $i = 1 + (5 * ($currentPage - 1)); ?>
+                <?php $i = 1 + (3 * ($currentPage - 1)); ?>
                 <?php foreach ($siswa as $s) : ?>
                     <tr>
                         <th scope="row"><?= $i++; ?></th>
                         <td><?= $s['nis'] ?></td>
                         <td><?= $s['nisn'] ?></td>
+                        <td><?= $s['nama_siswa']; ?></td>
                         <td>
-                            <?php
-                            $str = $s['nama_siswa'];
-                            echo wordwrap($str, 20, "<br>", TRUE);
-                            ?>
-                        </td>
-                        <td>
-                            <?php
-                            $str = $s['tempat_lahir'];
-                            echo wordwrap($str, 20, "<br>", TRUE);
-                            ?>
+                            <?= $s['tempat_lahir']; ?>
                         </td>
                         <td><?= $s['tanggal_lahir'] ?></td>
                         <td><?= $s['no_telp'] ?></td>
                         <td>
-                            <?php
-                            $str = $s['alamat'];
-                            echo wordwrap($str, 20, "<br>", TRUE);
-                            ?>
+                            <?= $s['alamat']; ?>
                         </td>
                         <td><?= $s['jenis_kelamin'] ?></td>
                         <td>
-                            <img src="<?= base_url(); ?>/public/file/<?= $s['foto_siswa'] ?>" width="110">
+                            <img src="<?= base_url(); ?>/public/file/<?= $s['foto_siswa'] ?>" width="100">
                         </td>
                         <td>
                             <a href="<?= base_url(); ?>/siswa/edit/<?= $s['id_siswa']; ?>?page_siswa=<?= (empty($_GET['page_siswa'])) ? 1 : $_GET['page_siswa'] ?>" class="btn btn-warning m-1">Edit</a>

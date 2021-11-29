@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class TugasSiswaModel extends Model
 {
     protected $table = 'el_tugas_siswa';
-    protected $allowedFields = ['id_detailmapel', 'namamapel', 'namakelas', 'namaguru', 'nis', 'filetugas', 'linktugas'];
+    protected $allowedFields = ['id_detailmapel', 'namamapel', 'namakelas', 'namaguru', 'nis', 'filetugas', 'linktugas', 'dikirim'];
     protected $useTimestamps = true;
     protected $useSoftDeletes = true;
     public function search($keyword)

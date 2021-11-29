@@ -52,10 +52,7 @@ if (!isset($_SESSION["login"])) {
                                 <td><?= $k['username']; ?></td>
                             <?php endif; ?>
                             <td>
-                                <?php
-                                $str = $k['komentar'];
-                                echo wordwrap($str, 91, "<br>", TRUE);
-                                ?>
+                                <?= $k['komentar']; ?>
                             </td>
                             <?php if ($k['tipe'] == 'siswa') : ?>
                                 <td>
@@ -75,10 +72,7 @@ if (!isset($_SESSION["login"])) {
                                 <td><?= $k['username']; ?></td>
                             <?php endif; ?>
                             <td>
-                                <?php
-                                $str = $k['komentar'];
-                                echo wordwrap($str, 91, "<br>", TRUE);
-                                ?>
+                                <?= $k['komentar']; ?>
                             </td>
                             <?php if ($k['username'] == $_SESSION['username'] && $_SESSION['status'] == 'siswa') : ?>
                                 <td>
@@ -103,10 +97,7 @@ if (!isset($_SESSION["login"])) {
                                 <td><?= $k['username']; ?></td>
                             <?php endif; ?>
                             <td>
-                                <?php
-                                $str = $k['komentar'];
-                                echo wordwrap($str, 91, "<br>", TRUE);
-                                ?>
+                                <?= $k['komentar']; ?>
                             </td>
                             <td>
                                 <a href="<?= base_url() ?>/komentar/create?detailmapelsiswa=<?= $_GET['detailmapelsiswa']; ?>&namamapel=<?= $_GET['namamapel']; ?>&namakelas=<?= $_GET['namakelas']; ?>&namaguru=<?= $_GET['namaguru']; ?>&komentar=<?= $_GET['komentar']; ?>&username=<?= $k['username'] ?>" class="btn btn-primary mt-2 mb-2">Balas Komentar</a>

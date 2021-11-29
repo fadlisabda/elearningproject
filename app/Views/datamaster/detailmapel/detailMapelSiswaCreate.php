@@ -17,6 +17,8 @@ if (!isset($_SESSION["login"])) {
                 <input type="hidden" name="namamapel" value="<?= $_GET['namamapel']; ?>">
                 <input type="hidden" name="namakelas" value="<?= $_GET['namakelas']; ?>">
                 <input type="hidden" name="namaguru" value="<?= $_GET['namaguru']; ?>">
+                <input type="hidden" name="dikirim" value="<?php date_default_timezone_set('Asia/Jakarta');
+                                                            echo date("Y-m-d H:i:sa"); ?>">
                 <div class="mb-3 custom-file">
                     <label for="file" class="custom-file-label" name="labelfile">File</label>
                     <input type="file" class="custom-file-input" id="file" name="file_upload[]" multiple="true">

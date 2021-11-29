@@ -30,7 +30,7 @@ class KelasController extends BaseController
         $data = [
             'title' => 'ELEARNING - Kelas',
             'namaguru' => $query->getResult(),
-            'kelas' => $kelas->paginate(5, 'kelas'),
+            'kelas' => $kelas->paginate(1, 'kelas'),
             'pager' => $this->dataModel->pager,
             'currentPage' => $currentPage
         ];
@@ -92,6 +92,7 @@ class KelasController extends BaseController
             'nip' => [
                 'rules' => $rule_nip,
                 'errors' => [
+                    'required' => '{field} harus di isi.',
                     'is_unique' => '{field} sudah terdaftar'
                 ]
             ]

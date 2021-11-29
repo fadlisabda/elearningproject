@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 21, 2021 at 08:33 AM
+-- Generation Time: Nov 29, 2021 at 02:43 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -101,12 +101,12 @@ INSERT INTO `akreditas_standar` (`id_standar`, `nama_standar`, `created_at`, `up
 CREATE TABLE `data_guru` (
   `id_guru` int(100) NOT NULL,
   `nip` varchar(100) NOT NULL,
-  `nama_guru` varchar(20) NOT NULL,
-  `tempat_lahir` varchar(20) NOT NULL,
+  `nama_guru` longtext NOT NULL,
+  `tempat_lahir` longtext NOT NULL,
   `tgl_lahir` date DEFAULT NULL,
   `no_telp` varchar(50) NOT NULL,
-  `alamat` varchar(100) NOT NULL,
-  `foto_guru` varchar(100) NOT NULL,
+  `alamat` longtext NOT NULL,
+  `foto_guru` longtext NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
@@ -122,7 +122,9 @@ INSERT INTO `data_guru` (`id_guru`, `nip`, `nama_guru`, `tempat_lahir`, `tgl_lah
 (3, '2234555', 'Arini Fitria', 'pekanbaru', NULL, '08848466589', 'jl umban sari', '', NULL, NULL, NULL),
 (4, '12345346575', 'yuni hastuti', 'padang', NULL, '0823456786', 'pandau permai', 'GVT_5303.jpg', NULL, NULL, NULL),
 (5, '8840402728', 'ahmad dahlan', 'padang ', '1967-10-10', '882734778990', 'jl siak', 'GVT_5292.jpg', NULL, NULL, NULL),
-(132, '1234455', 'willy', 'pekanbaru', '1996-03-11', '08232143553', 'pandau', 'karyawan.jpg', NULL, NULL, NULL);
+(132, '1234455', 'willy', 'pekanbaru', '1996-03-11', '08232143553', 'pandau', 'karyawan.jpg', NULL, NULL, NULL),
+(184, '5464654654', 'rterterteyeyey', 'tyrytrytrytrytry', '2021-11-03', '7657657576', 'uytiutiutyityiuty', '1635932319_8457d02fa6d0f3ec0ef2.jpg', '2021-11-03 04:38:39', '2021-11-03 05:27:09', '2021-11-03 05:27:09'),
+(185, '17236127', 'uweiyruqewoyroqweuryqweqweqweqweqweqweuweiyruqewoyroqweuryqweqweqweqweqweqweuweiyruqewoyroqweuryqwequweiyruqewoyroqweuryqweqweqweqweqweqweuweiyruqewoyroqweuryqweqweqweqweqweqweuweiyruqewoyroqweuryqweq', 'uweiyruqewoyroqweuryqweqweqweqweqweqweuweiyruqewoyroqweuryqweqweqweqweqweqweuweiyruqewoyroqweuryqwequweiyruqewoyroqweuryqweqweqweqweqweqweuweiyruqewoyroqweuryqweqweqweqweqweqweuweiyruqewoyroqweuryqweq', '2021-11-07', '789124017304', 'uweiyruqewoyroqweuryqweqweqweqweqweqweuweiyruqewoyroqweuryqweqweqweqweqweqweuweiyruqewoyroqweuryqwequweiyruqewoyroqweuryqweqweqweqweqweqweuweiyruqewoyroqweuryqweqweqweqweqweqweuweiyruqewoyroqweuryqweq', 'default.jpg', '2021-11-07 01:50:22', '2021-11-07 02:00:04', NULL);
 
 -- --------------------------------------------------------
 
@@ -171,16 +173,28 @@ CREATE TABLE `el_detail_mapel` (
   `namaguru` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   `judul` varchar(255) NOT NULL,
-  `keterangan` longtext NOT NULL,
+  `keterangan` longtext DEFAULT NULL,
   `file` varchar(255) DEFAULT NULL,
   `link` varchar(255) DEFAULT NULL,
-  `tenggat` datetime NOT NULL,
+  `tenggat` datetime DEFAULT NULL,
   `tipe` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `el_detail_mapel`
+--
+
+INSERT INTO `el_detail_mapel` (`id_detailmapel`, `namamapel`, `namakelas`, `namaguru`, `username`, `judul`, `keterangan`, `file`, `link`, `tenggat`, `tipe`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Kimia', 'I A', 'Arini Fitria', '2234555', 'tes', '', NULL, NULL, '0000-00-00 00:00:00', 'materi', 'guru', '2021-10-25 06:03:53', '2021-10-25 06:04:21', '2021-10-25 06:04:21'),
+(2, 'Kimia', 'I A', 'Arini Fitria', '2234555', 'tes', '', NULL, NULL, '0000-00-00 00:00:00', 'materi', 'guru', '2021-10-25 07:20:51', '2021-10-25 07:24:59', '2021-10-25 07:24:59'),
+(3, 'Kimia', 'I A', 'Arini Fitria', '2234555', 'tes', '', NULL, NULL, '0000-00-00 00:00:00', 'materi', 'guru', '2021-10-25 07:25:25', '2021-10-25 07:35:58', '2021-10-25 07:35:58'),
+(4, 'Kimia', 'I A', 'willy', '1234455', 'qweqwe', '<p>qwe</p>\r\n', '20190618_085053.jpg', '', '0000-00-00 00:00:00', 'materi', 'guru', '2021-11-06 00:37:40', '2021-11-06 01:06:52', '2021-11-06 01:06:52'),
+(5, 'Kimia', 'I A', 'willy', '1234455', 'qwe', NULL, '', NULL, '2021-11-18 16:36:00', 'tugas', 'guru', '2021-11-18 03:34:34', '2021-11-18 03:37:28', '2021-11-18 03:37:28'),
+(6, 'Kimia', 'I A', 'willy', '1234455', 'tes', NULL, '', NULL, '2021-11-29 20:35:00', 'materi', 'guru', '2021-11-29 03:40:50', '2021-11-29 07:34:02', NULL);
 
 -- --------------------------------------------------------
 
@@ -218,10 +232,20 @@ CREATE TABLE `el_tugas_siswa` (
   `nis` varchar(100) NOT NULL,
   `filetugas` varchar(255) DEFAULT NULL,
   `linktugas` varchar(255) DEFAULT NULL,
+  `dikirim` varchar(255) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `el_tugas_siswa`
+--
+
+INSERT INTO `el_tugas_siswa` (`id_tugassiswa`, `id_detailmapel`, `namamapel`, `namakelas`, `namaguru`, `nis`, `filetugas`, `linktugas`, `dikirim`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, '5', 'Kimia', 'I A', 'willy', '3129164448', NULL, 'tes', NULL, '2021-11-18 03:35:16', '2021-11-18 03:36:57', '2021-11-18 03:36:57'),
+(2, '6', 'Kimia', 'I A', 'willy', '3115864953', NULL, 'tes', '2021-11-29 20:24:05pm', '2021-11-29 07:24:11', '2021-11-29 07:34:31', '2021-11-29 07:34:31'),
+(3, '6', 'Kimia', 'I A', 'willy', '3115864953', NULL, 'tes', '2021-11-29 20:34:35pm', '2021-11-29 07:34:43', '2021-11-29 07:34:43', NULL);
 
 -- --------------------------------------------------------
 
@@ -511,13 +535,13 @@ CREATE TABLE `siswa` (
   `id_siswa` int(100) NOT NULL,
   `nis` varchar(100) NOT NULL,
   `nisn` varchar(20) DEFAULT NULL,
-  `nama_siswa` varchar(50) NOT NULL,
-  `tempat_lahir` varchar(50) DEFAULT NULL,
+  `nama_siswa` longtext NOT NULL,
+  `tempat_lahir` longtext DEFAULT NULL,
   `tanggal_lahir` date DEFAULT NULL,
   `no_telp` varchar(100) DEFAULT NULL,
-  `alamat` varchar(100) DEFAULT NULL,
+  `alamat` longtext DEFAULT NULL,
   `jenis_kelamin` varchar(10) DEFAULT NULL,
-  `foto_siswa` varchar(100) DEFAULT NULL,
+  `foto_siswa` longtext DEFAULT NULL,
   `spp` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -698,14 +722,14 @@ INSERT INTO `uang_sekolah` (`id_uang_sekolah`, `id_kategori`, `id_tahun_ajaran`,
 
 CREATE TABLE `user` (
   `id_user` int(11) NOT NULL,
-  `username` varchar(25) NOT NULL,
-  `nama_user` varchar(25) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `nama_user` varchar(50) NOT NULL,
   `password_hash` varchar(191) NOT NULL,
   `level_user` int(11) NOT NULL,
   `status_user` tinyint(1) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `deleted_at` datetime NOT NULL
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -713,9 +737,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `username`, `nama_user`, `password_hash`, `level_user`, `status_user`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'admin', 'sdfghjk', '$2y$10$sAIJtZHkSLxSObgcstnHQO6laSNcQ.2XKVl91c8f3iOXYLUgbQMua', 1, 1, '2021-02-04 02:34:27', '2021-02-04 02:34:27', '0000-00-00 00:00:00'),
-(2, 'verifikator', 'verifikator', '$2y$10$OuqOKkdsnWGVi62qTGw4GeXTeFA4jwq4wmh4njge3kXpd6/qgSxYi', 0, 1, '2021-02-04 21:41:01', '2021-02-04 21:41:01', '0000-00-00 00:00:00'),
-(3, 'validator', 'validator', '$2y$10$8sPwk3O6Bvur4oKDGWlEne4lWEUi1F0NShBFii2.ERtS/XggmU7.m', 0, 1, '2021-02-04 21:52:07', '2021-02-04 21:52:07', '0000-00-00 00:00:00');
+(1, 'qweqwe', 'qweqew', '$2y$10$TkQaryrRH3qkjLWf3SWB2eAVutfS7OYOhQXkhyhncR79L3U6GmQUi', 23123, 1, '2021-11-04 23:43:25', '2021-11-04 23:43:25', NULL),
+(2, 'asdsadas', 'asdasdasd', '$2y$10$7ZSiFxtekoQSk2X2fFWs3uJLNJ2BgFiALsNqCYl0Bwo//.60SGkYe', 1, 1, '2021-11-28 22:42:39', '2021-11-28 22:42:39', NULL);
 
 --
 -- Indexes for dumped tables
@@ -897,7 +920,7 @@ ALTER TABLE `akreditas_standar`
 -- AUTO_INCREMENT for table `data_guru`
 --
 ALTER TABLE `data_guru`
-  MODIFY `id_guru` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=184;
+  MODIFY `id_guru` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=186;
 
 --
 -- AUTO_INCREMENT for table `data_mata_pelajaran`
@@ -909,7 +932,7 @@ ALTER TABLE `data_mata_pelajaran`
 -- AUTO_INCREMENT for table `el_detail_mapel`
 --
 ALTER TABLE `el_detail_mapel`
-  MODIFY `id_detailmapel` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_detailmapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `el_komentar`
@@ -921,7 +944,7 @@ ALTER TABLE `el_komentar`
 -- AUTO_INCREMENT for table `el_tugas_siswa`
 --
 ALTER TABLE `el_tugas_siswa`
-  MODIFY `id_tugassiswa` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_tugassiswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `el_user`
@@ -1023,7 +1046,7 @@ ALTER TABLE `uang_sekolah`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -29,7 +29,7 @@ class KelasSiswaController extends BaseController
         $data = [
             'title' => 'ELEARNING - Kelas Siswa',
             'namasiswa' => $query->getResult(),
-            'kelassiswa' => $kelassiswa->where('id_kelas', $id)->paginate(5, 'kelas_siswa'),
+            'kelassiswa' => $kelassiswa->where('id_kelas', $id)->paginate(1, 'kelas_siswa'),
             'pager' => $this->dataModel->pager,
             'currentPage' => $currentPage,
             'id' => $id,
@@ -106,6 +106,7 @@ class KelasSiswaController extends BaseController
             'nis' => [
                 'rules' => $rule_nis,
                 'errors' => [
+                    'required' => '{field} harus di isi.',
                     'is_unique' => '{field} siswa sudah terdaftar'
                 ]
             ]
