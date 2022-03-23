@@ -19,7 +19,7 @@ if (!isset($_SESSION["login"])) {
                 </div>
                 <div class="mb-3">
                     <label for="nip">Nip</label>
-                    <input type="number" class="form-control <?= ($validation->hasError('nip')) ? 'is-invalid' : ''; ?>" id="nip" name="nip" value="<?= ($validation->hasError('nip')) ? old('nip') : $kelas[0]->nip ?>" required>
+                    <input type="number" class="form-control <?= ($validation->hasError('nip')) ? 'is-invalid' : ''; ?>" id="nip" name="nip" value="<?= ($validation->hasError('nip')) ? old('nip') : $kelas[0]->nip ?>">
                     <div class="invalid-feedback">
                         <?= $validation->getError('nip'); ?>
                     </div>

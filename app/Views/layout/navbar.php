@@ -27,10 +27,10 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="<?= base_url(); ?>/guru">Guru</a>
                         <a class="dropdown-item" href="<?= base_url(); ?>/siswa">Siswa</a>
-                        <a class="dropdown-item" href="<?= base_url(); ?>/user">User</a>
+                        <!-- <a class="dropdown-item" href="<?= base_url(); ?>/user">User</a> -->
+                        <a class="dropdown-item" href="<?= base_url(); ?>/eluser">User</a>
                         <a class="dropdown-item" href="<?= base_url(); ?>/mapel">Mapel</a>
                         <a class="dropdown-item" href="<?= base_url(); ?>/kelas">Kelas</a>
-                        <a class="dropdown-item" href="<?= base_url(); ?>/eluser">ElUser</a>
                     </div>
                 </li>
             <?php endif; ?>

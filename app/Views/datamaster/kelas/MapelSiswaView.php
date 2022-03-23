@@ -17,7 +17,15 @@ if (!isset($_SESSION["login"])) {
                     <div class="card-body">
                         <p class="card-text"><?= $kms->nama_guru; ?></p>
                     </div>
-                    <div class="card-footer"><a href="<?= base_url(); ?>/detailmapel/<?= $kms->nama_mapel; ?>/<?= $kms->nama_kelas; ?>/<?= $kms->nama_guru; ?>" class="btn btn-info">Detail Mapel</a></div>
+                    <div class="card-footer">
+                        <a href="<?= base_url(); ?>/detailmapel/<?= $kms->nama_mapel; ?>/<?= $kms->nama_kelas; ?>/<?= $kms->nama_guru; ?>" class="btn btn-info">Detail Mapel</a>
+
+                        <a href="<?= base_url(); ?>/kelassiswa/<?= $kms->kelas_mapelid_kelas; ?>/<?= $kms->nama_kelas; ?>" class="btn btn-info">Data Siswa</a>
+
+                        <a href="<?= base_url(); ?>/kelasjampelajaran/<?= $kms->kelas_mapelid_kelas; ?>/<?= $kms->nama_kelas; ?>" class="btn btn-info m-1">Jam Pelajaran</a>
+
+                        <a href="<?= base_url(); ?>/kelas" class="btn btn-info m-1">Wali Kelas</a>
+                    </div>
                 </div>
             </div>
         <?php endforeach; ?>

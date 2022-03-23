@@ -17,9 +17,8 @@ class KelasController extends BaseController
     public function index()
     {
         $this->builder->select('kelas.nip as kelasnip,nama_guru');
-        $this->builder->join('data_guru', 'data_guru.nip = kelas.nip');
+        $this->builder->join('data_guru', 'data_guru.nip= kelas.nip');
         $query = $this->builder->get();
-
         $currentPage = $this->request->getVar('page_kelas') ? $this->request->getVar('page_kelas') : 1;
         $keyword = $this->request->getVar('keyword');
         if ($keyword) {

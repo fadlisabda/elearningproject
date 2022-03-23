@@ -6,12 +6,10 @@ use App\Models\SiswaModel;
 
 class SiswaController extends BaseController
 {
-    protected $dataModel, $db, $builder;
+    protected $dataModel;
     public function __construct()
     {
         $this->dataModel = new SiswaModel();
-        $this->db      = \Config\Database::connect();
-        $this->builder = $this->db->table('siswa');
     }
     public function index()
     {

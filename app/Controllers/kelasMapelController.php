@@ -31,12 +31,6 @@ class kelasMapelcontroller extends BaseController
 
     public function admin($id, $namakelas)
     {
-        $this->builder->select('kelas_mapel.id_mapel as kelas_mapelid_mapel,kelas_mapel.id_kelas as kelas_mapelid_kelas,kelas_mapel.nip as kelas_mapelnip,nama_mapel,nama_guru,nama_kelas');
-        $this->builder->join('data_mata_pelajaran', 'data_mata_pelajaran.id_mapel = kelas_mapel.id_mapel');
-        $this->builder->join('data_guru', 'data_guru.nip = kelas_mapel.nip');
-        $this->builder->join('kelas', 'kelas.id_kelas = kelas_mapel.id_kelas');
-        $query = $this->builder->getWhere(['kelas_mapel.id_kelas' => $id]);
-
         $currentPage = $this->request->getVar('page_kelas_mapel') ? $this->request->getVar('page_kelas_mapel') : 1;
         $keyword = $this->request->getVar('keyword');
         if ($keyword) {
@@ -46,7 +40,6 @@ class kelasMapelcontroller extends BaseController
         }
         $data = [
             'title' => 'ELEARNING - Kelas Mapel',
-            'mapelkelasguru' => $query->getResult(),
             'kelasMapelInsert' => $kelasmapel->where('id_kelas', $id)->paginate(5, 'kelas_mapel'),
             'pager' => $this->dataModel->pager,
             'currentPage' => $currentPage,
@@ -126,9 +119,10 @@ class kelasMapelcontroller extends BaseController
         $this->builder->join('data_guru', 'data_guru.nip = kelas_mapel.nip');
         $this->builder->where('kelas_siswa.nis', $_SESSION["username"]);
         $query = $this->builder->get();
+
         $data = [
             'title' => 'ELEARNING - Kelas Mapel Siswa',
-            'kelasmapelsiswa' => $query->getResult(),
+            'kelasmapelsiswa' => $query->getResult()
         ];
         return view('datamaster/kelas/mapelsiswaview', $data);
     }

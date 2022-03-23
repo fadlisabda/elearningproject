@@ -15,7 +15,7 @@ if (!isset($_SESSION["login"])) {
                 <input type="hidden" name="id" value="<?= $kelassiswa['id_kelas_siswa']; ?>">
                 <div class="mb-3">
                     <label for="nis">Nis</label>
-                    <input type="number" class="form-control  <?= ($validation->hasError('nis')) ? 'is-invalid' : ''; ?>" id="nis" name="nis" required value="<?= ($validation->hasError('nis')) ? old('nis') : $kelassiswa['nis'] ?>">
+                    <input type="number" class="form-control  <?= ($validation->hasError('nis')) ? 'is-invalid' : ''; ?>" id="nis" name="nis" value="<?= ($validation->hasError('nis')) ? old('nis') : $kelassiswa['nis'] ?>">
                     <div class="invalid-feedback">
                         <?= $validation->getError('nis'); ?>
                     </div>

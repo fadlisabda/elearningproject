@@ -15,7 +15,7 @@ if (!isset($_SESSION["login"])) {
                 <input type="hidden" name="id" value="<?= $eluser['id_eluser']; ?>">
                 <div class="mb-3">
                     <label for="username">Username</label>
-                    <input type="text" class="form-control <?= ($validation->hasError('username')) ? 'is-invalid' : ''; ?>" id="username" name="username" value="<?= ($validation->hasError('username')) ? old('username') : $eluser['username'] ?>" required>
+                    <input type="text" class="form-control <?= ($validation->hasError('username')) ? 'is-invalid' : ''; ?>" id="username" name="username" value="<?= ($validation->hasError('username')) ? old('username') : $eluser['username'] ?>">
                     <div class="invalid-feedback">
                         <?= $validation->getError('username'); ?>
                     </div>

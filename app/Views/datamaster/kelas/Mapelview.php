@@ -40,33 +40,25 @@ if (!isset($_SESSION["login"])) {
                     <tr>
                         <th scope="col">NO</th>
                         <th scope="col">ID MAPEL</th>
-                        <th scope="col">NAMA MATA PELAJARAN</th>
                         <th scope="col">ID KELAS</th>
-                        <th scope="col">NAMA KELAS</th>
                         <th scope="col">NIP</th>
-                        <th scope="col">NAMA GURU</th>
                         <th scope="col">ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $j = 0 + (5 * ($currentPage - 1)); ?>
                     <?php $i = 1 + (5 * ($currentPage - 1)); ?>
                     <?php foreach ($kelasMapelInsert as $kmi) : ?>
                         <tr>
                             <th scope="row"><?= $i++; ?></th>
                             <td><?= $kmi['id_mapel']; ?></td>
-                            <td><?= $mapelkelasguru[$j]->nama_mapel; ?></td>
                             <td><?= $kmi['id_kelas']; ?></td>
-                            <td><?= $mapelkelasguru[$j]->nama_kelas; ?></td>
                             <td><?= $kmi['nip']; ?></td>
-                            <td><?= $mapelkelasguru[$j]->nama_guru; ?></td>
                             <td>
                                 <a href="<?= base_url(); ?>/kelasmapel/edit/<?= $kmi['id_kelas_mapel']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>&page_kelas_mapel=<?= (empty($_GET['page_kelas_mapel'])) ? 1 : $_GET['page_kelas_mapel'] ?>" class="btn btn-warning">Edit</a>
 
                                 <a href="<?= base_url(); ?>/kelasmapel/delete/<?= $kmi['id_kelas_mapel']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>&page_kelas_mapel=<?= (empty($_GET['page_kelas_mapel'])) ? 1 : $_GET['page_kelas_mapel'] ?>" class="btn btn-danger hapusdata">Delete</a>
                             </td>
                         </tr>
-                        <?php $j++; ?>
                     <?php endforeach; ?>
                 </tbody>
             </table>
@@ -88,6 +80,10 @@ if (!isset($_SESSION["login"])) {
                             <a href="<?= base_url(); ?>/detailmapel/<?= $km->nama_mapel; ?>/<?= $km->nama_kelas; ?>/<?= $km->nama_guru; ?>" class="btn btn-info">Detail Mapel</a>
 
                             <a href="<?= base_url(); ?>/kelassiswa/<?= $km->kelas_mapelid_kelas; ?>/<?= $km->nama_kelas; ?>" class="btn btn-info">Data Siswa</a>
+
+                            <a href="<?= base_url(); ?>/kelasjampelajaran/<?= $km->kelas_mapelid_kelas; ?>/<?= $km->nama_kelas; ?>" class="btn btn-info m-1">Jam Pelajaran</a>
+
+                            <a href="<?= base_url(); ?>/kelas" class="btn btn-info m-1">Wali Kelas</a>
                         </div>
                     </div>
                 </div>

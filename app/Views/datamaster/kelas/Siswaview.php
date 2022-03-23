@@ -16,14 +16,19 @@ if (!isset($_SESSION["login"])) {
     <?php if ($_SESSION["status"] === 'guru') : ?>
         <a href="<?= base_url(); ?>/kelasmapel" class="btn btn-danger">Kembali</a>
     <?php endif; ?>
-    <form action="" method="post">
-        <div class="input-group mt-3">
-            <input type="text" class="form-control" placeholder="Cari Nis" name="keyword" autocomplete="off">
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="submit" name="submit">Cari</button>
+    <?php if ($_SESSION["status"] === 'siswa') : ?>
+        <a href="<?= base_url(); ?>/kelasmapel/siswa" class="btn btn-danger">Kembali</a>
+    <?php endif; ?>
+    <?php if ($_SESSION["status"] === 'admin') : ?>
+        <form action="" method="post">
+            <div class="input-group mt-3">
+                <input type="text" class="form-control" placeholder="Cari Nis" name="keyword" autocomplete="off">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit" name="submit">Cari</button>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    <?php endif; ?>
     <br>
     <?php if ($_SESSION["status"] === 'admin') : ?>
         <?php if (session()->getFlashdata('pesan')) : ?>
@@ -36,7 +41,12 @@ if (!isset($_SESSION["login"])) {
                 <tr>
                     <th scope="col">NO</th>
                     <th scope="col">NIS</th>
-                    <th scope="col">NAMA SISWA</th>
+                    <?php if ($_SESSION["status"] === 'admin') : ?>
+                        <th scope="col">ID KELAS</th>
+                    <?php endif; ?>
+                    <?php if ($_SESSION["status"] === 'guru' || $_SESSION["status"] === 'siswa') : ?>
+                        <th scope="col">NAMA SISWA</th>
+                    <?php endif; ?>
                     <?php if ($_SESSION["status"] === 'admin') : ?>
                         <th scope="col">ACTIONS</th>
                     <?php endif; ?>
@@ -49,9 +59,14 @@ if (!isset($_SESSION["login"])) {
                     <tr>
                         <th scope="row"><?= $i++; ?></th>
                         <td><?= $ks['nis']; ?></td>
-                        <td>
-                            <?= $namasiswa[$j++]->nama_siswa; ?>
-                        </td>
+                        <?php if ($_SESSION["status"] === 'admin') : ?>
+                            <td><?= $ks['id_kelas']; ?></td>
+                        <?php endif; ?>
+                        <?php if ($_SESSION["status"] === 'guru' || $_SESSION["status"] === 'siswa') : ?>
+                            <td>
+                                <?= $namasiswa[$j++]->nama_siswa; ?>
+                            </td>
+                        <?php endif; ?>
                         <?php if ($_SESSION["status"] === 'admin') : ?>
                             <td>
                                 <a href="<?= base_url(); ?>/kelassiswa/edit/<?= $ks['id_kelas_siswa']; ?>?id=<?= $id; ?>&namakelas=<?= $namakelas; ?>&page_kelas_siswa=<?= (empty($_GET['page_kelas_siswa'])) ? 1 : $_GET['page_kelas_siswa'] ?>" class="btn btn-warning">Edit</a>

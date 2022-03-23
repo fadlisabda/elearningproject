@@ -26,7 +26,7 @@ if (!isset($_SESSION["login"])) {
                 </div>
                 <div class="mb-3">
                     <label for="jam">jam</label>
-                    <input type="text" class="form-control" id="jam" name="jam" value="<?= $kelasjampelajaran['jam']; ?>" required>
+                    <input type="time" class="form-control" id="jam" name="jam" value="<?= $kelasjampelajaran['jam']; ?>" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Edit</button>
                 <a href="<?= base_url(); ?>/kelasjampelajaran/<?= $id; ?>/<?= $namakelas; ?>?page_kelas_jam_pelajaran=<?= $_GET['page_kelas_jam_pelajaran']; ?>" class="btn btn-danger">Kembali</a>

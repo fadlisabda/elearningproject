@@ -6,7 +6,7 @@ use App\Models\MapelModel;
 
 class MapelController extends BaseController
 {
-    protected $dataModel, $builder;
+    protected $dataModel;
     public function __construct()
     {
         $this->dataModel = new MapelModel();
